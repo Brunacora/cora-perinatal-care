@@ -38,6 +38,7 @@ export default function proxy(request: NextRequest) {
 }
 
 export const config = {
-  /* `keystatic` é o painel do journal: fica fora do roteamento de idioma */
-  matcher: "/((?!api|keystatic|trpc|_next|_vercel|.*\\..*).*)",
+  /* `keystatic` é o painel do journal e `guia-do-painel` é o guia dele: ficam fora do roteamento de
+     idioma */
+  matcher: "/((?!api|keystatic|guia-do-painel|trpc|_next|_vercel|.*\\..*).*)",
 };
