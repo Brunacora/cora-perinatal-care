@@ -114,7 +114,7 @@ export default async function Journal({ params }: { params: Promise<{ locale: st
           <section className="start-here" aria-labelledby="start-here-rotulo">
             <div className="container">
               <article className="start-here-card" lang={destaque.idioma === "pt" ? "pt-BR" : "en"}>
-                <Link href={enderecoDoArtigo(destaque)} className="start-here-capa" data-camada="frente" tabIndex={-1} aria-hidden="true">
+                <Link href={enderecoDoArtigo(destaque)} className="start-here-capa arco-abre" data-camada="frente" tabIndex={-1} aria-hidden="true">
                   <CapaTipografica artigo={destaque} tamanho="destaque" prioridade />
                 </Link>
                 <div className="start-here-texto" data-camada="meio">

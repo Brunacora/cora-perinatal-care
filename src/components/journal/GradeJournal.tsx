@@ -178,7 +178,7 @@ export function GradeJournal({
       ) : (
         <ul id={`${uid}-lista`} ref={lista} className="grade-cards" aria-labelledby={`${uid}-titulo`}>
           <AnimatePresence initial={false} mode="popLayout">
-            {visiveis.map((i) => (
+            {visiveis.map((i, n) => (
               <motion.li
                 key={i.slug}
                 layout={reduzido ? false : "position"}
@@ -187,7 +187,7 @@ export function GradeJournal({
                 exit={{ opacity: 0, transition: reduzido ? NADA : SAI }}
                 transition={reduzido ? NADA : DESLIZA}
               >
-                <EntraNaVista>{i.card}</EntraNaVista>
+                <EntraNaVista lado={n % 2 === 0 ? "esquerda" : "direita"}>{i.card}</EntraNaVista>
               </motion.li>
             ))}
           </AnimatePresence>

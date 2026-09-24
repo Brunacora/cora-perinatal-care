@@ -49,7 +49,7 @@ export async function FromBruna() {
             <Inteiras texto={t("title")} />
           </h2>
           <p className="corpo-grande">{t("p1")}</p>
-          <p>{t("p2")}</p>
+          <p className="from-bruna-acende">{t("p2")}</p>
           <p className="from-bruna-virada">{t("turn")}</p>
           <p>{t("p3")}</p>
           <p className="from-bruna-fecho">{t("p4")}</p>

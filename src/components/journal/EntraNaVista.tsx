@@ -1,18 +1,46 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { useRef, type ReactNode } from "react";
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 
 /**
- * A ENTRADA DE UM CARD, quando ele APARECE NA TELA (IntersectionObserver do Motion), uma vez.
+ * O CARD VIVO (movimento-blog.md, seção 9). Três camadas, três donos, nenhuma briga:
  *
- * Substitui o lote do ScrollTrigger (2026-09-23): o lote escondia todos os cards no começo e
- * esperava posições calculadas na montagem. Com o filtro reorganizando a grade, ou depois de uma
- * troca de página, as posições ficavam velhas e o card nunca aparecia (o Gabriel viu a grade vazia
- * no filtro "You are seen"). Aparecer na tela não fica velho.
+ * 1. `.entra-na-vista` (Motion): a ENTRADA, quando o card aparece na tela, uma vez. Aparecer na tela
+ *    não fica velho (o lote do ScrollTrigger ficava, e o card sumia depois de filtrar ou de trocar de
+ *    página).
+ * 2. `.card-vivo` (Motion, ligado à rolagem): o ATRASO da coluna da direita no desktop, e as
+ *    variáveis que movem a CAPA.
+ * 3. A capa (CSS, lendo as variáveis): chega inclinada para a frente, assenta plana no meio da tela e
+ *    se inclina para trás ao sair.
+ *
+ * Origem: 21st.dev, "ScrollTiltedGrid" de ruixen.ui (demo 12434). Veio dele o gesto (a capa sobe
+ * inclinada, assenta no foco e se inclina ao sair, com a curva de entrada e de saída dele). Mudou: só a
+ * CAPA se move (o texto do card fica parado e legível), sem o desfoque e o brilho animados (pesam no
+ * celular e sujam o papel), 16° em vez de 70°, e as variáveis de CSS no lugar de estilo direto, porque o
+ * card chega pronto do servidor.
  */
-export function EntraNaVista({ children }: { children: ReactNode }) {
+
+type Props = { children: ReactNode; lado?: "esquerda" | "direita" };
+
+function useCapaViva(p: MotionValue<number>, lado: "esquerda" | "direita") {
+  const sinal = lado === "esquerda" ? -1 : 1;
+  const rx = useTransform(p, [0, 0.5, 1], [16, 0, -10]);
+  const ry = useTransform(p, [0, 0.5, 1], [sinal * 6, 0, -sinal * 3]);
+  const x = useTransform(p, [0, 0.5, 1], [sinal * 6, 0, sinal * 3]);
+  const s = useTransform(p, [0, 0.5, 1], [0.9, 1, 0.97]);
+  const frase = useTransform(p, [0, 1], [18, -18]);
+  return { rx, ry, x, s, frase };
+}
+
+export function EntraNaVista({ children, lado = "esquerda" }: Props) {
   const reduzido = useReducedMotion();
+  const alvo = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({ target: alvo, offset: ["start end", "end start"] });
+  const capa = useCapaViva(scrollYProgress, lado);
+  /* a coluna da direita anda com atraso da esquerda (só do tablet para cima: no celular é uma coluna) */
+  const atraso = useTransform(scrollYProgress, [0, 1], lado === "direita" ? [56, -56] : [0, 0]);
+
   return (
     <motion.div
       className="entra-na-vista"
@@ -21,7 +49,25 @@ export function EntraNaVista({ children }: { children: ReactNode }) {
       viewport={{ once: true, amount: 0.12 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      {children}
+      <motion.div
+        ref={alvo}
+        className="card-vivo"
+        data-lado={lado}
+        style={
+          reduzido
+            ? undefined
+            : ({
+                "--capa-rx": capa.rx,
+                "--capa-ry": capa.ry,
+                "--capa-x": capa.x,
+                "--capa-s": capa.s,
+                "--capa-frase": capa.frase,
+                "--card-atraso": atraso,
+              } as unknown as React.CSSProperties)
+        }
+      >
+        {children}
+      </motion.div>
     </motion.div>
   );
 }

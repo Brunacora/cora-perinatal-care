@@ -6,9 +6,8 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { MobileCta } from "@/components/MobileCta";
 import { Inteiras } from "@/components/Enfase";
-import { Logo } from "@/components/Logo";
 import { Abajur, SCRIPT_DO_ABAJUR } from "@/components/journal/Abajur";
-import { CardsQueEntram, ChegadaDoArtigo, FioDeLeitura } from "@/components/journal/CameraJournal";
+import { CardsQueEntram, ChegadaDoArtigo, FioDeLeitura, SinalDeFim } from "@/components/journal/CameraJournal";
 import { CapaTipografica } from "@/components/journal/CapaTipografica";
 import { CardArtigo } from "@/components/journal/CardArtigo";
 import { CorpoArtigo } from "@/components/journal/CorpoArtigo";
@@ -126,7 +125,7 @@ export default async function PaginaDoArtigo({ params }: { params: Promise<{ loc
             </div>
           </header>
 
-          <div className="artigo-capa container-capa" data-camada="frente">
+          <div className="artigo-capa container-capa arco-abre" data-camada="frente">
             <CapaTipografica artigo={artigo} tamanho="artigo" prioridade />
           </div>
 
@@ -135,9 +134,7 @@ export default async function PaginaDoArtigo({ params }: { params: Promise<{ loc
             <Indice titulo={t("toc")} subtitulos={corpo.subtitulos} />
             <CorpoArtigo arvore={corpo.arvore} pausa={{ texto: t("midCta.text"), botao: t("midCta.button") }} />
             {/* o sinal de fim: o texto termina assinado pelo símbolo, como numa revista */}
-            <p className="fim-sinal" aria-hidden="true">
-              <Logo variante="simbolo" altura={40} rotulo="" />
-            </p>
+            <SinalDeFim />
           </div>
 
           <footer className="artigo-fim container-leitura">
@@ -170,7 +167,7 @@ export default async function PaginaDoArtigo({ params }: { params: Promise<{ loc
               <ul className="grade-cards grade-tres">
                 {cards.map((c, i) => (
                   <li key={outros[i].slug}>
-                    <EntraNaVista>{c}</EntraNaVista>
+                    <EntraNaVista lado={i % 2 === 0 ? "esquerda" : "direita"}>{c}</EntraNaVista>
                   </li>
                 ))}
               </ul>

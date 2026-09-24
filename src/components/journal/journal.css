@@ -1220,9 +1220,6 @@
   }
 
   @media (pointer: fine) {
-    .card-artigo-link:hover .capa {
-      transform: translateY(-4px);
-    }
     .card-artigo-link:hover .card-artigo-titulo-texto,
     .card-artigo-link:focus-visible .card-artigo-titulo-texto {
       background-size: 100% var(--linha);
@@ -1248,5 +1245,71 @@
     display: flex;
     align-items: center;
     min-height: 44px;
+  }
+}
+
+/* =========================================================================
+   MOVIMENTO, VERSÃO 2 (movimento-blog.md, seção 9)
+   ========================================================================= */
+@layer components {
+  /* A CAPA VIVA: chega inclinada, assenta plana no meio da tela, inclina ao sair. As variáveis vêm do
+     `EntraNaVista` (Motion, ligado à rolagem); sem elas (movimento reduzido), tudo fica em zero. */
+  .card-vivo {
+    perspective: 1100px;
+  }
+
+  .card-vivo .capa {
+    transform-origin: 50% 100%;
+    transform: translate3d(calc(var(--capa-x, 0) * 1%), 0, 0) rotateX(calc(var(--capa-rx, 0) * 1deg))
+      rotateY(calc(var(--capa-ry, 0) * 1deg)) scale(var(--capa-s, 1));
+    backface-visibility: hidden;
+  }
+
+  /* a frase da capa anda em sentido contrário à placa: a máscara dupla */
+  .card-vivo .capa-frase {
+    transform: translate3d(0, calc(var(--capa-frase, 0) * 1px), 0);
+  }
+
+  @media (min-width: 768px) {
+    .card-vivo[data-lado="direita"] {
+      transform: translate3d(0, calc(var(--card-atraso, 0) * 1px), 0);
+    }
+  }
+
+  /* No celular a inclinação é menor (a mesma caligrafia, amplitude menor) */
+  @media (max-width: 767px) {
+    .card-vivo .capa {
+      transform: rotateX(calc(var(--capa-rx, 0) * 0.6deg)) scale(var(--capa-s, 1));
+    }
+  }
+
+  /* OS FILTROS PRESOS enquanto a grade passa: dá para trocar de assunto no meio da rolagem */
+  .filtros-trilho {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--bg);
+    padding-block: var(--space-3);
+  }
+
+  /* A MÁSCARA EM ARCO: a capa entra por um recorte em abóbada que se abre até o retângulo.
+     O GSAP anima só o número `--arco` (0 a 1); a forma fica aqui. */
+  .arco-abre {
+    --arco: 1;
+  }
+
+  .arco-abre .capa {
+    clip-path: inset(
+      calc((1 - var(--arco)) * 14%) calc((1 - var(--arco)) * 9%) 0 calc((1 - var(--arco)) * 9%)
+        round calc((1 - var(--arco)) * 50vw + var(--radius-card))
+        calc((1 - var(--arco)) * 50vw + var(--radius-card)) var(--radius-card) var(--radius-card)
+    );
+  }
+}
+
+@layer components {
+  .fim-sinal-simbolo {
+    height: 48px;
+    width: auto;
   }
 }

@@ -7,6 +7,7 @@ import { SplitText } from "gsap/SplitText";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { useGSAP } from "@gsap/react";
 import { camada, corpoUmaVez, tituloEmTrilho } from "@/lib/camera";
+import { SIMBOLO_TRACO_D } from "@/components/ui/simbolo-traco-d";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText, DrawSVGPlugin);
 
@@ -33,6 +34,49 @@ function cortar(el: HTMLElement, aoCortar: (linhas: Element[]) => gsap.core.Anim
     autoSplit: true,
     reduceWhiteSpace: false,
     onSplit: (self) => aoCortar(self.lines) ?? undefined,
+  });
+}
+
+/**
+ * A MÁSCARA EM ARCO (versão 2): a capa entra por uma abóbada que se abre até o retângulo, em scrub,
+ * enquanto a frase anda em sentido contrário (máscara dupla). O GSAP anima só o número `--arco`; a
+ * forma fica no CSS (`.arco-abre .capa`).
+ */
+function arcoQueAbre(moldura: HTMLElement, estreito: boolean) {
+  gsap.fromTo(
+    moldura,
+    { "--arco": 0 },
+    {
+      "--arco": 1,
+      ease: "none",
+      scrollTrigger: { trigger: moldura, start: "top 98%", end: "top 38%", scrub: 0.6 },
+    },
+  );
+  const frase = moldura.querySelector(".capa-frase");
+  if (frase) {
+    gsap.fromTo(
+      frase,
+      { y: estreito ? 16 : 36 },
+      {
+        y: estreito ? -10 : -24,
+        ease: "none",
+        scrollTrigger: { trigger: moldura, start: "top bottom", end: "bottom top", scrub: 0.6 },
+      },
+    );
+  }
+}
+
+/** As linhas de um título se desfazem ao SAIR, cada uma na sua velocidade (canal `y`, não o `yPercent`
+    da entrada: dois donos no mesmo transform tremeriam). */
+function tituloQueSai(linhas: Element[], gatilho: Element, estreito: boolean) {
+  const f = estreito ? 0.5 : 1;
+  linhas.forEach((linha, i) => {
+    gsap.to(linha, {
+      y: () => -window.innerHeight * (0.05 + i * 0.045) * f,
+      opacity: 0.25,
+      ease: "none",
+      scrollTrigger: { trigger: gatilho, start: "top top", end: "bottom top", scrub: 0.6, invalidateOnRefresh: true },
+    });
   });
 }
 
@@ -67,14 +111,18 @@ export function CameraTopoJournal() {
         if (!anima) return;
 
         const corte = titulo
-          ? cortar(titulo, (linhas) =>
-              gsap.fromTo(
+          ? cortar(titulo, (linhas) => {
+              const entrada = gsap.fromTo(
                 linhas,
                 { yPercent: 106 },
                 { yPercent: 0, duration: 1.1, ease: CURVA, stagger: 0.09, delay: 0.15 },
-              ),
-            )
+              );
+              tituloQueSai(linhas, topo, estreito);
+              return entrada;
+            })
           : null;
+        const capaDestaque = document.querySelector<HTMLElement>(".start-here-capa.arco-abre");
+        if (capaDestaque) arcoQueAbre(capaDestaque, estreito);
         gsap.fromTo(apoio, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.9, ease: CURVA, delay: 0.55, stagger: 0.12 });
 
         if (marca) {
@@ -181,12 +229,37 @@ export function CenaFromBruna() {
         }
         const corte = titulo ? cortar(titulo, (linhas) => tituloEmTrilho(linhas, titulo)) : null;
         corpoUmaVez(corpo);
+        /* a frase dela ACENDE palavra por palavra com a rolagem (bloco de autoria, não corpo de
+           artigo: aqui o texto pode viver) */
+        const acende = secao.querySelector<HTMLElement>(".from-bruna-acende");
+        const palavras = acende
+          ? SplitText.create(acende, {
+              type: "words",
+              wordsClass: "palavra-acende",
+              reduceWhiteSpace: false,
+              autoSplit: true,
+              onSplit: (self) =>
+                gsap.fromTo(
+                  self.words,
+                  { opacity: 0.22 },
+                  {
+                    opacity: 1,
+                    ease: "none",
+                    stagger: 0.1,
+                    scrollTrigger: { trigger: acende, start: "top 82%", end: "bottom 50%", scrub: 0.6 },
+                  },
+                ),
+            })
+          : null;
         /* ATO 2 (medido: sem ele, 38% da travessia ficava morta depois do arco fechar): a coluna de
            texto (meio) e a foto (frente) se separam até a seção sair, em velocidades diferentes */
         if (quadro) camada(quadro, 8, secao, estreito);
         const texto = secao.querySelector<HTMLElement>(".from-bruna-texto");
         if (texto) camada(texto, 4, secao, estreito);
-        return () => corte?.revert();
+        return () => {
+          corte?.revert();
+          palavras?.revert();
+        };
       },
     );
   });
@@ -225,8 +298,6 @@ export function ChegadaDoArtigo() {
     if (!artigo) return;
     const titulo = artigo.querySelector<HTMLElement>(".artigo-titulo");
     const resto = gsap.utils.toArray<HTMLElement>(".artigo-chamada, .artigo-autoria", artigo);
-    const capa = artigo.querySelector<HTMLElement>(".artigo-capa .capa");
-    const miolo = capa ? gsap.utils.toArray<Element>(".capa-frase, .capa-linha", capa) : [];
 
     const mm = gsap.matchMedia();
     mm.add(
@@ -234,24 +305,47 @@ export function ChegadaDoArtigo() {
       (ctx) => {
         const { anima, estreito } = ctx.conditions as { anima: boolean; estreito: boolean };
         if (!anima) return;
+        const cabeca = artigo.querySelector<HTMLElement>(".artigo-cabeca");
         const corte = titulo
-          ? cortar(titulo, (linhas) =>
-              gsap.fromTo(linhas, { yPercent: 106 }, { yPercent: 0, duration: 1, ease: CURVA, stagger: 0.08, delay: 0.1 }),
-            )
+          ? cortar(titulo, (linhas) => {
+              const entrada = gsap.fromTo(
+                linhas,
+                { yPercent: 106 },
+                { yPercent: 0, duration: 1, ease: CURVA, stagger: 0.08, delay: 0.1 },
+              );
+              if (cabeca) tituloQueSai(linhas, cabeca, estreito);
+              return entrada;
+            })
           : null;
-        gsap.fromTo(resto, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.8, ease: CURVA, delay: 0.45, stagger: 0.1 });
-        if (capa && miolo.length) {
+        const moldura = artigo.querySelector<HTMLElement>(".artigo-capa.arco-abre");
+        if (moldura) arcoQueAbre(moldura, estreito);
+
+        /* os SUBTÍTULOS entram por máscara, no trilho curto: são o ponto de descanso da leitura, e
+           é o único texto de dentro da coluna que se move (parágrafo nenhum se move) */
+        const cortesH2 = gsap.utils
+          .toArray<HTMLElement>(".prosa h2", artigo)
+          .map((h2) => cortar(h2, (linhas) => tituloEmTrilho(linhas, h2)));
+
+        /* a pausa do meio chega crescendo, como quem abre espaço */
+        const pausa = artigo.querySelector<HTMLElement>(".pausa-do-meio");
+        if (pausa) {
           gsap.fromTo(
-            miolo,
-            { y: 0 },
+            pausa,
+            { scale: 0.94, y: 28, opacity: 0.4 },
             {
-              y: () => -window.innerHeight * 0.04 * (estreito ? 0.5 : 1),
+              scale: 1,
+              y: 0,
+              opacity: 1,
               ease: "none",
-              scrollTrigger: { trigger: capa, start: "top bottom", end: "bottom top", scrub: 0.6, invalidateOnRefresh: true },
+              scrollTrigger: { trigger: pausa, start: "top bottom", end: "top 55%", scrub: 0.6 },
             },
           );
         }
-        return () => corte?.revert();
+        gsap.fromTo(resto, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.8, ease: CURVA, delay: 0.45, stagger: 0.1 });
+        return () => {
+          corte?.revert();
+          cortesH2.forEach((c) => c.revert());
+        };
       },
     );
   });
@@ -302,5 +396,58 @@ export function FioDeLeitura() {
       <span className="fio-vertical" />
       <span className="fio-topo" />
     </div>
+  );
+}
+
+/**
+ * O SINAL DE FIM (versão 2): o símbolo da Cora se DESENHA com a rolagem quando o texto termina, a uma
+ * tinta, do arco ao hibisco. O texto não termina: é assinado. Reduced-motion: desenhado inteiro.
+ */
+export function SinalDeFim() {
+  const svg = useRef<SVGSVGElement | null>(null);
+  useGSAP(
+    () => {
+      const el = svg.current;
+      if (!el) return;
+      const fios = gsap.utils.toArray<SVGPathElement>("path", el);
+      const mm = gsap.matchMedia();
+      mm.add({ anima: "(prefers-reduced-motion: no-preference)" }, (ctx) => {
+        const { anima } = ctx.conditions as { anima: boolean };
+        if (!anima) {
+          gsap.set(fios, { drawSVG: "0% 100%" });
+          return;
+        }
+        gsap.fromTo(
+          fios,
+          { drawSVG: "0% 0%" },
+          {
+            drawSVG: "0% 100%",
+            ease: "none",
+            stagger: 0.12,
+            scrollTrigger: { trigger: el, start: "top 92%", end: "bottom 62%", scrub: 0.6 },
+          },
+        );
+      });
+    },
+    { scope: svg },
+  );
+  const [x, y, w, h] = SIMBOLO_TRACO_D.viewBox;
+  return (
+    <p className="fim-sinal" aria-hidden="true">
+      <svg
+        ref={svg}
+        viewBox={`${x} ${y} ${w} ${h}`}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={SIMBOLO_TRACO_D.largura}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="fim-sinal-simbolo"
+      >
+        {SIMBOLO_TRACO_D.tracos.map((d, i) => (
+          <path key={i} d={d} />
+        ))}
+      </svg>
+    </p>
   );
 }
