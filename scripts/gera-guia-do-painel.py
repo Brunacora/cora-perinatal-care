@@ -33,7 +33,7 @@ ARCO = '<path d="M2 55 V21 A18 18 0 0 1 38 21 V55" pathLength="1"/>'
 passos = [
     ("Entre", "Abra o painel e toque em **Log in with GitHub**, na conta **Brunacora**.", "botao"),
     ("Escreva", "Em **Artigos**, toque em **Add**. Preencha o título, o idioma, a categoria e os dois resumos. O texto vai no campo grande, logo abaixo. A capa se desenha sozinha.", None),
-    ("Sublinhe", "Selecione a frase que você quer que a leitora guarde e toque em **Sublinhar à mão**. Uma por artigo fica mais bonito.", "sublinhado"),
+    ("Sublinhe", "Selecione a frase que você quer que a leitora guarde e toque no botão da **onda**, ao lado do tachado. Ela ganha uma onda laranja no painel e se desenha no site. Uma por artigo.", "sublinhado"),
     ("Publique", "Toque em **Create** num artigo novo, ou em **Save** num que você editou. Em uns dois minutos ele está no site.", None),
 ]
 

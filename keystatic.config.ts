@@ -130,7 +130,7 @@ export default config({
         corpo: fields.markdoc({
           label: "Texto",
           description:
-            "Use Título 2 para os subtítulos. O convite para a conversa entra sozinho no meio do texto.",
+            "Use Título 2 para os subtítulos. O convite para a conversa entra sozinho no meio do texto. Para a frase principal, selecione e toque no botão da onda (Sublinhar à mão): uma por artigo.",
           options: {
             image: false,
             table: false,
@@ -143,12 +143,25 @@ export default config({
             /* O SUBLINHADO À MÃO (2026-09-24): selecione uma frase e marque. No site, um traço de
                tinta ondulado se desenha embaixo dela enquanto a leitora passa. Uma frase por artigo
                basta; mais que duas e ele deixa de ser gesto. */
+            /* O SUBLINHADO À MÃO. O ícone é só o TRAÇO (o painel embrulha num <svg> de 24x24, como os
+               ícones dele): um "U" com uma onda por baixo. O `style` faz a frase marcada aparecer no
+               editor com a onda terracota, como no site; sem ele a Bruna marcava e não via nada
+               (2026-09-24). */
             sublinhado: mark({
-              label: "Sublinhar à mão",
-              icon: createElement("span", { style: { textDecoration: "underline wavy" } }, "S"),
+              label: "Sublinhar à mão (a frase que se desenha no site)",
+              icon: createElement("path", {
+                d: "M7 3v6a5 5 0 0 0 10 0V3M3 20c1.5-1.6 3-1.6 4.5 0s3 1.6 4.5 0 3-1.6 4.5 0 3 1.6 4.5 0",
+              }),
               schema: {},
               tag: "span",
               className: "sublinhado",
+              style: {
+                textDecorationLine: "underline",
+                textDecorationStyle: "wavy",
+                textDecorationColor: "#d44d1b",
+                textDecorationThickness: "1.5px",
+                textUnderlineOffset: "5px",
+              },
             }),
           },
         }),
