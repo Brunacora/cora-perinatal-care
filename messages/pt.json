@@ -1,0 +1,464 @@
+{
+  "meta": {
+    "title": "Doula Pós-Parto Brasileira em MA e NH | Cora Perinatal Care",
+    "description": "Apoio pós-parto gentil, prático e sem julgamento, aulas de parto e recém-nascido e encapsulamento de placenta. Presencial em MA e NH, online em qualquer lugar.",
+    "siteName": "Cora Perinatal Care"
+  },
+  "ui": {
+    "more": "Leia mais",
+    "less": "Fechar",
+    "previous": "Anterior",
+    "next": "Próximo"
+  },
+  "nav": {
+    "services": "Serviços",
+    "about": "Sobre",
+    "faq": "Dúvidas",
+    "menu": "Menu",
+    "close": "Fechar",
+    "language": "Idioma",
+    "english": "English",
+    "portuguese": "Português",
+    "primary": "Principal",
+    "journal": "The Cora Journal"
+  },
+  "hero": {
+    "headline": "Cuidado pós-parto para você se sentir acolhida, apoiada e preparada.",
+    "text": "A Cora Perinatal Care oferece apoio gentil, prático e sem julgamento desde a gestação, para o pós-parto, os cuidados com o recém-nascido, a alimentação e tudo o que vem no meio.",
+    "cta": "Solicite uma conversa gratuita",
+    "secondary": "Veja nossos serviços",
+    "enfase": "você"
+  },
+  "season": {
+    "title": "Cuidado para a fase que você vive",
+    "text": "Esteja você se preparando para o parto, planejando o pós-parto ou já no meio da vida com um recém-nascido, o apoio precisa encontrar você onde você está. A Cora está aqui para trazer calma, orientação, ajuda prática e um lugar seguro para fazer as perguntas que surgem na hora.",
+    "enfase": "fase"
+  },
+  "inperson": {
+    "name": "Apoio presencial no pós-parto",
+    "short": "Cuidado de perto para famílias em Massachusetts e New Hampshire que querem um apoio constante, prático e individualizado depois que o bebê chega.",
+    "p1": "O pós-parto pode ser delicado, bonito, confuso e exaustivo, tudo de uma vez. É orientação em casa sobre recuperação e descanso, cuidados com o recém-nascido e muito mais.",
+    "p2": "A Cora apoia você sem julgamento, sem impor um \"jeito certo\" e sem tomar as decisões por você. O objetivo é que você se sinta mais confiante e mais amparada em casa.",
+    "bullets": [
+      "Apoio diurno e noturno",
+      "Cuidado presencial no norte de MA e sul de NH",
+      "Apoio na recuperação pós-parto, na cicatrização e no bem-estar geral da mãe",
+      "Orientação nos cuidados com o bebê e técnicas para acalmá-lo",
+      "Ajuda para criar ritmos e rotinas",
+      "Apoio na alimentação do bebê: peito, mamadeira, fórmula",
+      "Tarefas leves da casa e organização",
+      "Planejamento e preparo das refeições",
+      "Inclusão e cuidado dos irmãos"
+    ],
+    "price": "A partir de $50 por hora",
+    "cta": "Pergunte sobre o apoio pós-parto"
+  },
+  "classes": {
+    "name": "Aulas de preparação para o parto, cuidados com o bebê, amamentação e pós-parto",
+    "short": "Aulas particulares e preparação para famílias que querem se sentir mais informadas, apoiadas e preparadas antes e depois da chegada do bebê.",
+    "p1": "Pensar no seu parto, em como cuidar do recém-nascido, na sua jornada de amamentação ou em como será o pós-parto pode ser avassalador. A Cora oferece aulas de preparação e apoio online para você chegar ao parto, aos cuidados com o bebê, à amamentação e ao pós-parto com mais clareza e confiança.",
+    "p2": "Estes encontros são para famílias que querem informação, ferramentas práticas, compreensão e um espaço em que toda pergunta é bem-vinda. O foco não é prometer perfeição em nenhuma etapa da sua jornada. É ajudar você a se sentir preparada, informada e fortalecida.",
+    "p3": "Nas aulas, você entende melhor o que esperar, ganha confiança para tomar as decisões certas para você e para a sua família e conhece os recursos e o apoio disponíveis ao longo do caminho.",
+    "explore": "Juntos, vamos explorar:",
+    "items": [
+      {
+        "title": "Preparação para o parto - $250",
+        "intro": "Esta aula foi pensada para você entender o trabalho de parto e se sentir preparada, apoiada e fortalecida para uma das experiências mais transformadoras da vida.",
+        "bullets": [
+          "As mudanças físicas e emocionais do seu corpo durante o trabalho de parto",
+          "O que esperar em cada fase do parto.",
+          "Medidas de conforto",
+          "Técnicas de respiração e posições",
+          "Opções de alívio da dor",
+          "Intervenções médicas comuns",
+          "Cesárea"
+        ],
+        "partners": "Recomendamos muito a presença dos parceiros. Eles saem com ferramentas e técnicas práticas para apoiar você com confiança no trabalho de parto, no parto e nas primeiras horas depois da chegada do bebê."
+      },
+      {
+        "title": "Cuidados com o bebê - $75",
+        "intro": "Saiba o que esperar nos primeiros dias e semanas de vida com o seu recém-nascido. Esta aula oferece um ambiente acolhedor para entender os cuidados com o bebê e aprender habilidades práticas, que ajudam você a se sentir mais preparada para essa nova fase.",
+        "bullets": [
+          "Padrões normais de sono",
+          "Entender e responder aos sinais do bebê",
+          "Técnicas práticas para acalmar",
+          "Noções básicas de alimentação",
+          "Troca de fraldas (na prática)",
+          "Charutinho (na prática)",
+          "Banho"
+        ],
+        "partners": "Recomendamos muito a presença dos parceiros. Cuidar de um recém-nascido é trabalho de equipe, e esta aula prepara os dois com conhecimento, confiança e habilidades práticas para cuidarem do bebê juntos."
+      },
+      {
+        "title": "Amamentação - $75",
+        "intro": "Aprenda o que esperar nos primeiros dias e semanas da sua jornada de amamentação. Esta aula foi pensada para você se sentir informada e entender o básico da lactação.",
+        "bullets": [
+          "Anatomia da mama",
+          "Produção de leite e as diferentes fases do leite materno",
+          "Como conseguir uma boa pega",
+          "Os sinais de fome do bebê",
+          "Posições confortáveis para amamentar",
+          "Noções de extração de leite",
+          "Armazenamento e manuseio do leite"
+        ],
+        "partners": "Recomendamos muito a presença dos parceiros. Eles têm um papel essencial no apoio à amamentação, e esta aula mostra formas práticas de incentivar e ajudar você ao longo dessa jornada."
+      },
+      {
+        "title": "Preparação para o pós-parto - $75",
+        "intro": "Prepare-se para o quarto trimestre com intenção e aprenda formas práticas de montar o seu plano de pós-parto antes da chegada do bebê. É um espaço acolhedor para conversar abertamente sobre a realidade do pós-parto e a transição para essa nova fase da família.",
+        "bullets": [
+          "As mudanças emocionais e físicas do corpo",
+          "Apoio ao descanso e à recuperação",
+          "Bem-estar emocional",
+          "Rede(s) de apoio",
+          "A adaptação a essa nova fase",
+          "Como preparar a casa",
+          "Recursos"
+        ],
+        "partners": "Recomendamos muito a presença dos parceiros. O pós-parto é uma transição para a família toda, e esta aula dá aos parceiros ferramentas práticas para apoiar a recuperação e criar um ambiente de cuidado para todos."
+      }
+    ],
+    "virtual": {
+      "title": "Apoio online",
+      "p1": "Você não precisa atravessar o pós-parto sozinha. Seja para uma dúvida específica ou para resolver uma dificuldade, o apoio online traz cuidado e orientação personalizados de onde você estiver.",
+      "p2": "Os encontros online são pensados para o que você e a sua família precisam no momento. Esse apoio está disponível tanto para quem já foi atendida presencialmente quanto para quem está chegando agora.",
+      "p3": "Seja um encontro único para uma questão específica ou um acompanhamento contínuo ao longo do pós-parto, o cuidado online é um jeito flexível de continuar conectada e amparada quando você mais precisa."
+    },
+    "cta": "Planeje sua preparação",
+    "enfase": "Aulas",
+    "marcas": "Aulas",
+    "overview": "Visão geral"
+  },
+  "packages": {
+    "note": "*Pode haver taxa de deslocamento em todos os pacotes",
+    "items": [
+      {
+        "name": "Bloom",
+        "price": "$1.025",
+        "text": "Ideal para famílias que querem se preparar na gestação e se sentir apoiadas no começo da vida com o recém-nascido.",
+        "bullets": [
+          "Aula de preparação para o parto",
+          "Aula de cuidados com o bebê",
+          "Aula de amamentação",
+          "Aula de preparação para o pós-parto",
+          "12 horas presenciais de doula pós-parto",
+          "Apoio por mensagem durante todo o acompanhamento"
+        ]
+      },
+      {
+        "name": "Nurture",
+        "price": "$1.975",
+        "text": "Ideal para famílias que querem se preparar antes da chegada do bebê e ter cuidado contínuo no início do pós-parto.",
+        "bullets": [
+          "Aula de preparação para o parto",
+          "Aula de cuidados com o bebê",
+          "Aula de amamentação",
+          "Aula de preparação para o pós-parto",
+          "24 horas presenciais de doula pós-parto",
+          "Encapsulamento de placenta - pacote padrão",
+          "Apoio por mensagem durante todo o acompanhamento"
+        ]
+      },
+      {
+        "name": "Premium",
+        "price": "$3.050",
+        "text": "Perfeito para famílias que querem um cuidado pós-parto completo e prolongado, com apoio contínuo enquanto se adaptam à vida com o bebê.",
+        "bullets": [
+          "Aula de preparação para o parto",
+          "Aula de cuidados com o bebê",
+          "Aula de amamentação",
+          "Aula de preparação para o pós-parto",
+          "40 horas de doula pós-parto em casa",
+          "Encapsulamento de placenta - pacote premium",
+          "Fechamento de quadril",
+          "Apoio por mensagem durante todo o acompanhamento"
+        ]
+      }
+    ],
+    "closing": "Fique à vontade para perguntar como montar um pacote sob medida para a sua família.",
+    "label": "Pacotes"
+  },
+  "additional": {
+    "name": "Cuidados complementares",
+    "short": "Serviços pensados com carinho para honrar o corpo, a família e a passagem para o pós-parto.",
+    "p1": "Para famílias que querem mais cuidado nessa fase, a Cora também oferece encapsulamento de placenta, lembranças da placenta e a cerimônia de fechamento de quadril.",
+    "p2": "Esses serviços nascem da mesma intenção de todo o cuidado da Cora: apoiar a mãe, honrar o que o corpo dela carregou e abrir espaço para o descanso, a nutrição e o fechamento emocional.",
+    "placenta": {
+      "title": "Encapsulamento de placenta",
+      "p1": "O encapsulamento de placenta é uma prática que pode trazer um apoio a mais para a recuperação no pós-parto. As cápsulas de placenta são tomadas durante o pós-parto. O encapsulamento está disponível para partos normais e cesáreas, e para todos os locais de parto (hospital, casa, casa de parto).",
+      "p2": "A placenta é um órgão que o seu corpo forma a cada gestação para sustentar a nova vida que cresce dentro de você. Ela leva oxigênio e nutrientes ao bebê, filtra resíduos e faz muito mais.",
+      "p3": "A placenta é rica em nutrientes e minerais. Alguns benefícios relatados de tomar as cápsulas de placenta são:",
+      "benefits": [
+        "Estabiliza os hormônios",
+        "Pode diminuir o risco de \"baby blues\"",
+        "Repõe o ferro perdido no parto",
+        "Pode aumentar a produção e a oferta de leite",
+        "Repõe energia e vitaminas do complexo B"
+      ],
+      "process": "O processo envolve limpar, cozinhar no vapor, desidratar e moer a placenta antes de encapsular. As cápsulas levam só o pó da placenta, sem nada adicional, sem ervas nem óleos.",
+      "capsules": "As cápsulas são transparentes e sem sabor. Cápsulas com sabor sob pedido (com custo adicional)!",
+      "cord": "A lembrança do cordão umbilical depende do comprimento do cordão.",
+      "print": "O carimbo de placenta pode ser feito ao natural ou com corante alimentício. Você escolhe a cor!",
+      "tincture": "A tintura não tem prazo de validade e pode ser usada depois que as cápsulas acabarem.",
+      "evidence": "Ainda há poucas pesquisas sobre os benefícios do consumo da placenta, mas alguns estudos já foram feitos. Em 2016, dois estudos mostraram que a placenta contém 1/4 do ferro recomendado para lactantes, além de traços de outros minerais. Eles também encontraram 15 hormônios na placenta, com progesterona e estradiol em níveis que poderiam ter efeitos fisiológicos. Outros estudos ainda serão publicados, incluindo um ensaio randomizado sobre os possíveis efeitos na depressão pós-parto.",
+      "source": "(Fonte: https://evidencebasedbirth.com/evidence-on-placenta-encapsulation/)",
+      "sourceUrl": "https://evidencebasedbirth.com/evidence-on-placenta-encapsulation/"
+    },
+    "packagesTitle": "Pacotes:",
+    "packagesNote": "Todos os pacotes incluem buscar a placenta no local do parto (conforme a localização) e entregar na sua casa (conforme a localização). Para endereços fora da área de entrega, oferecemos envio por correio prioritário.",
+    "tiers": [
+      {
+        "name": "Padrão - $375",
+        "bullets": [
+          "Cápsulas de placenta",
+          "Carimbo de placenta",
+          "Lembrança do cordão (conforme o comprimento)"
+        ]
+      },
+      {
+        "name": "Premium - $400",
+        "bullets": [
+          "Cápsulas de placenta",
+          "Tintura (2 oz)",
+          "Carimbo de placenta",
+          "Lembrança do cordão (conforme o comprimento)"
+        ]
+      },
+      {
+        "name": "Só lembranças da placenta - $180",
+        "bullets": [
+          "Carimbo de placenta",
+          "Lembrança do cordão (conforme o comprimento)"
+        ]
+      }
+    ],
+    "closing": {
+      "title": "Fechamento de quadril - $275",
+      "p1": "O fechamento de quadril oferece um tempo e um espaço para honrar o seu corpo por tudo o que ele fez na gestação. Em muitas culturas, as mulheres tradicionalmente recebem esse cuidado várias vezes nos primeiros 40 dias depois do parto. O fechamento também pode ser feito depois de uma perda, de uma transição ou ao encerrar um ciclo da vida (divórcio, emprego novo etc.).",
+      "p2": "Durante o fechamento, os rebozos são usados para balançar e embalar alguns pontos do corpo antes de o tecido ser ajeitado por baixo de você. Ele pode favorecer a recuperação física no pós-parto, ao melhorar a circulação, e também pode ajudar na cura emocional e espiritual. Pode ser feito em qualquer momento da vida, não só no pós-parto imediato. Você ainda pode sentir os benefícios mesmo 40 anos depois do parto! É um espaço para você ser acolhida, honrar a sua jornada e o seu corpo. Se quiser, uma compressa de óleo de rícino pode ser colocada no baixo ventre para levar calor e favorecer a cura do útero, o que também pode ser simbólico e curativo depois de uma histerectomia.",
+      "p3": "Este serviço está disponível, com investimento adicional, para as famílias que escolhem o apoio pós-parto em casa."
+    },
+    "cta": "Pergunte sobre esses cuidados"
+  },
+  "start": {
+    "title": "Começar é simples.",
+    "steps": [
+      {
+        "title": "Preencha o formulário.",
+        "text": "Conte em que momento da jornada você está, o que procura e que tipo de apoio ajudaria mais agora. Se não tiver certeza, tudo bem! A gente descobre junto."
+      },
+      {
+        "title": "Marcamos uma conversa gratuita de 15 a 30 minutos.",
+        "text": "É uma conversa curta e sem pressão para nos conhecermos, entender o que você precisa e responder algumas das suas dúvidas."
+      },
+      {
+        "title": "Montamos o apoio que cabe na sua família.",
+        "text": "Se houver sintonia, falamos sobre datas, serviços, local e o melhor próximo passo para a fase que você vive."
+      }
+    ],
+    "cta": "Comece pelo formulário"
+  },
+  "why": {
+    "title": "Por que famílias escolhem a Cora",
+    "points": [
+      {
+        "title": "Um apoio que se adapta a você.",
+        "text": "Cada família é diferente. A Cora encontra você onde você está, em vez de impor um método, uma rotina ou um único jeito de ser mãe."
+      },
+      {
+        "title": "Orientação sem julgamento.",
+        "text": "Seja amamentação, fórmula, os dois juntos, mais descanso, mais ajuda ou um ritmo diferente do que você imaginava, vamos apoiar as suas decisões e orientar quando for preciso."
+      },
+      {
+        "title": "Cuidado para a nova mãe (seja o seu primeiro ou o terceiro bebê).",
+        "text": "O bebê importa muito, e quem está se recuperando, aprendendo, alimentando, cicatrizando e carregando tanta coisa também. O cuidado da Cora coloca a mãe no centro e apoia a família em volta dela."
+      },
+      {
+        "title": "Profissional, gentil e honesto.",
+        "text": "Não se trata de fingir que o pós-parto é sempre fácil. Trata-se de dar a você apoio, recursos e uma orientação tranquila para que você não precise passar por isso sozinha."
+      }
+    ]
+  },
+  "story": {
+    "title": "Conheça o coração da Cora.",
+    "p1": "A Cora Perinatal Care nasceu das minhas próprias experiências com a maternidade, do meu trabalho apoiando novas mães e da crença profunda de que as famílias merecem se sentir cuidadas numa das maiores transições da vida.",
+    "p2": "Meu nome é Bruna Gomes. Sou mãe de três, esposa, mãe de cachorro e apaixonada pela natureza. Amo ajudar famílias a se sentirem mais preparadas, informadas e apoiadas quando se tornam pais. As minhas gestações, os meus partos e os meus pós-partos me ensinaram que cada fase é diferente. Depois de um pós-parto difícil com o meu terceiro filho, busquei o apoio e os recursos de que eu precisava para encontrar o meu caminho. Essa experiência mudou a forma como eu via o cuidado no pós-parto e aprofundou o meu desejo de que outras mães não sintam que precisam passar por isso sozinhas.",
+    "p3": "Como doula pós-parto certificada, especialista em placenta certificada e educadora, meu trabalho é ajudar as famílias a se prepararem para o pós-parto antes de chegar lá e oferecer um apoio prático e compassivo quando ele chega. Acredito que você não precisa de mais pressão para ter o pós-parto perfeito. Meu jeito é simples: quero que as famílias se sintam mais preparadas, mais informadas e mais apoiadas. Quero ser a pessoa calma na sala, que oferece ajuda prática, responde às dúvidas sem julgamento, incentiva o descanso e lembra você de que precisar de cuidado não significa falhar.",
+    "p4": "Meu trabalho também está ligado às minhas raízes brasileiras e à minha vida entre duas culturas. Cora vem de coração, e o hibisco da minha logo foi inspirado numa das flores que eu amo ver quando estou no Brasil. Os dois me lembram de onde eu venho e do coração que coloco neste trabalho. Trago o calor e a leveza que associo à cultura brasileira, junto com os limites e a presença intencional que moldaram a minha experiência nos Estados Unidos. Juntas, essas influências formaram o meu jeito de cuidar das famílias: com calor, honestidade, respeito e intenção.",
+    "closing": "No coração do meu trabalho há uma crença simples: você merece ser cuidada também.",
+    "cta": "Solicite uma conversa gratuita",
+    "enfase": "coração",
+    "fechoEnfase": "também"
+  },
+  "mission": {
+    "title": "Missão",
+    "text": "Na Cora, a nossa missão é oferecer um apoio acolhedor, prático e individualizado, que ajude as famílias a se sentirem amparadas, informadas, confiantes e cuidadas durante a gestação e o pós-parto. Com educação, apoio direto e orientação compassiva, abrimos espaço para que mães e famílias vivam essa transição do jeito que faz sentido para elas. A Cora nasce da crença de que nenhuma família deveria atravessar essa fase sozinha. Cada serviço é oferecido com cuidado, intenção e respeito pelas necessidades, experiências e escolhas únicas de cada família."
+  },
+  "faq": {
+    "title": "Talvez você se pergunte",
+    "items": [
+      {
+        "q": "Preciso de apoio pós-parto se tenho família por perto?",
+        "a": "Você pode ter a família por perto e ainda assim precisar de apoio profissional. Quem ama quer ajudar, mas nem sempre tem um olhar imparcial sobre como apoiar os cuidados com o recém-nascido, as dúvidas de alimentação, a recuperação, o descanso, as rotinas ou a parte emocional do pós-parto. O papel da Cora é trazer uma orientação calma, imparcial e prática e ajudar a sua rede de apoio a funcionar melhor para você."
+      },
+      {
+        "q": "E se eu sentir que deveria dar conta sozinha?",
+        "a": "Precisar de apoio não significa que você não é capaz. Significa que você está passando por uma grande transição da vida e merece cuidado enquanto isso. Muitas mães se sentem culpadas por receber ajuda, mesmo quando precisam muito. Parte deste trabalho é ajudar você a descansar, receber apoio e confiar na sua intuição."
+      },
+      {
+        "q": "Você diz às famílias o que elas devem fazer?",
+        "a": "Não. A Cora oferece orientação, educação, recursos e apoio prático, mas os valores e as escolhas da sua família importam. O objetivo não é impor um jeito de alimentar, descansar, criar ou se recuperar. O objetivo é ajudar você a se sentir informada e apoiada nas decisões certas para você."
+      },
+      {
+        "q": "Onde você atende presencialmente?",
+        "a": "O apoio presencial está disponível na região de Boston, no norte de Massachusetts e no sul de New Hampshire, conforme a localização e a disponibilidade. Para famílias fora dessa área, o apoio online pode ser uma boa opção."
+      },
+      {
+        "q": "Posso contar com você antes de o bebê nascer?",
+        "a": "Sim! A Cora oferece preparação para o parto, cuidados com o recém-nascido, amamentação e preparação para o pós-parto. Esses encontros ajudam você a se sentir mais preparada antes da chegada do bebê e dão uma ideia mais clara de como podem ser o apoio, a recuperação, a alimentação e a vida com o bebê."
+      },
+      {
+        "q": "Uma doula ajuda mesmo que não seja meu primeiro bebê?",
+        "a": "Com certeza! Na Cora, apoiamos famílias que esperam o primeiro bebê e também as que já têm filhos mais velhos. Acreditamos que toda mãe e toda família merecem cuidado e apoio, não importa quantas vezes você já passou por isso."
+      },
+      {
+        "q": "Como sei qual serviço é o certo para mim?",
+        "a": "Comece pelo formulário. Depois que você contar um pouco do que precisa, marcamos uma conversa gratuita de 15 a 30 minutos. Nessa conversa, falamos sobre o momento em que você está, o que parece difícil ou confuso e que tipo de apoio faz mais sentido para a sua família."
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "\"Amor de cliente em breve..\"",
+    "text": "A Cora está reunindo histórias e relatos de clientes. Este espaço vai mostrar experiências reais de famílias que se sentiram apoiadas, mais descansadas, mais confiantes e menos sozinhas na gestação, no pós-parto e na vida com o recém-nascido.",
+    "label": "Depoimentos"
+  },
+  "footer": {
+    "title": "Você não precisa descobrir o pós-parto sozinha.",
+    "text": "Esteja você se preparando com antecedência ou já no meio da vida com um recém-nascido, aqui você encontra apoio. Assim que o formulário chegar, entro em contato para marcar uma conversa gratuita de 15 a 30 minutos.",
+    "cta": "Solicite uma conversa gratuita",
+    "fields": {
+      "name": "Nome",
+      "phone": "Telefone",
+      "email": "E-mail",
+      "contact": "Contato preferido, e-mail ou telefone",
+      "contactEmail": "E-mail",
+      "contactPhone": "Telefone",
+      "location": "Localização",
+      "date": "Previsão do parto ou nascimento do bebê",
+      "datePlaceholder": "DD/MM/AAAA",
+      "services": "Serviço(s) de interesse",
+      "servicesOptions": {
+        "unsure": "Ainda não sei que tipo de apoio preciso",
+        "inperson": "Apoio presencial no pós-parto",
+        "classes": "Aulas e apoio online",
+        "additional": "Cuidados complementares"
+      },
+      "support": "Que tipo de apoio você procura agora?",
+      "topics": "Há algum tema, recurso ou dica sobre o qual você gostaria de saber mais e em que eu possa ajudar?",
+      "three": "Se pudesse escolher pelo menos 3 coisas para se sentir preparada e fortalecida para o pós-parto, quais seriam?",
+      "anything": "Algo que queira me contar antes da conversa?"
+    },
+    "contact": {
+      "person": "Bruna Gomes, CPD, Educadora, Educadora em Lactação, Especialista em Placenta",
+      "brand": "Cora Perinatal Care",
+      "area": "Atendendo famílias em MA e NH",
+      "modes": "Apoio presencial e online",
+      "email": "E-mail: welcome@coraperinatalcare.com",
+      "emailAddress": "welcome@coraperinatalcare.com",
+      "phone": "Telefone: 781-835-6975",
+      "phoneNumber": "+17818356975",
+      "instagram": "Instagram @coraperinatalcare",
+      "instagramUrl": "https://www.instagram.com/coraperinatalcare"
+    },
+    "micro1": "Depois que você enviar o formulário, entro em contato para marcar uma conversa gratuita de 15 a 30 minutos. Esse primeiro papo é simplesmente um espaço e um tempo para eu entender o que você precisa e ver como posso apoiar você da melhor forma.",
+    "micro2": "Ao enviar este formulário, você concorda em receber newsletters e comunicações da Cora Perinatal Care. Você pode sair a qualquer momento respondendo \"STOP\".",
+    "form": {
+      "sending": "Enviando…",
+      "errors": {
+        "name": "Coloque o seu nome.",
+        "email": "Coloque o seu e-mail.",
+        "emailInvalid": "Confira o seu endereço de e-mail.",
+        "phone": "Coloque um telefone para eu falar com você.",
+        "check": "Confira este campo."
+      },
+      "success": {
+        "title": "Obrigada, {name}.",
+        "text": "Seu pedido chegou até mim. Vou entrar em contato para marcar a sua conversa gratuita de 15 a 30 minutos."
+      },
+      "failure": "Seu pedido não foi enviado. Tente de novo ou fale comigo direto:",
+      "emailCopy": "Suas respostas"
+    }
+  },
+  "notFound": {
+    "title": "Nem todo dia sai como planejado.",
+    "text": "Esta página também não: ela pode ter mudado de lugar, ou o link pode estar incompleto. O resto da Cora continua onde você deixou.",
+    "home": "Voltar para o início"
+  },
+  "alt": {
+    "heroSimbolo": "Cora: uma mãe segurando o bebê e um hibisco, desenhados numa linha contínua",
+    "amamentacao": "Bruna Gomes amamentando o filho mais novo num campo dourado",
+    "presencial01": "Bruna no sofá com uma mãe e o recém-nascido",
+    "presencial02": "Bruna apoiando uma mãe com o bebê no colo",
+    "presencial07": "Uma mãe beijando o bebê, com a Bruna ao lado",
+    "aulaParto": "Bruna ensinando com o modelo de pelve numa aula de preparação para o parto",
+    "aulaBebe": "Bruna ao lado de um recém-nascido deitado sob luz suave",
+    "aulaAmamentacao": "Bruna ensinando com o modelo de mama numa aula de amamentação",
+    "aulaPosParto": "Bruna conversando com uma mãe que segura o bebê",
+    "aulaOnline": "Bruna ao telefone na mesa de trabalho",
+    "carimbo": "Um carimbo de placenta em vermelho sobre papel",
+    "capsulas": "Um pote âmbar de cápsulas de placenta ao lado de pétalas de rosa secas",
+    "closing": "Uma mulher deitada enquanto um rebozo é erguido sobre ela num ritual de fechamento de quadril",
+    "retrato": "Bruna Gomes, doula pós-parto e fundadora da Cora Perinatal Care",
+    "brunaEscritorio": "Bruna Gomes sorrindo à mesa de trabalho, ao lado de uma estante com livros e um modelo de pelve"
+  },
+  "journal": {
+    "metaTitle": "The Cora Journal | Notas de pós-parto por Bruna Gomes",
+    "metaDescription": "Leituras curtas e calmas sobre recuperação, amamentação e cuidados com o recém-nascido, de uma doula pós-parto certificada em Massachusetts e New Hampshire.",
+    "eyebrow": "The Cora Journal",
+    "title": "Notas para a fase em que você está",
+    "titleEmphasis": "fase",
+    "intro": "Leituras curtas e calmas sobre recuperação, alimentação, cuidados com o recém-nascido e as partes do pós-parto que ninguém avisa. Escritas para serem lidas às três da manhã, com uma mão só, sem fazer você se sentir atrasada.",
+    "startHere": "Comece por aqui",
+    "readThis": "Ler este",
+    "readTime": "{minutes} min de leitura",
+    "filtersLabel": "Escolha um assunto",
+    "all": "Todas as notas",
+    "portuguese": "Em português",
+    "categories": {
+      "you-are-seen": "You are seen",
+      "what-no-one-told-you": "What no one told you",
+      "behind-cora": "Behind Cora",
+      "brazilian-roots": "Brazilian roots",
+      "where-to-start": "Where to start"
+    },
+    "loadMore": "Carregar mais artigos",
+    "shown": "{shown} de {total} notas",
+    "empty": "Em breve, mais sobre isso. Enquanto isso, explore o resto do The Cora Journal.",
+    "byline": "Escrito por Bruna Gomes, CPD",
+    "updated": "Atualizado em {date}",
+    "toc": "Nesta nota",
+    "lampOn": "Luz de abajur",
+    "lampHint": "Escurecer a página para ler à noite",
+    "back": "The Cora Journal",
+    "midCta": {
+      "text": "Não sabe bem que tipo de apoio você precisa? Você não precisa ter tudo resolvido. Vamos começar com uma conversa.",
+      "button": "Solicite uma conversa gratuita"
+    },
+    "endCta": {
+      "title": "Você não precisa resolver isso sozinha.",
+      "text": "Se algo aqui pareceu familiar, vamos conversar. A primeira conversa é gratuita, e você não precisa ter tudo resolvido antes de falarmos. Começamos de onde você está e seguimos a partir daí.",
+      "button": "Solicite uma conversa gratuita"
+    },
+    "scope": "Este artigo é educativo e não substitui o cuidado médico. Se algo não parecer certo com você ou com o seu bebê, procure seu obstetra, sua parteira, o pediatra ou uma consultora de amamentação. Se você estiver sofrendo emocionalmente, a National Maternal Mental Health Hotline atende pelo 1-833-TLC-MAMA, e o 988 Suicide and Crisis Lifeline atende a qualquer hora.",
+    "keepReading": "Continue lendo",
+    "author": {
+      "title": "Da Bruna",
+      "p1": "Oi! Eu sou a Bruna Gomes, doula pós-parto, educadora, especialista em placenta, mãe de três, esposa e brasileira-americana, vivendo entre duas culturas em Massachusetts.",
+      "p2": "Eu vivi o pós-parto três vezes, e cada fase me ensinou algo diferente sobre maternidade, recuperação e o tipo de apoio de que precisamos pelo caminho. No meu terceiro pós-parto, eu me vi procurando apoio e respostas no meio da noite. Eu queria uma informação calma, honesta e com os pés na vida real, não conselhos que me fizessem sentir que eu estava ficando para trás.",
+      "turn": "O The Cora Journal começou ali.",
+      "p3": "Estas notas vêm do que aprendi em todos os meus pós-partos, da maternidade e do apoio a famílias reais na gestação e no pós-parto.",
+      "p4": "Aqui não existe pós-parto perfeito. Só informação honesta, apoio prático e lembretes do que você não precisa carregar sozinha.",
+      "button": "Solicite uma conversa gratuita"
+    }
+  }
+}

@@ -1,26 +1,4704 @@
 @import "tailwindcss";
 
+/* =========================================================================
+   Cora Perinatal Care. Tokens em três camadas (design.md, seção 3).
+   Primitivo (fato da marca) > Semântico (papel) > Componente (uso).
+   Um tema só, claro. Papel não tem modo escuro.
+   ========================================================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* `only light`, e não apenas `light`. O celular escurece À FORÇA toda página que ele julga "só
+     clara": o Chrome no Android faz isso com o Auto Dark Theme, e o Samsung Internet faz por
+     PADRÃO, com um algoritmo próprio. Com `light` puro o site chegava invertido, o papel virando
+     marrom escuro (o Gabriel viu no aparelho em 2026-09-12). A palavra `only` é o opt-out
+     documentado. Papel não tem modo escuro: a marca é tinta sobre papel, e inverter isso destrói
+     a identidade e o contraste medido dos tokens acima. */
+  color-scheme: only light;
+
+  /* Primitivos: as quatro cores oficiais do vetor da logo, mais derivados */
+  --cora-tinta: #d44d1b;
+  --cora-brasa: #f28f54;
+  --cora-pessego: #fdd6b9;
+  --cora-papel: #fdf5de;
+  --cora-barro: #3b2015;
+  --cora-barro-70: #6b4a3c;
+  --cora-papel-2: #f7ecd2;
+  --cora-linha: #e9c9a8;
+  /* Derivados da tinta por CONTRASTE (medido em 2026-09-11): a terracota da logo sobre o papel dá
+     3,96:1 e reprova para texto de corpo (a régua é 4,5:1). Ela segue intacta em linha, ícone,
+     campo e título grande; estes dois tons entram só onde há letra pequena. */
+  --cora-tinta-funda: #b84217; /* fundo do botão: papel sobre ela, 5,04:1 */
+  --cora-tinta-letra: #a53b13; /* letra pequena em tinta: 5,96 no papel, 5,52 no papel-2, 4,79 no pêssego */
+
+  /* Semânticos */
+  --bg: var(--cora-papel);
+  --bg-leitura: var(--cora-papel-2);
+  --bg-destaque: var(--cora-pessego);
+  --bg-climax: var(--cora-tinta);
+  --ink: var(--cora-tinta);
+  --ink-hover: var(--cora-brasa);
+  --ink-cheio: var(--cora-tinta-funda); /* tinta como FUNDO de texto em papel */
+  --ink-letra: var(--cora-tinta-letra); /* tinta como LETRA pequena */
+  --text: var(--cora-barro);
+  --text-muted: var(--cora-barro-70);
+  --text-on-ink: var(--cora-papel);
+  --hairline: var(--cora-linha);
+  --focus-ring: 0 0 0 3px rgb(212 77 27 / 0.35);
+
+  /* Escala de espaço (grade de 8pt) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-14: 56px;
+  --spacing-section: clamp(var(--space-14), 8vw, 120px);
+  --gutter: clamp(20px, 5vw, 80px);
+  --measure: 62ch;
+
+  /* Raio (sistema travado: pílula, 16, zero) */
+  --radius-card: 16px;
+  --radius-arco: 999px;
+  --radius-pill: 100px;
+
+  /* Tipografia: papéis e escala fluida (design.md, seção 4) */
+  --font-display: var(--font-gambetta), Georgia, serif;
+  --font-body: var(--font-general-sans), system-ui, sans-serif;
+  --fs-hero: clamp(2.25rem, 1.4rem + 3vw, 3.625rem);
+  --fs-secao: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+  --fs-item: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  --fs-corpo-grande: clamp(1.125rem, 1.05rem + 0.3vw, 1.3125rem);
+  --fs-corpo: 1rem;
+  --fs-apoio: 0.875rem;
+  --lh-hero: 1.05;
+  --lh-display: 1.1;
+  --lh-body: 1.6;
+
+  /* Componente */
+  --button-bg: var(--ink-cheio);
+  --button-text: var(--text-on-ink);
+  --button-hover-bg: var(--ink-hover);
+  --button-h-mobile: 52px;
+  --button-h: 48px;
+  --card-line: var(--ink);
+  --card-bg-destaque: var(--bg-destaque);
+  --field-line: var(--hairline);
+  --field-line-focus: var(--ink);
+  --nav-h: 64px;
+  --linha: 1.5px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --fs-corpo: 1.0625rem;
+    --nav-h: 72px;
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-papel: var(--cora-papel);
+  --color-papel-2: var(--cora-papel-2);
+  --color-pessego: var(--cora-pessego);
+  --color-tinta: var(--cora-tinta);
+  --color-brasa: var(--cora-brasa);
+  --color-barro: var(--cora-barro);
+  --color-barro-70: var(--cora-barro-70);
+  --color-linha: var(--cora-linha);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --radius-card: var(--radius-card);
+  --radius-pill: var(--radius-pill);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Tudo abaixo vive em @layer components para as utilidades do Tailwind (md:hidden etc.) vencerem. */
+@layer components {
+/* ------------------------------------------------------------------------- */
+/* Base                                                                       */
+/* ------------------------------------------------------------------------- */
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--fs-corpo);
+  line-height: var(--lh-body);
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--lh-display);
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--fs-hero);
+  line-height: var(--lh-hero);
+}
+
+h2 {
+  font-size: var(--fs-secao);
+}
+
+h3 {
+  font-size: var(--fs-item);
+}
+
+/* Corpo de texto: o navegador reequilibra as últimas linhas. É a metade 1 da regra de órfãs; a
+   metade 2 é o espaço inflexível colado no carregamento da copy (lib/tipografia.ts). Rótulo de
+   formulário entrou em 2026-09-11: duas perguntas do formulário terminavam em duas palavras curtas. */
+p,
+li,
+dd,
+dt,
+label,
+legend,
+figcaption,
+blockquote {
+  text-wrap: pretty;
+}
+
+p {
+  margin: 0;
+  max-width: var(--measure);
+}
+
+/* A palavra em itálico: a terceira voz, em microdose (design.md, seção 4) */
+.enfase {
+  font-style: italic;
+  color: var(--ink);
+  padding-bottom: 0.08em; /* reserva para descendentes da itálica */
+}
+
+/* Foco visível em tudo que é interativo, sempre em tinta */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 4px;
+}
+
+/* Grão de papel: o único efeito decorativo do site. Estático, fixo, 0.025.
+   SÓ DO TABLET PARA CIMA. É uma camada fixa do tamanho da tela, por cima de tudo, e o compositor a
+   mistura em cada quadro de rolagem: num Android fraco isso é peso puro para um efeito de 2,5% de
+   opacidade que ninguém enxerga numa tela de 6 polegadas. A regra do CLAUDE.md é essa: no celular
+   se corta PESO decorativo, nunca o movimento. */
+@media (min-width: 700px) {
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* ------------------------------------------------------------------------- */
+/* Componentes-assinatura, estado parado (o movimento entra no Passe 3)       */
+/* ------------------------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.secao {
+  padding-block: var(--spacing-section);
+  position: relative;
+}
+
+/* Ritmo: duas seções de papel vizinhas não somam dois respiros. A que tem campo de cor
+   (pêssego, papel-2, tinta) guarda o respiro inteiro dentro do campo; a que vem depois de um
+   campo de cor respira um pouco mais que a vizinha de papel. */
+.secao + .secao:not(:has(> [class^="campo-"])):not(.secao-cena) {
+  padding-top: calc(var(--spacing-section) * 0.25);
+}
+
+.secao:has(> [class^="campo-"]) + .secao:not(:has(> [class^="campo-"])):not(.secao-cena) {
+  padding-top: calc(var(--spacing-section) * 0.6);
+}
+
+/* Seção que é cena presa (GSAP) cuida do próprio respiro dentro da cena */
+.secao-cena {
+  padding-block: 0;
+}
+
+/* Botão primário: pílula sólida de tinta (design.md, seção 6) */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--button-h-mobile);
+  width: 100%;
+  /* NO CELULAR O RÓTULO PODE IR PARA DUAS LINHAS, e só quando não cabe em uma. MEDIDO em
+     2026-09-11: com o rótulo preso numa linha e 32px de respiro, "Get to know your options for
+     support" media 354px e passava da coluna já em 375 e 390; a 320, quatro botões empurravam a
+     grade da seção para fora da tela e a borda direita da pílula era cortada. A copy é da
+     cliente e não encurta; no desktop o rótulo volta a uma linha só (regra de CTA). */
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--button-bg);
+  color: var(--button-text);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1.0625rem;
+  line-height: 1.25;
+  text-align: center;
+  text-wrap: balance;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  transition:
+    background-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* CELULAR ESTREITO, e Android com a fonte do sistema aumentada: o rótulo cabe em uma linha por
+   muito mais tempo. MEDIDO em 2026-09-11, a 320px: com 20px de respiro e 17px de letra, seis
+   rótulos iam para duas linhas nos dois idiomas ("Pergunte sobre o apoio pós-parto", "Conheça as
+   suas opções de apoio", "Ask about postpartum support"...); com 16px de respiro e 16px de letra,
+   todos voltam para uma linha. Quando ainda assim não couber, porque o aparelho aumenta a fonte, as
+   duas linhas saem equilibradas e a pílula cresce, em vez de o texto ficar espremido. De 400px para
+   cima nada muda: lá o rótulo já sobra na pílula aprovada. */
+@media (max-width: 399px) {
+  .botao {
+    padding-inline: var(--space-4);
+    font-size: 1rem;
+  }
+}
+
+.botao:hover {
+  background: var(--button-hover-bg);
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+.botao:active {
+  transform: scale(0.98);
+}
+
+@media (min-width: 768px) {
+  .botao {
+    width: auto;
+    min-height: var(--button-h);
+    justify-self: start;
+    padding: 0 var(--space-8);
+    line-height: 1;
+    white-space: nowrap;
+  }
+}
+
+/* Botão secundário: link com a linha embaixo */
+.link-linha {
+  display: inline-block;
+  position: relative;
+  color: var(--text);
+  font-weight: 500;
+  text-decoration: none;
+  padding-block: var(--space-3);
+  min-height: 44px;
+}
+
+.link-linha::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: var(--space-2);
+  height: var(--linha);
+  width: 2.5em;
+  background: var(--ink);
+  transition: width 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-linha:hover::after {
+  width: 100%;
+}
+
+/* O indicador de abrir e fechar (design.md, seção 5, item 4): um traço que ganha o segundo traço,
+   vira o mais e gira 45 graus ao abrir. Vive no "Read more" das seções 3, 6 e 9. */
+.acordeao-indicador {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  align-self: center;
+}
+
+.acordeao-indicador::before,
+.acordeao-indicador::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  background: var(--ink);
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.acordeao-indicador::before {
+  width: 18px;
+  height: var(--linha);
+}
+
+.acordeao-indicador::after {
+  width: var(--linha);
+  height: 18px;
+}
+
+/* Listas: texto corrido, os itens separados pelo arco-linha (a forma-assinatura deitada),
+   como a linha de assuntos de uma revista. Continua sendo <ul> para o leitor de tela.
+   Sem marcador de bala, sem traço, sem pílula: um terço da altura das pílulas. */
+/* ---- A LISTA DE ITENS ----
+   ATÉ 2026-09-23 ELA ERA CORRIDA: os itens em `display: inline`, separados pelo filete da marca,
+   como uma frase só. A Bruna pediu, nas duas seções onde ela aparece, "um embaixo do outro, ao
+   invés de um do lado do outro", e explicou o porquê melhor do que eu explicaria: "fica mais fácil
+   de ler e ver a separação quando se tem um pouco de espaço entre um marcador e outro".
+   O filete continua o mesmo, só mudou de papel: era SEPARADOR entre itens, virou MARCADOR de cada
+   item, que é como ele já era usado na escada de pacotes. */
+.lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+  color: var(--text);
+}
+
+.lista li {
+  position: relative;
+  padding-left: 26px;
+}
+
+.lista li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 15px;
+  height: 8px;
+  background: var(--ink);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8'%3E%3Cpath d='M1 1.5c2.5 5 11.5 5 14 0' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8'%3E%3Cpath d='M1 1.5c2.5 5 11.5 5 14 0' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* DUAS COLUNAS no desktop, e é ela quem sugeriu: "se não couber, tem como colocar em duas
+   colunas?". Multi-coluna do CSS, e não grade: a grade encheria linha a linha e a leitura
+   atravessaria a página; aqui a coluna da esquerda se completa antes de a direita começar, que é
+   como se lê uma lista. */
+@media (min-width: 900px) {
+  .lista {
+    display: block;
+    columns: 2;
+    column-gap: var(--space-10);
+  }
+
+  .lista li {
+    break-inside: avoid;
+    margin-bottom: var(--space-3);
+  }
+}
+
+/* o valor de entrada, fora da lista e fechando a leitura */
+.cena-preco {
+  margin-top: var(--space-5);
+  font-size: var(--fs-corpo-grande);
+  color: var(--ink-letra);
+  font-weight: 500;
+}
+
+/* Formulário: sem caixa, só a linha inferior (design.md, forma-assinatura 5). No foco, uma linha de
+   tinta SE DESENHA da esquerda para a direita por cima da linha de apoio. Campo de texto não aceita
+   pseudo-elemento, então a linha mora no invólucro `.campo-controle`. */
+.campo {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+}
+
+fieldset.campo {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.campo label,
+.campo-legenda {
+  font-weight: 500;
+  font-size: var(--fs-apoio);
+}
+
+.campo-legenda {
+  padding: 0;
+  margin-bottom: var(--space-2);
+}
+
+.campo-controle {
+  position: relative;
+  display: block;
+}
+
+.campo-controle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--linha);
+  background: var(--field-line-focus);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.campo-controle:focus-within::after,
+.campo[data-erro="true"] .campo-controle::after {
+  transform: scaleX(1);
+}
+
+.campo input:not([type="radio"]),
+.campo select,
+.campo textarea {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--field-line);
+  border-radius: 0;
+  padding: var(--space-3) 0;
+  min-height: 44px;
+  font: inherit;
+  color: var(--text);
+}
+
+/* o foco dos campos de texto é a linha que se desenha, não o anel */
+.campo input:not([type="radio"]):focus-visible,
+.campo select:focus-visible,
+.campo textarea:focus-visible {
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.campo textarea {
+  min-height: 64px;
+  resize: vertical;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: var(--ink);
+  width: 20px;
+  height: 20px;
+}
+
+.campo-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--space-6);
+}
+
+.campo-opcao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* O erro: texto em barro, ícone e linha em tinta. Nunca só cor, e nunca texto pequeno em tinta
+   (tinta sobre papel mede 3,96:1, abaixo da régua de 4,5:1 do corpo). */
+.campo-erro {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--fs-apoio);
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.campo-erro svg {
+  flex: none;
+  margin-top: 0.1em;
+  color: var(--ink);
+}
+
+.campo .ajuda {
+  font-size: var(--fs-apoio);
+  color: var(--text-muted);
+}
+
+/* Trilho: no mobile os cards andam na horizontal com scroll-snap nativo (sem sequestro de
+   rolagem); a partir de 900px voltam a ser grade. Regra do Gabriel: seção não cresce na vertical. */
+.trilho {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  margin-inline: calc(-1 * var(--gutter));
+  padding-inline: var(--gutter);
+  padding-bottom: var(--space-2);
+  scrollbar-width: none;
+}
+
+.trilho::-webkit-scrollbar {
+  display: none;
+}
+
+.trilho > * {
+  flex: 0 0 min(84vw, 380px);
+  scroll-snap-align: start;
+}
+
+@media (min-width: 900px) {
+  .trilho {
+    display: grid;
+    overflow: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+    padding-bottom: 0;
+  }
+  .trilho > * {
+    flex: initial;
+  }
+}
+
+/* Utilidades pequenas */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.texto-apoio {
+  color: var(--text-muted);
+  font-size: var(--fs-apoio);
+  /* Nota curta (uma a três linhas): em balance as linhas se igualam e a última nunca fica
+     raquítica. MEDIDO a 1440px: a nota da mesa terminava em "postpartum support." com 27% da
+     largura; as duas palavras passam do teto de 18 caracteres da cola, então só o balance resolve. */
+  text-wrap: balance;
+}
+
+.corpo-grande {
+  font-size: var(--fs-corpo-grande);
+}
+
+/* =========================================================================
+   Layout por seção (Passe 1, esqueleto mudo). Mobile primeiro.
+   Camadas declaradas na marcação: data-camada="fundo|meio|frente".
+   ========================================================================= */
+
+/* Logo inline: o SVG preenche a altura do wrapper e herda a cor */
+.logo svg {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+.logo-papel {
+  color: var(--cora-papel) !important;
+}
+
+/* ---- Navbar (Passe 2): Hide On Scroll, Menu Toggle Icon e Drawer ----
+   A casca é do GSAP (sai quando uma cena presa toma a tela); o corpo é do Motion (sai ao descer).
+   A casca não pega clique: quando o corpo sobe, o toque passa direto para a página. */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  height: var(--nav-h);
+  pointer-events: none;
+}
+
+.navbar-corpo {
+  position: relative;
+  height: 100%;
+  background: var(--bg);
+  pointer-events: auto;
+}
+
+/* o fio da marca, só quando a barra flutua sobre o conteúdo (a opacidade é do Motion) */
+.navbar-fio {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--hairline);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* CENA IMERSIVA. Enquanto uma cena está PRESA, a página não rola: quem rola é a cena. Manter a
+   barra de navegação e o botão fixo por cima nesse trecho custa 132px de tela no celular, que é
+   exatamente a diferença entre uma foto presente e uma foto de selo. Eles saem na entrada da
+   cena e voltam na saída. A cena tem barra de progresso e um traço por capítulo, então a pessoa
+   nunca perde a noção de onde está. */
+/* A barra de navegação sai e volta pelo GSAP, não por transição de CSS: a transição ficava um
+   passo atrás do estado real e a barra sumia na hero e aparecia na cena presa, o contrário do
+   que se quer. Ver MovimentoProvider. */
+
+html.cena-imersiva .cta-fixo[data-visivel="true"] {
+  transform: translateY(calc(100% + var(--space-6)));
+}
+
+/* com a gaveta do menu aberta, o botão fixo sai: duas pílulas no pé da tela disputariam o toque */
+html.menu-aberto .cta-fixo[data-visivel="true"] {
+  transform: translateY(calc(100% + var(--space-6)));
+}
+
+.navbar-inner {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .navbar-inner {
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-8);
+  }
+}
+
+.navbar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+}
+
+@media (min-width: 768px) {
+  .navbar-logo {
+    justify-content: flex-start;
+  }
+  .navbar nav {
+    justify-content: center;
+  }
+}
+
+.navbar-link {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  padding: var(--space-3) 0;
+  position: relative;
+  /* "FAQ" media 34px de largura (prova-no-aparelho, 2026-09-23): o alvo nunca fica abaixo de 44 */
+  min-width: 44px;
+  text-align: center;
+}
+
+.navbar-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: var(--space-1);
+  height: var(--linha);
+  width: 0;
+  background: var(--ink);
+  transition: width 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar-link:hover::after {
+  width: 100%;
+}
+
+/* o botão do menu, na barra e dentro da gaveta, no MESMO lugar: o X aparece onde estava o
+   hambúrguer */
+.hamburguer {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.hamburguer-icone {
+  width: 30px;
+  height: 30px;
+}
+
+/* ---- Menu Toggle Icon (21st.dev 8718): a animação do autor, em classes do projeto ---- */
+.menu-toggle {
+  transition: transform var(--menu-toggle-duracao, 500ms) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-toggle-aberto {
+  transform: rotate(-45deg);
+}
+
+.menu-toggle-traco {
+  stroke-dasharray: 12 63;
+  transition:
+    stroke-dasharray var(--menu-toggle-duracao, 500ms) cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset var(--menu-toggle-duracao, 500ms) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-toggle-aberto .menu-toggle-traco {
+  stroke-dasharray: 20 300;
+  stroke-dashoffset: -32.42px;
+}
+
+/* ---- Drawer (21st.dev 11444): a gaveta do celular ----
+   A curva e o arrasto são os do autor: o fundo esmaece junto com o arrasto e o painel segue o
+   dedo. Papel, fio de tinta na borda, links em Gambetta, a pílula ao pé. */
+.gaveta-veu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgb(59 32 21 / 0.28);
+  opacity: calc(1 - var(--drawer-swipe-progress, 0));
+  transition: opacity 450ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.gaveta-veu[data-starting-style],
+.gaveta-veu[data-ending-style] {
+  opacity: 0;
+}
+
+.gaveta-veu[data-ending-style] {
+  transition-duration: calc(var(--drawer-swipe-strength, 1) * 400ms);
+}
+
+.gaveta-veu[data-swiping] {
+  transition-duration: 0ms;
+}
+
+.gaveta-janela {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: flex-start;
+  touch-action: none;
+}
+
+.gaveta-painel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 84%;
+  max-width: 400px;
+  height: 100%;
+  padding: 0 var(--gutter) calc(var(--space-6) + env(safe-area-inset-bottom));
+  background: var(--bg);
+  border-right: var(--linha) solid var(--ink);
+  outline: none;
+  touch-action: none;
+  transform: translateX(var(--drawer-swipe-movement-x, 0px));
+  transition: transform 450ms cubic-bezier(0.32, 0.72, 0, 1);
+  will-change: transform;
+}
+
+.gaveta-painel[data-starting-style],
+.gaveta-painel[data-ending-style] {
+  transform: translateX(-100%);
+}
+
+.gaveta-painel[data-ending-style] {
+  transition-duration: calc(var(--drawer-swipe-strength, 1) * 400ms);
+}
+
+/* no arrasto, o painel acompanha o dedo sem atraso */
+.gaveta-painel[data-swiping] {
+  transition-duration: 0ms;
+  user-select: none;
+}
+
+.gaveta-topo {
+  display: flex;
+  align-items: center;
+  height: var(--nav-h);
+}
+
+.gaveta-links {
+  list-style: none;
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.gaveta-links a {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-secao);
+  line-height: var(--lh-display);
+  color: var(--text);
+  text-decoration: none;
+  padding: var(--space-3) 0;
+}
+
+.gaveta-pe {
+  margin-top: auto;
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* o idioma na gaveta, logo acima da pílula (pedido do Gabriel, 2026-09-11): o mesmo par do rodapé,
+   com o fio de separação e o idioma atual com a linha já estendida */
+.gaveta-idioma {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--space-3);
+  border-top: 1px solid var(--hairline);
+}
+
+.gaveta-idioma [aria-current="true"]::after {
+  width: 100%;
+}
+
+/* ---- Hero (pico 1), v4: "o desenho vira foto", o mundo da logo ---- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  padding-top: calc(var(--nav-h) + var(--space-6));
+  padding-bottom: var(--space-8);
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+}
+
+/* fundo: a placa do jardim desenhado, 9:16 no mobile e 16:9 no desktop */
+.hero-plate {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-plate picture,
+.hero-plate-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-plate-img {
+  object-fit: cover;
+  object-position: 50% 100%;
+}
+
+/* o véu de papel: a zona do texto fica limpa, o jardim continua nas bordas */
+.hero-veu {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgb(253 245 222 / 0.96) 0%, rgb(253 245 222 / 0.9) 42%, rgb(253 245 222 / 0.55) 58%, rgb(253 245 222 / 0) 72%);
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--space-6);
+  align-content: start;
+}
+
+.hero-texto {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: var(--space-5);
+  align-content: start;
+  max-width: 44rem;
+}
+
+/* A HEADLINE DA HERO NO CELULAR: no máximo três linhas (pedido do Gabriel, 2026-09-11). No piso de
+   36px da escala ela quebrava em quatro linhas nos celulares, e desorganizada. Aqui o tamanho
+   acompanha a LARGURA DA COLUNA (a tela menos as duas margens), então a composição é a mesma em
+   todo celular, de 320 a 430px: três linhas, nos dois idiomas, no mesmo tamanho. O fator foi
+   medido a 390px: três linhas até 0,0936 da coluna no inglês e 0,0979 no português; 0,091 deixa
+   folga para a métrica de outro navegador. Do tablet para cima, o min() devolve a escala de
+   sempre. */
+.hero-texto h1 {
+  font-size: min(var(--fs-hero), calc((100vw - 2 * var(--gutter)) * 0.091));
+}
+
+.hero-paragrafo {
+  max-width: 34rem;
+  font-size: var(--fs-corpo);
+}
+
+/* NO COMPUTADOR ELES CONTINUAM EMPILHADOS, e isso é decisão da Bruna: "no computador fica desse
+   jeito, mas no celular não ficar assim". O desktop está aprovado, não se mexe. */
+.hero-acoes {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+
+/* NO CELULAR os dois na mesma linha (pedido dela, 2026-09-23).
+   A CONTA, medida a 390px: a pílula com "Request a complimentary call" pede 250px e o link "See
+   our services" pede 122px; com o respiro, 392px numa coluna de 350. Não cabe em uma linha de
+   texto, então a pílula fica com o que sobra e o rótulo dela quebra em duas linhas, numa pílula
+   mais alta. O projeto já aceita isso desde 2026-09-11 ("duas linhas equilibradas leem como
+   desenho, não como defeito"), e é o preço de ter os dois lado a lado como ela pediu. */
+@media (max-width: 767px) {
+  .hero-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-4);
+  }
+
+  .hero-acoes .botao {
+    width: auto;
+    flex: 1 1 190px;
+  }
+
+  .hero-acoes .link-linha {
+    flex: 0 0 auto;
+  }
+}
+
+/* meio: o símbolo da logo, a mãe com o bebê, em vetor e em tinta.
+   Centralizado na própria linha: colado no pé, ele descia demais em telas altas e abria um vão
+   entre o texto e ele. */
+.hero-figura {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+}
+
+/* um lavado de papel atrás do símbolo, para linha não brigar com linha */
+.hero-figura::before {
+  content: "";
+  position: absolute;
+  inset: -12% -18%;
+  background: radial-gradient(ellipse at 50% 55%, rgb(253 245 222 / 0.95) 0%, rgb(253 245 222 / 0.8) 45%, rgb(253 245 222 / 0) 72%);
+  z-index: -1;
+}
+
+/* a altura sai da tela, não de um número fixo: a 34svh o símbolo estourava a hero num celular
+   de 812px e a base do desenho ficava cortada pela dobra */
+.hero-simbolo {
+  height: min(29svh, 290px) !important;
+}
+
+/* ---- A CAMADA DA FRENTE DA HERO: hibiscos e borboletas (movimento.md, Pico 1) ----
+   Os hibiscos são CANTO, não moldura: o Gabriel reprovou a versão em que a flor dominava a
+   cena, e ele tinha razão. Aqui elas sangram pelas bordas de baixo e deixam o centro livre para
+   a headline e para o símbolo da marca. */
+/* duas camadas, duas profundidades: a flor fica ATRÁS do conteúdo e a borboleta NA FRENTE */
+.hero-flores {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  /* A camada se DISSOLVE antes da fronteira da seção. Sem isso a aquarela é cortada em cheio
+     pela borda de baixo da hero e aparece uma faixa reta atravessando a tela, como uma imagem
+     colada por cima. O véu de papel da hero já usa esta mesma linguagem no alto. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 86%, transparent 100%);
+}
+
+.hero-borboletas {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* No celular a flor é medida pela ALTURA DA TELA e ancorada pelo TOPO, com 12vh de material
+   sobrando abaixo da dobra. É esse excedente que impede a borda reta da imagem de entrar em
+   quadro quando a camada sobe no parallax: era isso que aparecia como um retângulo cortado no
+   fim da hero. */
+.hero-flor {
+  position: absolute;
+  height: 42vh;
+  width: auto;
+  /* o img global tem max-width: 100%, que aqui esmagaria a flor contra a caixa */
+  max-width: none;
+  will-change: transform, opacity;
+}
+
+/* No celular as flores formam um CANTEIRO no pé da tela, com o símbolo da marca plantado nele.
+   Ancoradas na borda de baixo com sobra negativa elas ficavam quase todas fora de quadro numa
+   tela alta, que foi o que o Gabriel viu num iPhone Pro Max. */
+.hero-flor-esq {
+  left: -28%;
+  top: 70%;
+  opacity: 0.9;
+}
+
+.hero-flor-dir {
+  right: -22%;
+  top: 74%;
+  opacity: 0.84;
+}
+
+.borboleta-hero-a {
+  right: 5%;
+  top: 65%;
+  width: 62px;
+  opacity: 0.92;
+}
+
+.borboleta-hero-b {
+  left: 4%;
+  top: 71%;
+  width: 48px;
+  opacity: 0.8;
+  filter: saturate(0.92);
+}
+
+@media (min-width: 768px) {
+  /* A ZONA LIVRE do desktop é a faixa de baixo: o texto ocupa a esquerda até uns 690px de
+     altura e o símbolo ocupa a direita. As flores entram por ali, grandes o bastante para se
+     reconhecerem como hibisco, e sangram pelas bordas. */
+  /* No desktop a flor volta a ser medida pela largura e ancorada pelo pé, com bastante material
+     abaixo da dobra pelo mesmo motivo. */
+  .hero-flor {
+    height: auto;
+  }
+  .hero-flor-esq {
+    left: -3%;
+    top: auto;
+    bottom: -18%;
+    width: 34vw;
+    max-width: 520px;
+  }
+  .hero-flor-dir {
+    right: -4%;
+    top: auto;
+    bottom: -24%;
+    width: 38vw;
+    max-width: 580px;
+  }
+  .borboleta-hero-a {
+    right: 7%;
+    top: 15%;
+    width: 104px;
+  }
+  .borboleta-hero-b {
+    left: auto;
+    right: 34%;
+    top: 8%;
+    width: 80px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .borboleta-hero-a {
+    right: 8%;
+    width: 118px;
+  }
+  .borboleta-hero-b {
+    right: 36%;
+    width: 92px;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero {
+    min-height: 720px;
+    height: 100svh;
+    padding-top: var(--nav-h);
+    padding-bottom: 0;
+  }
+  .hero-plate-img {
+    object-position: 50% 60%;
+  }
+  .hero-veu {
+    background: linear-gradient(to right, rgb(253 245 222 / 0.96) 0%, rgb(253 245 222 / 0.92) 34%, rgb(253 245 222 / 0.6) 50%, rgb(253 245 222 / 0) 66%);
+  }
+  .hero-grid {
+    /* em fr e não em %: 56% + 44% + o vão passavam de 100% e empurravam o símbolo 32px para fora
+       da coluna (a 768px, 2px do desenho eram cortados pela borda da tela) */
+    grid-template-columns: minmax(0, 56fr) minmax(0, 44fr);
+    grid-template-rows: 1fr;
+    align-items: center;
+    gap: var(--space-8);
+    height: 100%;
+  }
+  .hero-texto {
+    padding-block: var(--space-16);
+  }
+  .hero-paragrafo {
+    font-size: var(--fs-corpo-grande);
+  }
+  .hero-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--space-4) var(--space-8);
+  }
+  .hero-acoes .link-linha {
+    white-space: nowrap;
+  }
+  .hero-figura {
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  .hero-simbolo {
+    height: min(56vh, 500px) !important;
+  }
+}
+
+﻿/* ---- Historia e Mission: "o retrato" (secoes 9 e 10) ----
+   O retrato FICA e a historia PASSA: no desktop a foto e coluna fixa, porque sao 2.065
+   caracteres de leitura e a foto dela tem que acompanhar todos. Coluna fixa tambem nao abre
+   buraco, licao que a secao 6 cobrou caro. */
+.secao-retrato {
+  position: relative;
+}
+
+.retrato-grade {
+  display: grid;
+  gap: var(--space-8);
+}
+
+/* ---- o quadro: o arco da marca em volta dela ---- */
+.retrato-quadro {
+  position: relative;
+  margin: 0;
+  padding: var(--space-3);
+  width: 100%;
+}
+
+.retrato-arco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.retrato-arco-traco {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: var(--linha);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.retrato-foto {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  /* a mesma meia-volta do arco, para a foto encher a forma em vez de ficar retangulo dentro */
+  border-radius: 999px 999px var(--radius-card) var(--radius-card);
+  overflow: hidden;
+  background: var(--bg-leitura);
+  will-change: clip-path;
+}
+
+.retrato-foto img {
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* ---- o texto ---- */
+.retrato-texto {
+  display: grid;
+  gap: var(--space-5);
+  align-content: start;
+  min-width: 0;
+}
+
+.retrato-titulo {
+  max-width: 18ch;
+  text-wrap: balance;
+  margin-bottom: var(--space-2);
+}
+
+.retrato-linha {
+  display: block;
+  will-change: transform;
+}
+
+.retrato-texto p {
+  max-width: 64ch;
+  will-change: transform, opacity;
+}
+
+/* O NOME DENTRO DA PALAVRA: "Cora" acende dentro de "coracao", que e exatamente o que a copy
+   dela diz em voz alta. Detalhe que so este cliente pode ter. */
+.palavra-coracao {
+  white-space: nowrap;
+  /* ITALICO A PEDIDO DA BRUNA (2026-09-23), nas duas revisoes. A italica verdadeira da Gambetta
+     e a terceira voz da marca, e "coracao" e justamente a palavra portuguesa dentro da frase em
+     ingles: o italico e a convencao tipografica para palavra estrangeira, entao aqui ele nao e
+     so enfeite, e a regra certa. */
+  font-style: italic;
+}
+
+.palavra-cora {
+  color: var(--ink-letra);
+  font-weight: 500;
+}
+
+/* ---- O "READ MORE" DA HISTORIA: SO NO CELULAR ----
+   No desktop a altura da secao vem da coluna FIXA da foto, nao do texto, entao esconder metade
+   da historia la economizava 218px e custava uma interacao no meio de uma leitura pessoal. No
+   celular nao ha foto ao lado: ali o texto E a altura.
+   O resto fica SEMPRE na marcacao e quem decide e o CSS. Assim o desktop nao tem estado nenhum
+   para piscar na hidratacao, e o buscador le os quatro paragrafos sempre. */
+.retrato-resto {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 420ms ease;
+}
+
+.retrato-resto[data-aberto="true"] {
+  grid-template-rows: 1fr;
+}
+
+/* a caixa interna com min-height zero e o que faz o truque do 0fr para 1fr funcionar */
+.retrato-resto-corpo {
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  gap: var(--space-5);
+}
+
+.retrato-mais {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--fs-apoio);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.retrato-mais .acordeao-indicador {
+  width: 18px;
+  height: 18px;
+}
+
+/* a linha do botao: o "Read more" e, no vao a direita, as borboletas voando no lugar */
+.retrato-mais-linha {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.borboletas-mais {
+  position: relative;
+  flex: 1 1 auto;
+  height: 44px;
+  min-width: 0;
+  pointer-events: none;
+}
+
+.borboletas-mais .borboleta {
+  position: absolute;
+  top: 50%;
+  margin-top: -16px;
+  will-change: transform;
+}
+
+.voo-a {
+  left: 22%;
+  width: 32px;
+  opacity: 0.95;
+}
+
+.voo-b {
+  left: 58%;
+  width: 26px;
+  margin-top: -10px !important;
+  opacity: 0.82;
+  filter: saturate(0.92);
+}
+
+.retrato-mais:hover .acordeao-indicador {
+  transform: rotate(90deg);
+}
+
+/* ---- o fecho: a frase mais forte do roteiro ---- */
+.retrato-fecho {
+  position: relative;
+}
+
+/* a parte de baixo da secao: frase de fecho, Mission e convite. No desktop vira duas colunas,
+   e a da direita e o trilho das borboletas. O respiro de cima mora AQUI (e nao na frase) para
+   as duas colunas comecarem na mesma altura, a da frase. */
+.retrato-baixo {
+  display: grid;
+  margin-top: var(--spacing-section);
+}
+
+.retrato-baixo-texto {
+  display: grid;
+  min-width: 0;
+}
+
+/* ---- AS BORBOLETAS QUE ACOMPANHAM A LEITURA (so no desktop) ----
+   No desktop a frase de fecho, a Mission e o botao ocupam a metade esquerda, e a direita
+   sobrava um vao do tamanho da secao. Ele agora tem dono: as borboletas que voam desde a hero
+   descem junto com quem le, da frase ate o fim, e sobem de volta quando a pessoa sobe. No
+   celular a coluna ja e cheia; la elas voam ao lado do "Read more". */
+.pouso {
+  display: none;
+}
+
+.fecho-frase {
+  font-size: var(--fs-item);
+  line-height: var(--lh-display);
+  max-width: 22ch;
+  color: var(--text);
+}
+
+/* ---- a Mission: fecha a historia, em terceira pessoa, sem titulo ---- */
+.missao-bloco {
+  margin-top: var(--spacing-section);
+  display: grid;
+  gap: var(--space-5);
+  max-width: 68ch;
+  will-change: transform, opacity;
+}
+
+.missao-fio {
+  display: block;
+  width: 72px;
+  height: var(--linha);
+  background: var(--ink);
+}
+
+.missao-texto {
+  font-size: var(--fs-corpo-grande);
+  line-height: 1.7;
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+
+.retrato-acoes {
+  margin-top: var(--space-10);
+}
+
+.retrato-cta {
+  justify-self: start;
+}
+
+/* ---- Text Reveal (Mask), 21st.dev 19257: a passada de tokens ----
+   O autor entregou tudo em utilitaria do Tailwind. Aqui as classes estruturais viram CSS do
+   projeto. A REGRA DE OURO deste bloco: `.realce` (usado no plano invisivel de medicao) e
+   `strong` (usado no texto visivel) precisam ter a MESMA METRICA, senao a conta das linhas
+   erra e a mascara corta no lugar errado. */
+.reveal-raiz {
+  position: relative;
+  width: 100%;
+}
+
+.reveal-medida {
+  position: fixed;
+  top: 0;
+  left: -9999px;
+  display: block;
+  visibility: hidden;
+  pointer-events: none;
+  overflow-wrap: break-word;
+}
+
+.reveal-texto {
+  display: block;
+  overflow-wrap: break-word;
+  contain: layout style paint;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.reveal-aguardando {
+  visibility: hidden;
+}
+
+.reveal-linha {
+  display: block;
+  overflow: hidden;
+  backface-visibility: hidden;
+}
+
+.reveal-palavra {
+  display: inline-block;
+  backface-visibility: hidden;
+}
+
+.reveal-espaco {
+  margin-inline-end: 0.25em;
+}
+
+.reveal-alvo {
+  display: inline-block;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.reveal-bloco {
+  display: block;
+}
+
+.reveal-char {
+  display: inline-block;
+}
+
+/* a enfase inline: "too" em italico e na tinta da marca. As duas regras ANDAM JUNTAS. */
+.fecho-frase strong,
+.fecho-frase .realce {
+  font-family: inherit;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+}
+
+@media (min-width: 900px) {
+  .retrato-grade {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-16);
+    align-items: start;
+  }
+
+  /* a coluna do retrato acompanha a leitura inteira */
+  .retrato-coluna {
+    position: sticky;
+    top: calc(var(--nav-h) + var(--space-8));
+  }
+
+  .retrato-texto {
+    gap: var(--space-6);
+  }
+
+  .retrato-titulo {
+    max-width: 20ch;
+  }
+
+  /* no desktop a historia aparece inteira e o botao some: ver o comentario la em cima */
+  .retrato-resto,
+  .retrato-resto[data-aberto="false"] {
+    grid-template-rows: 1fr;
+  }
+
+  .retrato-resto-corpo {
+    gap: var(--space-6);
+  }
+
+  .retrato-mais,
+  .retrato-mais-linha {
+    display: none;
+  }
+
+  .retrato-baixo {
+    grid-template-columns: 7fr 5fr;
+    gap: var(--space-12);
+    /* STRETCH, e e o que faz o trilho existir: a coluna das borboletas ganha a altura inteira
+       da coluna do texto, da frase ate o botao, e e dentro dela que o sticky anda */
+    align-items: stretch;
+  }
+
+  .fecho-frase {
+    font-size: var(--fs-secao);
+    max-width: 20ch;
+  }
+
+  .pouso {
+    position: relative;
+    display: block;
+    pointer-events: none;
+  }
+
+  /* O TRILHO: gruda no meio da tela enquanto a coluna passa, e para quando a coluna acaba.
+     Descer, parar no fim e subir de volta e comportamento nativo do sticky, sem conta nenhuma,
+     por isso nao tem como desalinhar. */
+  .pouso-trilho {
+    position: sticky;
+    top: calc(50vh - 130px);
+    height: 260px;
+  }
+
+  .pouso-voo {
+    position: absolute;
+    display: block;
+    will-change: transform;
+  }
+
+  .pouso-voo-a {
+    left: 18%;
+    top: 0;
+    width: clamp(88px, 9vw, 132px);
+  }
+
+  .pouso-voo-b {
+    right: 14%;
+    top: 52%;
+    width: clamp(64px, 6.4vw, 96px);
+  }
+
+  /* dentro do trilho a borboleta nao e mais absoluta: quem posiciona e o .pouso-voo */
+  .pouso .borboleta {
+    position: relative;
+    display: block;
+    width: 100%;
+    will-change: transform;
+  }
+
+  .pouso-voo-a .borboleta {
+    opacity: 0.95;
+  }
+
+  .pouso-voo-b .borboleta {
+    opacity: 0.82;
+    filter: saturate(0.92);
+  }
+
+  .missao-texto {
+    max-width: 62ch;
+  }
+}
+
+/* ---- Season: onde o desenho vira foto ---- */
+.secao-season {
+  padding-block: var(--spacing-section) calc(var(--spacing-section) * 0.6);
+}
+
+.season-grid {
+  position: relative;
+  display: grid;
+  gap: var(--space-8);
+  justify-items: center;
+}
+
+.season-foto {
+  width: min(70vw, 320px);
+}
+
+.season-foto .arco {
+  overflow: hidden;
+  background: rgb(253 245 222 / 0.35);
+}
+
+/* a revelação: a foto floresce dentro do arco (Reveal Image Mask, 10905) */
+.revelacao-arco {
+  border-radius: var(--radius-arco) var(--radius-arco) var(--radius-card) var(--radius-card);
+  overflow: hidden;
+}
+
+.season-foto-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+
+.season-inner {
+  position: relative;
+  max-width: var(--measure);
+  text-align: center;
+  display: grid;
+  gap: var(--space-6);
+  justify-items: center;
+}
+
+@media (min-width: 768px) {
+  .season-grid {
+    grid-template-columns: 5fr 7fr;
+    align-items: center;
+    gap: var(--space-16);
+    justify-items: start;
+  }
+  .season-foto {
+    width: min(100%, 400px);
+    justify-self: end;
+  }
+  .season-inner {
+    text-align: left;
+    justify-items: start;
+  }
+}
+
+/* ---- Campos de cor (fundo das seções) ---- */
+.campo-pessego,
+.campo-papel2,
+.campo-tinta {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.campo-pessego {
+  background: var(--bg-destaque);
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+}
+
+.campo-papel2 {
+  background: var(--bg-leitura);
+}
+
+.campo-tinta {
+  background: var(--bg-climax);
+}
+
+/* ---- In Person (campo pêssego): a cena "a linha que segura" (GSAP, scrub) ---- */
+.secao-inperson {
+  position: relative;
+}
+
+.cena-presencial {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-8);
+}
+
+.cena-quadro {
+  width: 100%;
+}
+
+/* a moldura: o quadro com a linha da marca a 12px, desenhada pela rolagem (SVG por cima) */
+.moldura {
+  position: relative;
+  padding: var(--space-3);
+  width: 100%;
+}
+
+.moldura-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.moldura-traco {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: var(--linha);
+  stroke-linecap: round;
+}
+
+.cena-fotos {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--bg-leitura);
+  isolation: isolate;
+}
+
+.cena-foto {
+  position: absolute;
+  inset: 0;
+}
+
+.cena-foto img {
+  object-fit: cover;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.cena-texto {
+  display: grid;
+  gap: var(--space-5);
+  align-content: center;
+}
+
+/* o "Read more": um detalhe discreto, o mesmo indicador do acordeão */
+.mais {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.mais summary {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: var(--fs-apoio);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  list-style: none;
+  color: var(--text);
+}
+
+.mais summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ---- A FIGURA QUE ANDA ----
+   Uma janela do tamanho de UM quadro, e a folha de oito poses deslizando atrás dela aos saltos.
+   É o que faz as pernas se moverem em vez de a imagem escorregar. */
+.figura-faixa {
+  position: relative;
+  width: 100%;
+  height: 96px;
+  pointer-events: none;
+}
+
+.figura-janela {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  /* a janela tem a proporção de UM quadro da folha (128 por 256) */
+  width: 48px;
+  height: 96px;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.figura-folha {
+  display: block;
+  width: 800%;
+  height: 100%;
+  max-width: none;
+  will-change: transform;
+}
+
+/* no celular a faixa embaixo da foto não entra: lá ela anda ao lado do "Read more" */
+.cena-chao {
+  display: none;
+}
+
+/* ---- ela no ar livre ao lado do "Read more" (só no celular) ----
+   O trilho começa depois do sinal de mais e termina FORA da tela: ela sai de quadro pela
+   borda, vira lá fora e volta andando. */
+.mais summary {
+  position: relative;
+}
+
+.figura-no-mais {
+  position: absolute;
+  left: 116px;
+  right: -58px;
+  bottom: -21px;
+  width: auto;
+  height: 76px;
+}
+
+.figura-no-mais .figura-janela {
+  width: 38px;
+  height: 76px;
+}
+
+.mais summary .acordeao-indicador {
+  width: 18px;
+  height: 18px;
+}
+
+.mais[open] summary .acordeao-indicador {
+  transform: rotate(45deg);
+}
+
+@media (min-width: 900px) {
+  /* a seção cede o respiro para a cena, que ocupa a tela inteira enquanto fica presa */
+  .secao-inperson {
+    padding-block: 0;
+  }
+  .cena-presencial {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-16);
+    align-items: center;
+    /* A LINHA NÃO SE ESTICA. Sem isto, a grade tem altura mínima de uma tela e a linha cresce
+       para preencher tudo; ao esticar o quadro junto, a coluna da imagem ficava mais alta que a
+       coluna de texto. Com a linha do tamanho do conteúdo, as duas colunas ficam iguais. */
+    align-content: center;
+    min-height: 100svh;
+    /* A barra de navegação SAI enquanto a cena está presa (ver .cena-imersiva), então reservar
+       a altura dela aqui era ar morto: 56px que faziam falta quando o "Read more" abre. */
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+    box-sizing: border-box;
+  }
+  /* ---- A CENA PEQUENA embaixo da foto ----
+     O vão abaixo do quadro é VARIÁVEL: encolhe com o texto fechado e cresce quando a pessoa abre
+     o "Read more". Em vez de virar buraco, ele virou o chão de uma cena: uma figura pequena,
+     desenhada no traço da marca, atravessa devagar, vira e volta. O vazio deixa de ser falta no
+     instante em que tem vida dentro. */
+  .cena-quadro {
+    max-width: 540px;
+    justify-self: end;
+    align-self: stretch;
+    display: grid;
+    grid-template-rows: auto minmax(102px, 1fr);
+    row-gap: var(--space-4);
+  }
+
+  .cena-chao {
+    position: relative;
+    display: block;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .figura-no-mais {
+    display: none;
+  }
+
+  /* Ela anda LOGO ABAIXO do card, não no meio da faixa. Com o texto aberto a faixa cresce, e
+     com ela centralizada o que crescia era justamente o vão ENTRE o card e a figura. Ancorada
+     no alto, a sobra cai embaixo dela e encontra o respiro do pé da seção, que é onde espaço
+     vazio lê como respiro e não como buraco. */
+  /* O respiro entre o card e ela é FIXO, não proporcional. Centralizada na faixa, esse respiro
+     crescia junto com o texto e virava o vão grande que o Gabriel viu; colada no alto, ficava
+     apertada. Com uma distância fixa a partir do card, ela fica no mesmo lugar nos dois estados
+     e a sobra cai embaixo dela, onde encontra o respiro do pé da seção. */
+  .cena-chao .figura-faixa {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 72px;
+  }
+
+  /* O bloco do "Read more" é DETALHE, não a frase principal: em corpo menor ele cabe na tela
+     sem que se corte uma palavra da cliente. São 70px a menos, e é o que mantém a cena em uma
+     tela só quando a pessoa abre. */
+  .mais p {
+    font-size: var(--fs-apoio);
+    line-height: 1.62;
+  }
+
+}
+
+/* ---- Aulas: "o palco", versão 10. Seis capítulos, a página não cresce ---- */
+.secao-aulas {
+  position: relative;
+  padding-block: 0;
+  /* a faixa de papel limpo entre o título e o card. É ali que as borboletas cruzam no celular,
+     e por isso elas nunca passam por trás da leitura */
+  --faixa: 62px;
+}
+
+/* SEM FUNDO PRÓPRIO E ACIMA DA ESPINHA (Passe 3): o palco preso cobre a tela inteira, e com fundo
+   de papel ele escondia a linha contínua durante toda a seção; sem fundo, o papel da página
+   aparece igual por trás, a linha passa na margem e as borboletas da cena voam NA FRENTE dela. */
+.palco {
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ---- a grade do palco: título em cima, cena no meio, barra no pé ---- */
+.palco-grade {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  /* ALTURA DEFINIDA, não mínima. Com min-height a linha flexível não tem teto: ela cresce até o
+     conteúdo e a cena presa fica mais alta que a tela, cortando copy. */
+  height: 100svh;
+  min-height: 100svh;
+  /* a barra de navegação sai de cena enquanto o palco está preso (ver .cena-imersiva), então
+     reservar a altura dela aqui seria ar morto */
+  padding-top: var(--space-6);
+  padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+/* No celular o topo é a referência da faixa das borboletas. No desktop ele volta a ser estático
+   e a camada passa a se medir pelo palco inteiro. */
+.palco-topo {
+  position: relative;
+  /* o título à esquerda e o atalho à direita, na mesma linha. Coube porque o título encurtou
+     para "Classes" em 2026-09-23; com o nome longo das quatro aulas não caberia.
+     A camada das borboletas é absoluta, então ela não entra nesta linha. */
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  /* a faixa é o respiro entre a headline e o capítulo, e é o lugar das borboletas. Sem ela o
+     número do card cola na headline e a composição desanda. */
+  margin-bottom: var(--faixa);
+}
+
+.palco-barra {
+  margin-top: var(--space-3);
+}
+
+/* NO MÁXIMO DUAS LINHAS, no celular e no desktop. O tamanho é o que sobra dessa regra: a
+   headline tem 76 caracteres, então duas linhas num celular de 375px pedem cerca de 19px. */
+.palco-titulo {
+  font-size: clamp(1.0625rem, 0.72rem + 1.5vw, 1.1875rem);
+  line-height: 1.2;
+  max-width: none;
+  text-wrap: balance;
+}
+
+/* A ênfase deste título é letra PEQUENA (17 a 19px): em tinta cheia ela media 3,95:1 sobre o papel
+   e reprovava (Lighthouse, celular, 2026-09-11). Letra pequena em tinta usa o tom de letra, 5,96:1,
+   que é a regra do design.md; nos títulos grandes a ênfase continua na tinta da logo. */
+.palco-titulo .enfase {
+  color: var(--ink-letra);
+}
+
+/* ---- as borboletas: o fio que vem da hero ---- */
+/* AS BORBOLETAS ficam SEMPRE inteiras dentro do quadro. Antes elas nasciam coladas na borda e
+   a viagem as empurrava para fora, então a pessoa via meia borboleta ou nenhuma. Agora a camada
+   não recorta nada e a posição de descanso já está bem dentro da tela: o movimento é uma deriva
+   curta, em cima de um voo contínuo que não depende da rolagem. */
+.borboletas {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  height: var(--faixa);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.borboleta {
+  position: absolute;
+  display: block;
+  will-change: transform;
+}
+
+.borboleta-asa {
+  display: block;
+  will-change: transform;
+}
+
+.borboleta img {
+  width: 100%;
+  height: auto;
+}
+
+/* Sobrou UMA, à direita da faixa (ver a nota no CenaAulas: a da esquerda saiu a pedido da
+   cliente em 2026-09-23). */
+.borboleta-frente {
+  right: 5%;
+  top: 14px;
+  width: 40px;
+  opacity: 0.95;
+}
+
+/* ---- a cena: os capítulos ocupam a MESMA célula, um por vez ---- */
+.palco-cena {
+  display: grid;
+  /* linha FLEXÍVEL e não automática: com linha automática a cena cresce até o capítulo mais
+     alto e transborda o palco, que é o que cortava copy no celular */
+  grid-template-rows: minmax(0, 1fr);
+  align-content: stretch;
+  min-height: 0;
+  height: 100%;
+}
+
+.cap {
+  grid-area: 1 / 1;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  /* SEM `will-change` AQUI. São seis capítulos do tamanho da tela: seis camadas permanentes na
+     memória de vídeo, e é isso que faz o aparelho fraco engasgar ao chegar na seção. O GSAP já
+     promove o capítulo enquanto ele se move, que é quando a camada é útil. */
+}
+
+.cap-intro {
+  display: grid;
+  align-content: center;
+}
+
+/* O CAPÍTULO NO CELULAR. O card é uma faixa larga de altura controlada: retangular, para as
+   pessoas aparecerem inteiras, e com o topo apenas arredondado, porque um arco alto numa faixa
+   larga vira meia-lua e corta rosto. A sobra de tela se reparte entre os blocos. */
+.cap-aula {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  /* a linha da foto é a flexível: a sobra de tela vira ALTURA DE FOTO. Antes a sobra era
+     repartida entre os blocos de texto (space-between) e num celular alto isso abria buracos
+     desiguais entre os parágrafos. */
+  /* a altura do card, escrita como MEDIDA DEFINIDA (a altura 3:2 da largura da tela): é ela que a
+     caixa usa e é ela que a linha da grade acomoda, sem porcentagem para nenhum navegador
+     resolver */
+  --foto-alta: calc((100vw - 2 * var(--gutter)) * 2 / 3);
+  grid-template-rows: auto minmax(124px, auto) auto auto auto;
+  grid-template-areas:
+    "num"
+    "quadro"
+    "nome"
+    "intro"
+    "det";
+  row-gap: var(--space-3);
+  align-content: center;
+}
+
+/* os filhos de .cap-corpo viram itens da grade do capítulo */
+.cap-aula > .cap-corpo {
+  display: contents;
+}
+
+/* As áreas só valem DENTRO do capítulo de aula. Sem esse escopo elas vazam para o capítulo de
+   abertura, que tem grade própria, e o navegador cria trilhas implícitas com os nomes soltos. */
+.cap-aula .cap-numero {
+  grid-area: num;
+}
+
+.cap-aula .cap-nome {
+  grid-area: nome;
+}
+
+.cap-aula .cap-intro-texto {
+  grid-area: intro;
+}
+
+.cap-aula .cap-detalhe {
+  grid-area: det;
+}
+
+.cap-aula .cap-quadro {
+  grid-area: quadro;
+  position: relative;
+  align-self: center;
+  /* O card é um retângulo 3:2, a mesma proporção das fotos da cliente: assim a foto entra quase
+     sem recorte e as pessoas aparecem inteiras. A sobra de tela NÃO fica entre os parágrafos e nem
+     vira buraco embaixo da foto: ela se reparte em cima e embaixo do capítulo.
+     A ALTURA É MEDIDA DEFINIDA, e não `aspect-ratio` com `max-height: 100%`. A dupla dependia de o
+     navegador resolver porcentagem contra linha de grade automática e de a linha crescer para
+     caber uma altura vinda de `aspect-ratio`: o Safari do iPhone não faz nem uma coisa nem outra, e
+     a foto ficava maior que a linha e entrava por cima do título e do texto (2026-09-11). Com a
+     altura escrita, todo navegador chega ao mesmo lugar, e a conta de tempos do palco não muda. */
+  width: 100%;
+  height: var(--foto-alta);
+  min-height: 0;
+}
+
+/* .arco é declarado MAIS ABAIXO neste arquivo com o mesmo peso, então vencia e devolvia o raio
+   de 999px: era isso que transformava o card do celular num domo gigante. Dobrar a classe sobe
+   a especificidade e resolve sem tocar na regra genérica do arco da marca. */
+.arco.cap-arco {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  /* topo suave, não arco alto: numa faixa larga o raio grande vira cápsula e come o rosto */
+  border-radius: 46px 46px var(--radius-card) var(--radius-card);
+  /* a borda estática sai: quem desenha a moldura é a linha da marca, no scroll */
+  border: 0;
+  box-sizing: border-box;
+}
+
+.cap-linha-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.cap-linha {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: var(--linha);
+  stroke-linejoin: round;
+}
+
+.cap-foto {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 41px 41px 11px 11px;
+  overflow: hidden;
+  /* A CORTINA QUE REVELA A FOTO mora aqui, e o GSAP só anda com a variável. O `round` é o que faz
+     o recorte segurar a foto com zoom dentro da moldura no Safari do iPhone, e o raio fica no CSS,
+     que é onde ele já muda de breakpoint. Com o recorte inteiro escrito pelo GSAP, o raio entrava
+     no valor animado e a cortina pulava em vez de deslizar (medido em 2026-09-11). */
+  clip-path: inset(var(--cortina, 0%) 0% 0% 0% round 41px 41px 11px 11px);
+  /* O SAFARI DO IPHONE NÃO RECORTA um filho com transform dentro de caixa arredondada com
+     `overflow: hidden`: a foto, que entra com zoom de 1,1, vazava por baixo da moldura e caía por
+     cima do texto. A máscara obriga o WebKit a desenhar a caixa recortada. Branco sólido, para
+     valer igual no modo alfa e no modo luminância. */
+  -webkit-mask-image: linear-gradient(#fff, #fff);
+  mask-image: linear-gradient(#fff, #fff);
+  background: var(--bg-leitura);
+  will-change: clip-path;
+}
+
+/* A medida da foto é do CSS, não só do estilo que o next/image escreve: a caixa toda, sempre. */
+.cap-foto img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 34%;
+}
+
+.cap-corpo {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  min-width: 0;
+}
+
+.cap-corpo-intro {
+  gap: var(--space-3);
+  max-width: 74ch;
+}
+
+/* O capítulo de abertura é o mais denso da seção: 923 caracteres sem foto para dividir a tela.
+   No celular ele precisa de um corpo próprio, senão transborda a cena presa e corta a copy da
+   cliente, que é intocável. */
+.cap-intro .cap-abertura {
+  font-size: 1.0625rem;
+  line-height: 1.45;
+}
+
+.cap-intro .cap-detalhe {
+  gap: var(--space-2);
+}
+
+.cap-intro .cap-detalhe p {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.cap-numero {
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-letra);
+}
+
+.cap-total {
+  color: var(--text-muted);
+}
+
+.cap-nome {
+  align-self: end;
+  font-size: clamp(1.25rem, 1.05rem + 1vw, 2rem);
+  line-height: 1.14;
+  text-wrap: balance;
+}
+
+/* as linhas cortadas pelo SplitText sobem por baixo de uma máscara */
+.cap-linha-nome {
+  display: block;
+  will-change: transform;
+}
+
+.cap-preco {
+  color: var(--ink-letra);
+  white-space: nowrap;
+  margin-left: 0.4em;
+}
+
+.cap-abertura {
+  max-width: 46ch;
+}
+
+.cap-intro-texto {
+  align-self: start;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 58ch;
+}
+
+.cap-detalhe {
+  display: grid;
+  gap: var(--space-2);
+  max-width: 62ch;
+  align-content: start;
+}
+
+.cap-rotulo {
+  font-weight: 500;
+  font-size: 0.8125rem;
+}
+
+/* ---- MOSTRAR SÓ NUMA LARGURA ----
+   O conteúdo fica SEMPRE na marcação e quem decide é o CSS. É a mesma regra do "Read more" da
+   história: assim não existe estado para piscar na hidratação e o buscador lê tudo sempre.
+   Usado na numeração dos capítulos, que conta a abertura no desktop e só as aulas no celular. */
+.so-estreito {
+  display: none;
+}
+
+@media (max-width: 699px) {
+  .so-largo {
+    display: none;
+  }
+  .so-estreito {
+    display: inline;
+  }
+}
+
+/* o atalho discreto do topo do palco, à mão em todos os capítulos */
+.palco-atalho {
+  justify-self: start;
+  font-size: var(--fs-apoio);
+}
+
+.cap-aula .cap-detalhe .lista {
+  font-size: 0.8125rem;
+}
+
+.cap-parceiros {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.cap-botao {
+  justify-self: start;
+  margin-top: var(--space-1);
+}
+
+/* ---- a barra do pé: progresso e um traço por capítulo ---- */
+.palco-barra {
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* ---- AS SETAS DE CAPÍTULO (2026-09-23) ----
+   Pedido da Bruna, em áudio: ela revisa o site de madrugada com o bebê no colo e uma mão só, e
+   prefere tocar numa seta a rolar até a próxima tela. A rolagem continua dirigindo a cena: a seta
+   só leva ao MESMO ponto que a marca do capítulo já levava.
+   Elas moram na linha das marcas, e não flutuando sobre a cena, porque ali já é o lugar da
+   navegação daquela seção: quem procura "onde estou" e "como avanço" olha para o mesmo sítio. */
+.palco-navega,
+.mesa-navega {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.palco-navega .palco-marcas,
+.mesa-navega .mesa-marcas {
+  flex: 1 1 auto;
+}
+
+.seta {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 44px é alvo de toque, não decoração: é o mínimo da régua e esta é a peça que ela vai usar
+     com o polegar, cansada, no escuro */
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink-letra);
+  cursor: pointer;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.seta:disabled {
+  opacity: 0.26;
+  cursor: default;
+}
+
+.seta:not(:disabled):hover {
+  transform: scale(1.08);
+}
+
+.seta:not(:disabled):active {
+  transform: scale(0.94);
+}
+
+.seta-desenho {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.seta-proxima {
+  transform: scaleX(-1);
+}
+
+/* sem cena presa não existe capítulo para avançar: no modo de fluxo o site inteiro já está à
+   vista e a seta não teria para onde levar */
+.secao-aulas[data-modo="fluxo"] .seta,
+.secao-mesa[data-modo="aberto"] .seta {
+  display: none;
+}
+
+.palco-barra-trilha {
+  position: relative;
+  display: block;
+  height: var(--linha);
+  background: var(--hairline);
+  overflow: hidden;
+}
+
+.palco-barra-ativa {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--ink);
+  transform-origin: 0% 50%;
+  will-change: transform;
+}
+
+.palco-marcas {
+  display: flex;
+  gap: var(--space-2);
+  /* o alvo de toque tem 44px de altura; o negativo devolve o ar ao layout, então a barra ocupa
+     pouco espaço sem quebrar a regra de acessibilidade */
+  margin-block: -10px;
+}
+
+.palco-marca {
+  flex: 1 1 0;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.palco-marca::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: var(--hairline);
+  transition: background-color 400ms ease;
+}
+
+.palco-marca.esta-ativa::before {
+  background: var(--ink);
+}
+
+.palco-marca:focus-visible {
+  outline: none;
+}
+
+.palco-marca:focus-visible::before {
+  box-shadow: 0 0 0 3px rgb(212 77 27 / 0.35);
+}
+
+/* ---- telas muito baixas e reduced-motion: capítulos em fluxo ---- */
+.secao-aulas[data-modo="fluxo"] .palco-grade {
+  height: auto;
+  min-height: 0;
+  padding-block: var(--spacing-section);
+}
+
+.secao-aulas[data-modo="fluxo"] .palco-cena {
+  grid-template-rows: none;
+  gap: var(--space-12);
+  height: auto;
+}
+
+.secao-aulas[data-modo="fluxo"] .cap {
+  grid-area: auto;
+  height: auto;
+}
+
+.secao-aulas[data-modo="fluxo"] .cap-aula .cap-quadro {
+  height: 220px;
+  max-height: none;
+}
+
+@media (min-width: 700px) {
+  .secao-aulas {
+    --faixa: 56px;
+  }
+  /* Do tablet para cima sobra largura: o topo volta a ser estático, a camada das borboletas se
+     mede pelo PALCO inteiro e elas atravessam a cena pelas margens, longe do texto. */
+  .palco-topo {
+    position: static;
+  }
+  /* A camada precisa da LARGURA DA TELA, não da largura do container. O container é centrado e
+     tem no máximo 1400px, então "left: 0" caía dentro da coluna do card e a borboleta invadia a
+     foto. O cálculo abaixo estica a camada até as bordas da janela seja qual for a largura. */
+  .borboletas {
+    left: calc(50% - 50vw);
+    right: calc(50% - 50vw);
+    top: 0;
+    bottom: 0;
+    height: auto;
+    z-index: -1;
+  }
+  /* O ar à direita do título é onde a borboleta cabe INTEIRA sem encostar em nada. */
+  .borboleta-frente {
+    right: 3%;
+    top: 16%;
+    width: 92px;
+    opacity: 0.78;
+  }
+  /* o desenho aprovado no desktop: a foto em pé ao lado do corpo inteiro */
+  .cap-aula {
+    grid-template-columns: 250px minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "quadro corpo";
+    align-items: center;
+    align-content: stretch;
+    column-gap: var(--space-8);
+    row-gap: 0;
+  }
+  .cap-aula > .cap-corpo {
+    display: grid;
+    grid-area: corpo;
+    gap: var(--space-4);
+  }
+  /* O CARD VIRA QUADRADO no desktop. As fotos da cliente são CENAS LARGAS (Bruna de um lado, a
+     família do outro): num card 3:4 o recorte mostrava 56% da largura e cortava gente fora. No
+     quadrado mostra 67%, e todo mundo cabe. O topo continua sendo o arco da marca, agora na
+     proporção que o quadrado pede. */
+  .cap-aula .cap-quadro {
+    align-self: center;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    max-height: 100%;
+  }
+  .cap-aula {
+    row-gap: 0;
+  }
+  .arco.cap-arco {
+    border-radius: 999px 999px var(--radius-card) var(--radius-card);
+  }
+  .cap-foto {
+    border-radius: 999px 999px 8px 8px;
+    clip-path: inset(var(--cortina, 0%) 0% 0% 0% round 999px 999px 8px 8px);
+  }
+  .cap-aula .cap-numero,
+  .cap-aula .cap-nome,
+  .cap-aula .cap-intro-texto,
+  .cap-aula .cap-detalhe {
+    grid-area: auto;
+  }
+  .cap-nome {
+    align-self: auto;
+  }
+  .cap-intro-texto {
+    font-size: var(--fs-apoio);
+    line-height: 1.6;
+  }
+  .cap-rotulo,
+  .cap-aula .cap-detalhe .lista {
+    font-size: var(--fs-apoio);
+  }
+  .cap-detalhe {
+    gap: var(--space-3);
+  }
+  .cap-parceiros {
+    font-size: var(--fs-apoio);
+    line-height: 1.6;
+  }
+  .cap-intro .cap-abertura {
+    font-size: var(--fs-corpo-grande);
+    line-height: var(--lh-body);
+  }
+  .cap-intro .cap-detalhe {
+    gap: var(--space-3);
+  }
+  .cap-intro .cap-detalhe p {
+    font-size: var(--fs-corpo);
+    line-height: var(--lh-body);
+  }
+}
+
+@media (min-width: 1024px) {
+  .palco-grade {
+    padding-top: calc(var(--nav-h) + var(--space-6));
+    padding-bottom: var(--space-8);
+  }
+  .palco-titulo {
+    max-width: 62ch;
+    font-size: clamp(1.1875rem, 0.9rem + 0.5vw, 1.4375rem);
+  }
+  .cap-aula {
+    grid-template-columns: 340px minmax(0, 1fr);
+    column-gap: var(--space-12);
+  }
+  /* o texto da aula em duas colunas: apresentação de um lado, ementa do outro */
+  .cap-aula > .cap-corpo {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4) var(--space-10);
+    align-items: start;
+    align-content: center;
+  }
+  .cap-aula .cap-numero,
+  .cap-aula .cap-nome {
+    grid-column: 1 / -1;
+  }
+  .cap-intro-texto,
+  .cap-detalhe {
+    max-width: none;
+  }
+  /* a abertura em duas colunas também */
+  .cap-corpo-intro {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4) var(--space-12);
+    max-width: none;
+    align-items: start;
+  }
+  .cap-corpo-intro .cap-numero,
+  .cap-corpo-intro .cap-botao {
+    grid-column: 1 / -1;
+  }
+  .cap-abertura {
+    font-size: var(--fs-corpo-grande);
+  }
+  .borboleta-frente {
+    right: 3.5%;
+    top: 16%;
+    width: 104px;
+  }
+}
+
+/* ---- O capítulo em DOIS TEMPOS, quando ele não cabe inteiro na tela (CenaAulas.tsx) ----
+   A decisão é MEDIDA na tela de verdade, capítulo por capítulo; aqui só se arruma o que cada tempo
+   mostra. As partes dos dois tempos ocupam a MESMA área da grade e trocam por opacidade, então a
+   cena não muda de altura de um tempo para o outro. No celular o nome sobe para cima da foto: é o
+   que fica à vista nos dois tempos. */
+.cap-aula[data-tempos="2"] {
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "num"
+    "nome"
+    "quadro"
+    "intro";
+  align-content: stretch;
+}
+
+.cap-aula[data-tempos="2"] .cap-quadro {
+  width: 100%;
+  height: min(100%, 72vw);
+  aspect-ratio: auto;
+  max-height: none;
+}
+
+/* no segundo tempo a ementa fica no MEIO do espaço que a foto e a apresentação deixaram: colada
+   no alto, ela deixava uma faixa vazia de uns 200px embaixo, e buraco lê como falta */
+.cap-aula[data-tempos="2"] .cap-detalhe {
+  grid-area: 3 / 1 / 5 / 2;
+  align-self: center;
+}
+
+/* EM DOIS TEMPOS SOBRA LUGAR, e a letra sobe ao piso de leitura: 15px, e a nota dos parceiros ao
+   tamanho de apoio do site. Para o capítulo inteiro caber numa tela só, a ementa tinha descido a
+   13px e a nota a 12px; dividido, cada tempo tem a cena só para si. Medido no iPhone SE: com a letra
+   pequena a ementa ocupava metade do espaço e deixava um vão de 200px. No desktop os dois tempos
+   ficam com a mesma letra dos capítulos inteiros (bloco de 700px abaixo), e onde a letra de leitura
+   não cabe a seção inteira volta à compacta (logo abaixo). */
+.cap-aula[data-tempos="2"] .cap-rotulo,
+.cap-aula[data-tempos="2"] .cap-detalhe .lista,
+.cap-aula[data-tempos="2"] .cap-intro-texto {
+  font-size: 0.9375rem;
+}
+
+.cap-aula[data-tempos="2"] .cap-parceiros {
+  font-size: var(--fs-apoio);
+}
+
+/* ...e quando com a letra de leitura algum capítulo não cabe na cena (medido: o iPhone SE com as
+   barras do Safari à vista, cena de 387px), a conta é refeita com a letra compacta PARA TODOS
+   (CenaAulas.tsx), para as aulas não ficarem com letras diferentes entre si. */
+@media (max-width: 699px) {
+  .secao-aulas[data-letra="compacta"] .cap-aula[data-tempos="2"] .cap-rotulo,
+  .secao-aulas[data-letra="compacta"] .cap-aula[data-tempos="2"] .cap-detalhe .lista {
+    font-size: 0.8125rem;
+  }
+  .secao-aulas[data-letra="compacta"] .cap-aula[data-tempos="2"] .cap-intro-texto {
+    font-size: 0.9rem;
+  }
+  .secao-aulas[data-letra="compacta"] .cap-aula[data-tempos="2"] .cap-parceiros {
+    font-size: 0.75rem;
+  }
+}
+
+.cap-intro[data-tempos="2"] .cap-corpo-intro {
+  grid-template-areas:
+    "num"
+    "r1"
+    "r2"
+    "r3";
+}
+
+.cap-intro[data-tempos="2"] .cap-detalhe {
+  display: contents;
+}
+
+.cap-intro[data-tempos="2"] .cap-numero {
+  grid-area: num;
+}
+
+.cap-intro[data-tempos="2"] .cap-abertura,
+.cap-intro[data-tempos="2"] .cap-detalhe > p:nth-child(2) {
+  grid-area: r1;
+}
+
+.cap-intro[data-tempos="2"] .cap-detalhe > p:nth-child(1),
+.cap-intro[data-tempos="2"] .cap-detalhe > p:nth-child(3) {
+  grid-area: r2;
+}
+
+.cap-intro[data-tempos="2"] .cap-botao {
+  grid-area: r3;
+}
+
+/* A abertura em TRÊS tempos, só numa tela muito baixa (o iPhone SE com as barras do Safari à
+   vista): a frase e o primeiro parágrafo; o segundo; o terceiro e o botão. Uma coluna sempre. */
+.cap-intro[data-tempos="3"] .cap-corpo-intro {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "num"
+    "r1"
+    "r2";
+}
+
+.cap-intro[data-tempos="3"] .cap-detalhe {
+  display: contents;
+}
+
+.cap-intro[data-tempos="3"] .cap-numero {
+  grid-area: num;
+}
+
+.cap-intro[data-tempos="3"] .cap-abertura,
+.cap-intro[data-tempos="3"] .cap-detalhe > p:nth-child(2),
+.cap-intro[data-tempos="3"] .cap-detalhe > p:nth-child(3) {
+  grid-area: r1;
+}
+
+.cap-intro[data-tempos="3"] .cap-detalhe > p:nth-child(1),
+.cap-intro[data-tempos="3"] .cap-botao {
+  grid-area: r2;
+}
+
+/* celular baixo: a faixa das borboletas encolhe e devolve ar à cena */
+@media (max-width: 699px) and (max-height: 760px) {
+  .secao-aulas {
+    --faixa: 40px;
+  }
+  .borboleta-frente {
+    top: 6px;
+    width: 32px;
+  }
+}
+
+@media (min-width: 700px) {
+  .cap-aula[data-tempos="2"] {
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "quadro corpo";
+  }
+  .cap-aula[data-tempos="2"] .cap-quadro {
+    height: auto;
+    aspect-ratio: 1 / 1;
+    max-height: 100%;
+  }
+  .cap-aula[data-tempos="2"] > .cap-corpo {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "num"
+      "nome"
+      "tempo";
+  }
+  .cap-aula[data-tempos="2"] .cap-numero {
+    grid-area: num;
+  }
+  .cap-aula[data-tempos="2"] .cap-nome {
+    grid-area: nome;
+  }
+  .cap-aula[data-tempos="2"] .cap-intro-texto,
+  .cap-aula[data-tempos="2"] .cap-detalhe {
+    grid-area: tempo;
+  }
+  .cap-aula[data-tempos="2"] .cap-rotulo,
+  .cap-aula[data-tempos="2"] .cap-detalhe .lista,
+  .cap-aula[data-tempos="2"] .cap-intro-texto,
+  .cap-aula[data-tempos="2"] .cap-parceiros {
+    font-size: var(--fs-apoio);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cap-intro[data-tempos="2"] .cap-corpo-intro {
+    grid-template-areas:
+      "num num"
+      "a b"
+      "botao botao";
+  }
+  .cap-intro[data-tempos="2"] .cap-abertura,
+  .cap-intro[data-tempos="2"] .cap-detalhe > p:nth-child(2) {
+    grid-area: a;
+  }
+  .cap-intro[data-tempos="2"] .cap-detalhe > p:nth-child(1),
+  .cap-intro[data-tempos="2"] .cap-detalhe > p:nth-child(3) {
+    grid-area: b;
+  }
+  .cap-intro[data-tempos="2"] .cap-botao {
+    grid-area: botao;
+  }
+}
+
+/* ---- Pacotes: "a escada". A forma vem do conteúdo ----
+   Os três pacotes são cumulativos: cada um contém o anterior e acrescenta. Por isso as colunas
+   se alinham pelo PÉ, e quem tem mais linhas começa mais alto. O olho sobe a escada da esquerda
+   para a direita, que é a decisão que a pessoa está tomando aqui. Sem caixa e sem sombra: cartão
+   de preço com sombra é template, e esta marca tem forma própria. */
+.secao-pacotes {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.escada-campo {
+  /* o campo sobe pela rolagem (GSAP). O valor de repouso fica aqui para o caso de o script
+     não rodar: melhor a seção nascer inteira do que nascer invisível. */
+  transform-origin: 50% 100%;
+  border-radius: 0;
+}
+
+.escada {
+  position: relative;
+  z-index: 1;
+}
+
+/* o título da seção, que até 2026-09-23 não existia na tela */
+.escada-titulo {
+  margin-bottom: var(--space-2);
+}
+
+/* A nota da taxa agora vive SOB O TÍTULO, e não no pé: no pé ela alinhava embaixo da primeira
+   coluna e parecia valer só para o primeiro pacote. */
+.escada-nota {
+  color: var(--text-muted);
+  margin-bottom: var(--space-10);
+}
+
+.escada-grade {
+  position: relative;
+  display: grid;
+  gap: var(--space-10);
+}
+
+.degrau {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+  min-width: 0;
+}
+
+.degrau-cabeca {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+}
+
+/* uma caixa de recorte por linha: o nome e o preço sobem POR BAIXO dela */
+.degrau-mask {
+  display: block;
+  overflow: clip;
+}
+
+.degrau-mask > * {
+  display: block;
+  will-change: transform, opacity;
+}
+
+.degrau-nome {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-letra);
+}
+
+/* O PREÇO DIMINUIU em 2026-09-23 ("acha legal o valor grandão assim? podemos diminuir um
+   pouco?"). Ele continua sendo o momento de display da coluna, só que sem gritar: de 2,25 a 3,25
+   rem passou para 1,75 a 2,5. Ganho lateral, e era o outro pedido dela: a coluna do Premium, que
+   é a mais alta porque tem oito itens, encurta e passa a caber na tela junto com os preços. */
+.degrau-preco {
+  font-size: clamp(1.75rem, 1.3rem + 1.7vw, 2.5rem);
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.degrau-texto {
+  font-size: var(--fs-apoio);
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 34ch;
+}
+
+/* a lista do pacote é VERTICAL aqui (é uma conferência do que está incluído), mas conserva o
+   arco da marca como marcador, que é o mesmo sinal da lista corrida do resto do site */
+.degrau-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.degrau-lista li {
+  position: relative;
+  padding-left: 26px;
+  will-change: transform, opacity;
+}
+
+.degrau-lista li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 15px;
+  height: 8px;
+  background: var(--ink);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8'%3E%3Cpath d='M1 1.5c2.5 5 11.5 5 14 0' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8'%3E%3Cpath d='M1 1.5c2.5 5 11.5 5 14 0' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* no celular não há divisória vertical: a separação é o filete deitado da marca */
+.escada-divisoria {
+  display: none;
+}
+
+.escada-fecho {
+  margin-top: var(--space-8);
+  max-width: 44ch;
+  text-wrap: pretty;
+}
+
+@media (max-width: 899px) {
+  .degrau + .degrau {
+    padding-top: var(--space-10);
+    border-top: var(--linha) solid rgb(212 77 27 / 0.28);
+  }
+  .escada-grade {
+    gap: var(--space-10);
+  }
+}
+
+@media (min-width: 900px) {
+  .escada-grade {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* O ALINHAMENTO PELO PÉ é a ideia inteira: as colunas têm alturas diferentes porque os
+       pacotes crescem, e os topos formam degraus. */
+    align-items: end;
+    gap: var(--space-12);
+    padding-block: var(--space-4);
+  }
+
+  .degrau {
+    gap: var(--space-5);
+  }
+
+  /* as divisórias correm a altura toda da grade, e é contra elas que os topos desiguais leem
+     como composição em vez de desalinho */
+  .escada-divisoria {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--linha);
+    pointer-events: none;
+  }
+
+  .escada-divisoria span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgb(212 77 27 / 0.3);
+    transform-origin: 50% 0%;
+    will-change: transform;
+  }
+
+  .escada-divisoria-1 {
+    left: calc(33.333% - var(--space-6));
+  }
+
+  .escada-divisoria-2 {
+    left: calc(66.666% - var(--space-6));
+  }
+
+  .escada-fecho {
+    margin-top: var(--space-10);
+    font-size: var(--fs-corpo-grande);
+  }
+
+  .degrau-texto {
+    font-size: var(--fs-corpo);
+  }
+}
+
+@media (min-width: 1280px) {
+  .escada-grade {
+    gap: var(--space-16);
+  }
+  .escada-divisoria-1 {
+    left: calc(33.333% - var(--space-8));
+  }
+  .escada-divisoria-2 {
+    left: calc(66.666% - var(--space-8));
+  }
+}
+
+/* ---- Cuidados complementares: "a mesa" ----
+   Cada foto e uma PROVA com a proporcao do PROPRIO ARQUIVO. Os tres arquivos desta secao tem
+   proporcoes diferentes (912x1488 retrato e 1024x682 paisagem), entao qualquer moldura fixa
+   esmaga pelo menos um deles. Aqui a moldura se adapta a foto, e nada e cortado nunca. */
+.secao-mesa {
+  position: relative;
+  padding-block: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--bg);
+}
+
+.mesa-palco {
+  position: relative;
+  z-index: 1;
+}
+
+.mesa-quadro {
+  display: grid;
+  /* ALTURA DEFINIDA, nao minima: com min-height a linha flexivel nao tem teto e a cena presa
+     fica mais alta que a tela. */
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: var(--space-5);
+  height: 100svh;
+  min-height: 100svh;
+  padding-top: var(--space-6);
+  padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.mesa-cabeca h2 {
+  font-size: clamp(1.0625rem, 0.72rem + 1.5vw, 1.3125rem);
+  line-height: var(--lh-display);
+  text-wrap: balance;
+  max-width: 26ch;
+}
+
+/* A LINHA DA MESA E minmax(0, 1fr), NAO minmax(160px, 1fr).
+   Com piso de 160px a linha nao conseguia encolher: num iPhone SE (375x667) o conteudo pedia
+   558px numa caixa de 472px, transbordava 86px, e a copy passava por cima do pe e do botao.
+   Piso zero devolve a decisao para a mesa, que e justamente o elemento que varia bem. */
+.mesa-cena {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--space-5);
+  min-height: 0;
+}
+
+/* ---- o tampo: onde as provas sao postas ----
+   POINTER-EVENTS NONE, e nao e detalhe: a prova que ainda vai chegar fica deslocada 42% para a
+   direita, invisivel, e no desktop esse deslocamento caia EM CIMA da coluna do texto. Invisivel
+   ela ainda capturava o clique, e o botao "Read more" nao abria. No celular a mesa fica acima do
+   texto, por isso o bug so aparecia no desktop. As provas sao decorativas: nada nelas e clicavel. */
+.mesa-tampo {
+  position: relative;
+  min-height: 0;
+  align-self: stretch;
+  pointer-events: none;
+}
+
+/* As tres provas ocupam a MESMA celula e sao centradas pelo grid. A centragem e do CSS de
+   proposito: quando ela morava no transform, o GSAP a perdia a cada refresh (ver CenaMesa). */
+.mesa-area {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template: 1fr / 1fr;
+  place-items: center;
+}
+
+/* A PROVA: uma copia revelada, com a margem de papel em volta, como impressao de verdade.
+   A proporcao vem do arquivo (style inline), entao a foto cabe inteira e nunca e cortada. */
+.mesa-prova {
+  grid-area: 1 / 1;
+  margin: 0;
+  will-change: transform, opacity;
+}
+
+/* o papel da copia: a margem branca em volta da foto, como impressao de verdade */
+.mesa-papel {
+  padding: clamp(6px, 1.1vw, 11px);
+  background: var(--bg);
+  border-radius: 5px;
+  box-shadow:
+    0 1px 2px rgb(59 32 21 / 0.1),
+    0 14px 34px rgb(59 32 21 / 0.16);
+  will-change: transform;
+}
+
+/* a medida de cada prova e calculada em JS (ver medir() em CenaMesa): o CSS so encolhe em volta */
+.mesa-prova-foto {
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--bg-leitura);
+}
+
+.mesa-prova-foto img {
+  object-fit: cover;
+}
+
+/* ---- a copy: os tempos ocupam a MESMA celula, entao a cena nao muda de altura ao trocar ---- */
+.mesa-copia {
+  display: grid;
+  min-width: 0;
+}
+
+.mesa-tempo {
+  grid-area: 1 / 1;
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  min-width: 0;
+  will-change: opacity, transform;
+}
+
+.mesa-tempo[aria-hidden="true"] {
+  pointer-events: none;
+}
+
+.mesa-titulo {
+  font-size: var(--fs-item);
+  line-height: var(--lh-display);
+  text-wrap: balance;
+  max-width: 28ch;
+}
+
+.mesa-linha {
+  display: block;
+  will-change: transform;
+}
+
+.mesa-corpo {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  min-width: 0;
+}
+
+.mesa-corpo > * {
+  will-change: transform, opacity;
+}
+
+.mesa-corpo p {
+  max-width: 62ch;
+}
+
+.mesa-nota {
+  color: var(--text-muted);
+  max-width: 64ch;
+}
+
+/* os tres pacotes de placenta: no celular andam pelo trilho que o site ja usa nas secoes 7 e 8 */
+.mesa-tiers {
+  gap: var(--space-5);
+}
+
+.mesa-tiers.trilho > * {
+  flex: 0 0 min(62vw, 250px);
+  padding-left: var(--space-4);
+  border-left: var(--linha) solid var(--hairline);
+}
+
+.mesa-abrir {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--fs-apoio);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.mesa-abrir .acordeao-indicador {
+  width: 18px;
+  height: 18px;
+}
+
+.mesa-abrir:hover .acordeao-indicador {
+  transform: rotate(90deg);
+}
+
+/* ---- o pe ---- */
+.mesa-pe {
+  display: grid;
+  gap: var(--space-2);
+  align-content: end;
+}
+
+.mesa-marcas {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 280px;
+}
+
+/* 44px de ALTURA DE TOQUE já no celular (era 32). O traço visível continua sendo os 2px do
+   ::before, centrado: cresceu só a área que o dedo acerta. A Bruna revisa segurando o bebê, com
+   uma mão, e é justamente aqui que ela troca de capítulo. */
+.mesa-marca {
+  flex: 1 1 0;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.mesa-marca::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: var(--hairline);
+  transition: background-color 400ms ease;
+}
+
+.mesa-marca.esta-ativa::before {
+  background: var(--ink);
+}
+
+.mesa-marca:focus-visible {
+  outline: none;
+}
+
+.mesa-marca:focus-visible::before {
+  box-shadow: 0 0 0 3px rgb(212 77 27 / 0.35);
+}
+
+.mesa-cta {
+  justify-self: stretch;
+  text-align: center;
+}
+
+/* ---- A FOLHA: a profundidade abre POR CIMA, a cena nao muda de altura ---- */
+/* A folha FLUTUA: o padding do proprio dialog e o ar em volta do papel, e e tambem a faixa
+   onde o toque cai no dialog e fecha. Ocupar a tela inteira fazia a folha parecer outra pagina
+   em vez de um papel pousado em cima da cena. */
+.folha-cartao {
+  width: min(620px, 100vw);
+  max-width: 100%;
+  max-height: 100svh;
+  margin: auto;
+  padding: clamp(16px, 4vw, 40px);
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+}
+
+/* o dialog nao e um controle: quem recebe o foco ao abrir e o botao de fechar. Sem isto o
+   navegador desenha um anel preto em volta da folha inteira. */
+.folha-cartao:focus,
+.folha-cartao:focus-visible {
+  outline: none;
+}
+
+.folha-cartao::backdrop {
+  background: rgb(59 32 21 / 0.52);
+  backdrop-filter: blur(2px);
+}
+
+.folha-caixa {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  max-height: min(78svh, 660px);
+  background: var(--bg);
+  border: var(--linha) solid var(--hairline);
+  border-radius: var(--radius-card);
+  box-shadow: 0 24px 64px rgb(59 32 21 / 0.24);
+  overflow: hidden;
+}
+
+/* ---- sem pin (reduced-motion ou tela deitada): as provas viram coluna e tudo fica legivel ---- */
+.secao-mesa[data-modo="aberto"] .mesa-quadro {
+  height: auto;
+  min-height: 0;
+  padding-block: var(--spacing-section);
+}
+
+.secao-mesa[data-modo="aberto"] .mesa-cena {
+  gap: var(--space-10);
+}
+
+.secao-mesa[data-modo="aberto"] .mesa-tampo {
+  position: static;
+}
+
+.secao-mesa[data-modo="aberto"] .mesa-area {
+  position: static;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-6);
+  place-items: stretch;
+}
+
+.secao-mesa[data-modo="aberto"] .mesa-prova {
+  grid-area: auto;
+}
+
+/* a medida em coluna e calculada em medirEmColuna(), na CenaMesa */
+.secao-mesa[data-modo="aberto"] .mesa-tampo {
+  pointer-events: auto;
+}
+
+.secao-mesa[data-modo="aberto"] .mesa-copia {
+  gap: var(--space-10);
+}
+
+.secao-mesa[data-modo="aberto"] .mesa-tempo {
+  grid-area: auto;
+}
+
+@media (min-width: 900px) {
+  .mesa-quadro {
+    gap: var(--space-6);
+    padding-top: var(--space-8);
+  }
+
+  /* no desktop a mesa e a copy ficam LADO A LADO: assim a prova fica alta e a foto respira,
+     que e exatamente o que a versao anterior nao fazia. */
+  .mesa-cena {
+    grid-template-columns: 5.5fr 6.5fr;
+    grid-template-rows: minmax(0, 1fr);
+    gap: var(--space-12);
+    align-items: stretch;
+  }
+
+  /* A HIERARQUIA, CONSERTADA EM 2026-09-23. Até aqui o título e o corpo usavam o MESMO token
+     (`--fs-corpo-grande`), os dois com 21px medidos a 1431px: não havia destaque nenhum, e a
+     Bruna pediu para destacar mais "Placenta Encapsulation" e "Closing of the bones", sugerindo
+     ela mesma a cura ("talvez diminuindo um pouco o texto embaixo de cada parte"). O corpo volta
+     ao tamanho normal de leitura e o título sobe, logo abaixo. Ganho lateral: a cena presa fica
+     com mais altura livre, que é o que faltava ao tempo dos pacotes. */
+  .mesa-corpo p {
+    font-size: var(--fs-corpo);
+  }
+
+  .mesa-corpo .texto-apoio,
+  .mesa-corpo .degrau-lista {
+    font-size: var(--fs-apoio);
+  }
+
+  .mesa-copia {
+    align-self: center;
+  }
+
+  .mesa-titulo {
+    font-size: clamp(1.375rem, 1.05rem + 0.9vw, 1.75rem);
+  }
+
+  .mesa-tiers {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .mesa-tiers.trilho > * {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .mesa-pe {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-8);
+  }
+
+  .mesa-marca {
+    height: 44px;
+  }
+
+  .mesa-cta {
+    justify-self: end;
+  }
+}
+
+/* ---- TELA BAIXA (iPhone SE e parecidos) ----
+   Nao basta deixar a mesa encolher: se a copy continuar do mesmo tamanho, a mesa some e a cena
+   vira uma parede de texto. Aqui a copy tambem cede um pouco, e o pe fica mais rente, de modo
+   que sobre altura de verdade para a foto. */
+@media (max-height: 740px) and (max-width: 899px) {
+  .mesa-quadro {
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+  }
+
+  .mesa-cena {
+    gap: var(--space-4);
+  }
+
+  .mesa-titulo {
+    font-size: 1rem;
+  }
+
+  .mesa-corpo {
+    gap: var(--space-2);
+  }
+
+  .mesa-corpo p {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .mesa-corpo .texto-apoio {
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+
+  .mesa-abrir {
+    min-height: 40px;
+  }
+
+  .mesa-marca {
+    height: 24px;
+  }
+
+  /* EM TELA BAIXA A MARCA CEDE ALTURA, MAS NÃO CEDE ALVO DE TOQUE. A caixa fica com 24px, para a
+     cena não perder altura no iPhone SE, e uma área invisível cresce 10px para cada lado: o dedo
+     acerta 44px e o layout não paga nada. Medido em 2026-09-23, quando o portão acusou 64x24
+     nestas telas. */
+  .mesa-marca::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -10px;
+    bottom: -10px;
+  }
+
+  .mesa-pe {
+    gap: var(--space-1);
+  }
+}
+
+/* ---- a aba de cima: a assinatura da marca andando pela folha ---- */
+.folha-aba {
+  position: relative;
+  height: 52px;
+  background: var(--bg-leitura);
+  border-bottom: var(--linha) solid var(--hairline);
+  overflow: hidden;
+}
+
+.figura-na-folha {
+  position: absolute;
+  left: var(--space-5);
+  right: var(--space-5);
+  bottom: 0;
+  width: auto;
+  height: 44px;
+}
+
+.figura-na-folha .figura-janela {
+  width: 22px;
+  height: 44px;
+}
+
+.folha-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-5) var(--space-4);
+  border-bottom: var(--linha) solid var(--hairline);
+}
+
+.folha-topo h3 {
+  font-size: var(--fs-corpo-grande);
+  line-height: var(--lh-display);
+}
+
+/* O FECHAR COM PALAVRA. Icone sozinho nao ensina ninguem, e um sinal de mais girado ensina o
+   contrario do que faz. */
+.folha-fechar {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding-inline: var(--space-4);
+  border: var(--linha) solid var(--hairline);
+  border-radius: 100px;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--fs-apoio);
+  font-weight: 500;
+  color: var(--text);
+  transition: border-color 200ms ease, color 200ms ease;
+}
+
+.folha-fechar:hover {
+  border-color: var(--ink);
+  color: var(--ink-letra);
+}
+
+.folha-x {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.folha-corpo {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  font-size: var(--fs-apoio);
+  line-height: 1.7;
+}
+
+.folha-corpo p {
+  max-width: 62ch;
+}
+
+.folha-lista {
+  font-size: var(--fs-apoio);
+}
+
+/* `.folha-notas` saiu em 2026-09-23: as quatro notas passaram a usar o marcador do resto do site
+   (`degrau-lista`), a pedido da Bruna, e esta regra ficou sem nenhum uso. */
+
+.folha-evidencia {
+  color: var(--text-muted);
+}.arco.lembranca-quadro {
+  border-radius: 120px 120px var(--radius-card) var(--radius-card);
+}.tier-nome {
+  font-family: var(--font-display);
+  font-size: var(--fs-corpo-grande);
+  line-height: var(--lh-display);
+  color: var(--text);
+  margin-bottom: var(--space-3);
+  text-wrap: balance;
+}.lembranca-quadro {
+  width: 100%;
+  max-width: 240px;
+  padding: var(--space-2);
+}.lembranca-notas {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-3);
+  font-size: var(--fs-apoio);
+  line-height: 1.6;
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+
+/* ---- Starting is simple: "o caminho" ----
+   A linha nao e enfeite: e o CHAO, e alguem pisa nela. A mulher da secao 3 atravessa do passo 01
+   ao 03 conforme a rolagem, e so da passo quando a pessoa rola de verdade (ver `dirigida` na
+   FiguraAndando). Secao de vale: fluxo normal, ar, nada preso. */
+.secao-caminho {
+  position: relative;
+}
+
+.caminho {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.caminho-titulo {
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+.caminho-linha {
+  display: block;
+  will-change: transform;
+}
+
+/* ---- o chao ---- */
+.caminho-chao {
+  position: relative;
+  height: clamp(72px, 11vw, 104px);
+  width: 100%;
+}
+
+/* o leito e o caminho todo, em traco fino; a trilha e o pedaco ja andado, em tinta */
+.caminho-leito,
+.caminho-trilha {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--linha);
+}
+
+.caminho-leito {
+  background: var(--hairline);
+}
+
+.caminho-trilha {
+  background: var(--ink);
+  transform-origin: 0% 50%;
+  will-change: transform;
+}
+
+.caminho-estacoes {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  pointer-events: none;
+}
+
+/* A ESTACAO CAI EXATAMENTE SOB O NUMERO DA COLUNA, e nao no meio dela. Centralizada, o
+   marco ficava a 190px do "01" e a linha lia como desenho solto, em vez de chao daquele
+   passo. */
+.caminho-estacao {
+  display: grid;
+  align-content: end;
+  justify-items: start;
+}
+
+/* o marco de cada estacao: um tracinho no chao que vira tinta quando ela passa por cima */
+.caminho-marco {
+  width: var(--linha);
+  height: 13px;
+  background: var(--hairline);
+  transition: background-color 500ms ease, height 500ms ease;
+}
+
+.caminho-estacao.esta-pisada .caminho-marco {
+  background: var(--ink);
+  height: 19px;
+}
+
+/* ela anda no chao, nao acima dele */
+.caminho-figura {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: clamp(58px, 9vw, 86px);
+}
+
+.caminho-figura .figura-janela {
+  width: clamp(29px, 4.5vw, 43px);
+  height: clamp(58px, 9vw, 86px);
+}
+
+/* ---- os tres passos ---- */
+.caminho-passos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-10);
+  counter-reset: none;
+}
+
+.caminho-passo {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+  min-width: 0;
+  will-change: transform, opacity;
+}
+
+.caminho-numero {
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-letra);
+}
+
+.caminho-passo-titulo {
+  font-size: var(--fs-corpo-grande);
+  line-height: var(--lh-display);
+  text-wrap: balance;
+  max-width: 26ch;
+}
+
+.caminho-passo p {
+  max-width: 58ch;
+}
+
+.caminho-cta {
+  justify-self: start;
+}
+
+@media (min-width: 900px) {
+  .caminho {
+    gap: var(--space-10);
+  }
+
+  .caminho-passos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  /* a mesma folga dos passos, para o marco cair no mesmo x do numero */
+  .caminho-estacoes {
+    gap: var(--space-12);
+  }
+
+  .caminho-titulo {
+    max-width: 22ch;
+  }
+}
+
+/* ---- Why families choose Cora: "os contornos" ----
+   A forma-assinatura do design.md em componente: a linha continua que se desenha e NUNCA FECHA.
+   O vao do traco muda de lugar em cada card, para quatro contornos lerem como quatro gestos de
+   mao e nao como carimbo repetido. */
+.secao-contornos {
+  position: relative;
+}
+
+.contornos {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-8);
+}
+
+.contorno-titulo {
+  max-width: 20ch;
+  text-wrap: balance;
+}
+
+.contorno-linha {
+  display: block;
+  will-change: transform;
+}
+
+.contornos-grade {
+  display: grid;
+  gap: var(--space-5);
+}
+
+/* o card e SO o contorno: sem fundo, sem sombra. O campo papel-2 ja e a superficie. */
+.contorno-card {
+  position: relative;
+  padding: var(--space-6);
+  min-width: 0;
+}
+
+.contorno-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.contorno-traco {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: var(--linha);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contorno-corpo {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  min-width: 0;
+}
+
+.contorno-corpo > * {
+  will-change: transform, opacity;
+}
+
+.contorno-ponto {
+  font-size: var(--fs-corpo-grande);
+  line-height: var(--lh-display);
+  text-wrap: balance;
+  max-width: 30ch;
+}
+
+.contorno-corpo p {
+  max-width: 56ch;
+}
+
+@media (min-width: 900px) {
+  .contornos {
+    gap: var(--space-10);
+  }
+
+  /* grade 2x2 ASSIMETRICA: a primeira coluna e mais larga, e a segunda desce um pouco. Duas
+     colunas iguais e alinhadas leriam como tabela, que e o oposto de editorial. */
+  .contornos-grade {
+    grid-template-columns: 7fr 5fr;
+    gap: var(--space-8) var(--space-10);
+    align-items: start;
+  }
+
+  .contorno-card {
+    padding: var(--space-8);
+  }
+
+  .contorno-card:nth-child(even) {
+    margin-top: var(--space-12);
+  }
+
+  .contorno-titulo {
+    max-width: 24ch;
+  }
+}.arco {
+  position: relative;
+  padding: var(--space-3);
+  border: var(--linha) solid var(--ink);
+  border-radius: 999px 999px var(--radius-card) var(--radius-card);
+}
+
+/* ---- FAQ (vale) ---- */
+.secao-faq {
+  position: relative;
+}
+
+.faq-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-8);
+}
+
+/* O FAQ OCUPA A LARGURA INTEIRA DO CONTAINER, e é o que foi aprovado. Existia aqui um max-width
+   de 72ch (88ch no desktop) que nunca apareceu: ele ficava no próprio .container e perdia para o
+   .container do Tailwind, na camada de utilitários (a mesma armadilha da seção 12). A regra morta
+   saiu. Testado em 2026-09-11 o que ela pretendia, uma coluna centrada de 800px: as perguntas
+   quebravam em duas linhas e o título saía do alinhamento à esquerda que o site inteiro segue. */
+
+/* ---- FAQ: Interactive Accordion (21st.dev 9602), a passada de tokens ----
+   O autor entregou em utilitaria do Tailwind com as cores do shadcn. Aqui: disco do numero em
+   tinta, numero em General Sans 500, pergunta em Gambetta, fio fino por baixo e a linha de tinta
+   que se estende ao abrir. As medidas estruturais sao as dele (numero em caixa de 40px, gap de
+   24px, resposta recuada 64px para alinhar com o texto da pergunta). */
+.ia {
+  display: grid;
+}
+
+.ia-item {
+  position: relative;
+}
+
+.ia-cabeca {
+  margin: 0;
+  font: inherit;
+}
+
+.ia-botao {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-5) var(--space-1);
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+
+.ia-botao:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 4px;
+}
+
+.ia-numero-caixa {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+}
+
+.ia-disco {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--ink-cheio);
+}
+
+.ia-numero {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.ia-pergunta {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-corpo-grande);
+  line-height: var(--lh-display);
+  text-wrap: balance;
+}
+
+.ia-indicador-caixa {
+  flex: none;
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+}
+
+.ia-indicador {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--ink);
+}
+
+.ia-linha,
+.ia-linha-ativa {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: var(--linha);
+}
+
+.ia-linha {
+  right: 0;
+  background: var(--hairline);
+}
+
+.ia-linha-ativa {
+  width: 100%;
+  background: var(--ink);
+  transform-origin: 0% 50%;
+}
+
+.ia-painel {
+  overflow: hidden;
+}
+
+.ia-resposta {
+  padding: var(--space-6) var(--space-12) var(--space-6) calc(40px + var(--space-6) + var(--space-1));
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.ia-resposta p {
+  max-width: 62ch;
+}
+
+@media (max-width: 599px) {
+  .ia-botao {
+    gap: var(--space-4);
+  }
+
+  .ia-resposta {
+    padding-left: calc(40px + var(--space-4) + var(--space-1));
+    padding-right: var(--space-2);
+  }
+}
+
+@media (min-width: 900px) {
+  /* no desktop a pergunta ganha o tamanho de item do design.md */
+  .ia-pergunta {
+    font-size: var(--fs-item);
+  }
+}
+
+/* ---- Depoimentos (vale minimo, honestamente vazio) ----
+   Hoje a secao e so a espera: titulo e texto aprovados pela Bruna, dentro da MOLDURA ABERTA,
+   a forma-assinatura desenhada pela rolagem e aberta no meio da aresta de cima, a espera das
+   historias. E o silencio antes do pico final (o rodape com o formulario). */
+.secao-testimonials {
+  padding-block: calc(var(--spacing-section) * 0.6);
+}
+
+.testimonials-inner {
+  position: relative;
+  display: grid;
+  gap: var(--space-8);
+}
+
+/* O LIMITE DE LARGURA MORA NA MOLDURA, NAO NO .container. O Tailwind v4 gera uma classe
+   .container propria na camada utilities, que vem DEPOIS de components, com max-width por faixa
+   de tela (80rem a 1440px). Qualquer max-width posto num elemento que tambem e .container perde
+   para ela: medido, a moldura saia com 1.136px em vez de 736px. */
+.espera {
+  width: 100%;
+  max-width: 46rem;
+  margin-inline: auto;
+}
+
+/* ---- a moldura aberta (componente reutilizavel) ---- */
+.moldura-aberta {
+  position: relative;
+}
+
+.moldura-aberta-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.moldura-aberta-traco {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: var(--linha);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.moldura-aberta-corpo {
+  position: relative;
+}
+
+/* ---- a espera ---- */
+.espera .moldura-aberta-corpo {
+  display: grid;
+  gap: var(--space-5);
+  justify-items: center;
+  text-align: center;
+  padding: var(--space-10) var(--space-6);
+}
+
+.espera-titulo {
+  font-size: var(--fs-item);
+  line-height: var(--lh-display);
+  text-wrap: balance;
+  max-width: 20ch;
+}
+
+.espera-texto {
+  color: var(--text-muted);
+  max-width: 52ch;
+  text-wrap: pretty;
+}
+
+/* ---- Minimal Testimonial (21st.dev 9638): passada de tokens, pronto para os depoimentos reais ---- */
+.mt {
+  display: grid;
+  gap: var(--space-12);
+}
+
+/* as citacoes dividem a MESMA celula: a caixa assume a altura da mais longa (o original usava
+   posicao absoluta numa caixa de 80px fixos, e citacao longa invadia a linha do autor) */
+.mt-citacoes,
+.mt-autores {
+  display: grid;
+}
+
+.mt-citacao {
+  grid-area: 1 / 1;
+  font-family: var(--font-display);
+  font-size: var(--fs-corpo-grande);
+  line-height: 1.55;
+  color: var(--text);
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(4px);
+  pointer-events: none;
+  transition: opacity 500ms ease-out, transform 500ms ease-out, filter 500ms ease-out;
+}
+
+.mt-citacao.esta-ativa {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  pointer-events: auto;
+}
+
+.mt-autoria {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.mt-rostos {
+  display: flex;
+}
+
+.mt-rosto {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin-left: calc(var(--space-2) * -1);
+  border: 0;
+  padding: 0;
+  border-radius: 9999px;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--bg-destaque);
+  box-shadow: 0 0 0 2px var(--bg);
+  filter: grayscale(1);
+  transition: transform 300ms ease-out, filter 300ms ease-out;
+}
+
+.mt-rosto:first-child {
+  margin-left: 0;
+}
+
+.mt-rosto.esta-ativo {
+  z-index: 1;
+  transform: scale(1.1);
+  filter: none;
+}
+
+.mt-rosto:hover {
+  filter: none;
+  transform: scale(1.05);
+}
+
+.mt-rosto:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg), var(--focus-ring);
+}
+
+.mt-rosto img {
+  object-fit: cover;
+}
+
+.mt-inicial {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-display);
+  color: var(--ink-letra);
+}
+
+.mt-divisor {
+  width: var(--linha);
+  height: 32px;
+  background: var(--hairline);
+}
+
+.mt-autor {
+  grid-area: 1 / 1;
+  display: grid;
+  align-content: center;
+  opacity: 0;
+  transform: translateX(-8px);
+  pointer-events: none;
+  transition: opacity 400ms ease-out, transform 400ms ease-out;
+}
+
+.mt-autor.esta-ativo {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.mt-nome {
+  font-size: var(--fs-apoio);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.mt-papel {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mt-citacao,
+  .mt-autor,
+  .mt-rosto {
+    transition: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .espera .moldura-aberta-corpo {
+    padding: var(--space-16) var(--space-12);
+  }
+
+  .mt-citacao {
+    font-size: var(--fs-item);
+  }
+}
+
+/* ---- Rodapé e formulário (PICO 3): o campo terracota sobe e a página assenta ----
+   Cena autoral em GSAP (CenaRodape.tsx). O campo mora DENTRO do rodapé, porque a fronteira é da
+   seção de baixo, e sobe com a borda de cima em ARCO: uma curva só, o arco da logo, não uma onda.
+   CONTRASTE, e é o que decide a composição: papel sobre a terracota mede 3,96:1, o que só passa
+   para texto grande. Sobre a tinta ficam o título e o símbolo; todo corpo de texto mora no papel
+   (a folha do formulário e o cartão de contatos). */
+.rodape {
+  --rodape-arco: clamp(40px, 7vw, 104px);
+  position: relative;
+  overflow: clip; /* o campo começa ABAIXO do rodapé; sem o corte ele esticaria a página */
+  color: var(--text-on-ink);
+  padding-block:
+    calc(var(--spacing-section) + var(--rodape-arco))
+    calc(var(--spacing-section) + env(safe-area-inset-bottom));
+}
+
+.rodape .campo-tinta {
+  border-radius: 50% 50% 0 0 / var(--rodape-arco) var(--rodape-arco) 0 0;
+  will-change: transform;
+}
+
+.rodape-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-10);
+}
+
+/* o título é texto grande: papel sobre tinta passa na régua de texto grande (3:1) */
+.rodape-titulo {
+  color: var(--text-on-ink);
+  max-width: 16ch;
+}
+
+/* A FOLHA. O lugar dela não se move e é o gatilho da cena; quem sobe é a folha. */
+.folha {
+  position: relative;
+  display: grid;
+  gap: var(--space-8);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: var(--radius-card);
+  padding: var(--space-8) var(--space-5);
+}
+
+.formulario {
+  position: relative;
+  display: grid;
+  gap: var(--space-2) var(--space-5);
+}
+
+/* OS PARES DIVIDEM AS MESMAS LINHAS (subgrid). Cada campo ocupa três faixas da grade da folha
+   (rótulo, controle e erro), e o vizinho de par usa as MESMAS três: o rótulo mais longo empurra o
+   do lado para baixo e as linhas dos dois campos ficam na mesma altura, com erro ou sem erro.
+   Medido no celular: com uma grade por campo, um erro de três linhas num lado desalinhava a linha
+   do campo do outro lado. O espaço entre campos vem da margem de baixo de cada um. */
+.formulario > .campo {
+  grid-row: span 3;
+  margin-bottom: var(--space-2);
+}
+
+.formulario > div.campo {
+  grid-template-rows: subgrid;
+}
+
+.formulario > .campo > label {
+  align-self: end;
+}
+
+.formulario > .texto-apoio {
+  margin-top: var(--space-2);
+}
+
+/* No celular, nome e telefone, e lugar e data, andam aos pares (rótulos curtos). A partir de
+   640px os outros campos curtos e as áreas de texto também emparelham. Só o select do serviço
+   fica sempre inteiro. */
+@media (min-width: 360px) {
+  .formulario {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .formulario > * {
+    grid-column: 1 / -1;
+  }
+  .formulario > .campo-par-cedo {
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 640px) {
+  .formulario {
+    column-gap: var(--space-8);
+  }
+  .formulario > .campo-par,
+  .formulario > .campo-texto {
+    grid-column: auto;
+  }
+}
+
+/* a armadilha: fora da tela e, pelo aria-hidden da marcação, fora da árvore de acessibilidade */
+.formulario-armadilha {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* O botão troca de texto ao enviar e a pílula não cresce nem pisca: os dois rótulos dividem a
+   mesma célula, então a largura é sempre a do mais longo. Sem spinner. */
+.formulario-envio {
+  margin-top: var(--space-2);
+}
+
+.envio-rotulos {
+  display: grid;
+}
+
+.envio-rotulo {
+  grid-area: 1 / 1;
+  transition: opacity 200ms ease;
+}
+
+.formulario-envio:not([data-estado="enviando"]) .envio-rotulo:last-child,
+.formulario-envio[data-estado="enviando"] .envio-rotulo:first-child {
+  opacity: 0;
+}
+
+.formulario-envio[aria-disabled="true"] {
+  cursor: progress;
+}
+
+.formulario-envio[aria-disabled="true"]:hover {
+  background: var(--button-bg);
+  color: var(--button-text);
+  transform: none;
+}
+
+/* A falha: o pedido não saiu. A saída de emergência é o e-mail e o telefone dela, direto. */
+.formulario-falha {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  border-left: var(--linha) solid var(--ink);
+  background: var(--bg-leitura);
+  color: var(--text);
+  font-size: var(--fs-apoio);
+}
+
+.formulario-falha-saidas {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--space-6);
+}
+
+/* o agradecimento ocupa o lugar do formulário, dentro da mesma folha */
+.formulario-obrigado {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.formulario-obrigado-titulo {
+  font-size: var(--fs-item);
+}
+
+.formulario-obrigado-titulo:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* O SÍMBOLO, a segunda vez que ele se desenha no site: papel sobre a tinta. É a logo, não texto. */
+.rodape-marca {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* O pôster (o SVG) e o volume (a tela do three) dividem a mesma caixa, na proporção da logo. O
+   volume só aparece quando o primeiro quadro estiver pronto, e aí o SVG sai. */
+.rodape-simbolo {
+  position: relative;
+  height: 140px;
+  aspect-ratio: 52.56 / 83.34;
+}
+
+.rodape-simbolo .logo {
+  height: 100% !important;
+  transition: opacity 500ms ease;
+}
+
+.simbolo-volume {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.simbolo-volume[data-vivo="true"] {
+  opacity: 1;
+}
+
+.rodape-simbolo:has(.simbolo-volume[data-vivo="true"]) .logo {
+  opacity: 0;
+}
+
+/* a tela é maior que o símbolo (40% na largura, 12% na altura) para o giro não cortar as pontas;
+   o three desenha na medida dela */
+.simbolo-volume-tela {
+  position: absolute;
+  left: -20%;
+  top: -6%;
+  width: 140% !important;
+  height: 112% !important;
+  display: block;
+}
+
+/* O CARTÃO de contatos: papel, raio 16, corpo em barro */
+.rodape-cartao {
+  display: grid;
+  gap: var(--space-4);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: var(--radius-card);
+  padding: var(--space-6) var(--space-5);
+}
+
+.rodape-cartao address {
+  display: grid;
+  gap: var(--space-1);
+  font-style: normal;
+}
+
+.rodape-cartao address p {
+  color: var(--text-muted);
+}
+
+.rodape-cartao .rodape-pessoa {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.rodape-links {
+  display: grid;
+  justify-items: start;
+  margin-top: var(--space-2);
+}
+
+.rodape-idioma {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--space-3);
+  border-top: 1px solid var(--hairline);
+}
+
+/* o idioma em que a pessoa está: a linha já estendida */
+.rodape-idioma [aria-current="true"]::after {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .folha {
+    padding: var(--space-10);
+  }
+  .rodape-cartao {
+    padding: var(--space-8);
+  }
+}
+
+/* Desktop: título, símbolo e cartão na coluna da esquerda; a folha inteira à direita. A coluna da
+   esquerda é mais curta que a folha, e o espaço de tinta vira o caminho do símbolo: ele fica preso
+   no meio da tela e acompanha a leitura do formulário, como as borboletas da seção 9. */
+@media (min-width: 1024px) {
+  .rodape-inner {
+    grid-template-columns: 5fr 7fr;
+    grid-template-rows: auto 1fr auto;
+    column-gap: var(--space-16);
+    row-gap: var(--space-10);
+  }
+  .rodape-titulo {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .folha-lugar {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+  }
+  .rodape-marca {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .rodape-simbolo {
+    position: sticky;
+    top: calc(50vh - 120px);
+    height: 240px;
+  }
+  .rodape-cartao {
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
+
+/* A ASSINATURA DA AGÊNCIA (Tá Online, componente universal em ui/AssinaturaTaOnline.tsx): a terceira
+   folha do rodapé, a mais fina, na largura toda. O papel é daqui, não da assinatura: ela não tem fundo
+   próprio e herda a cor do texto. Na terracota, texto pequeno não passa no contraste (3,96:1). */
+.rodape-assinatura {
+  background: var(--bg);
+  color: var(--text);
+  border-radius: var(--radius-card);
+  padding: var(--space-2) var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .rodape-assinatura {
+    padding: var(--space-1) var(--space-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .rodape-assinatura {
+    grid-column: 1 / -1;
+    grid-row: 4;
+  }
+}
+
+/* ---- Página 404: o porão na voz da marca ----
+   O traço central da logo se desenha uma vez na chegada (SimboloDesenhado); ao lado, a frase e as
+   duas saídas. Papel, tinta, nada além do que o site já usa. */
+.pagina-404 {
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  padding-block: var(--space-16);
+}
+
+.pagina-404-inner {
+  display: grid;
+  gap: var(--space-10);
+  justify-items: start;
+}
+
+.pagina-404-simbolo {
+  height: 180px;
+  width: auto;
+  color: var(--ink);
+}
+
+/* o desenho só aparece quando o GSAP assume (sem isso, o símbolo inteiro pisca antes de começar) */
+.simbolo-traco {
+  display: block;
+  visibility: hidden;
+}
+
+.pagina-404-texto {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 36rem;
+}
+
+.pagina-404-texto h1 {
+  font-size: var(--fs-secao);
+  max-width: 16ch;
+}
+
+.pagina-404-texto p {
+  color: var(--text-muted);
+}
+
+.pagina-404-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4) var(--space-8);
+  margin-top: var(--space-3);
+}
+
+@media (min-width: 1024px) {
+  .pagina-404-inner {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: var(--space-16);
+  }
+  .pagina-404-simbolo {
+    height: 320px;
+  }
+}
+
+/* ---- A espinha: a linha contínua que atravessa as emendas (movimento.md, verbo 1) ----
+   Os SVGs são criados pela câmera (ui/Espinha.tsx), um por seção, no meio da margem do
+   container. Acima do campo de cor da seção, fora da coluna de texto, sem receber toque. */
+.espinha {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.espinha-fio {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* no celular a linha é mais fina (movimento.md, seção 7) */
+@media (min-width: 768px) {
+  .espinha-fio {
+    stroke-width: var(--linha);
+  }
+}
+
+/* ---- A borboleta que atravessa a emenda (ui/BorboletaTravessia.tsx, Passe 3) ----
+   A camada mora no canto do PAI (que precisa de position: relative) e a borboleta anda por
+   transform, na frente da espinha. Fora da tela ela não estica a página: o body corta o x. */
+.travessia {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.borboleta-travessia {
+  left: 0;
+  top: 0;
+  width: 56px;
+}
+
+@media (min-width: 768px) {
+  .borboleta-travessia {
+    width: 84px;
+  }
+}
+
+/* a foto da seção 2 é o pai da borboleta que pousa no arco, e sobe junto com ela */
+.season-foto {
+  position: relative;
+}
+
+/* o fim de um endereço longo fica inteiro na última linha (ver Additional.tsx) */
+.sem-quebra {
+  white-space: nowrap;
+}
+
+/* ---- Botão fixo do mobile ---- */
+.cta-fixo {
+  position: fixed;
+  left: var(--space-4);
+  right: var(--space-4);
+  bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+  z-index: 30;
+  transform: translateY(calc(100% + var(--space-6)));
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-fixo[data-visivel="true"] {
+  transform: translateY(0);
+}
+
+.cta-fixo .botao {
+  box-shadow: 0 12px 32px rgb(59 32 21 / 0.18);
+}
+
+/* ---- Reduced motion: transições de estado ficam curtas, nada some ---- */
+@media (prefers-reduced-motion: reduce) {
+  .gaveta-painel,
+  .gaveta-veu,
+  .menu-toggle,
+  .menu-toggle-traco,
+  .cta-fixo,
+  .acordeao-indicador::before,
+  .acordeao-indicador::after,
+  .botao,
+  .link-linha::after,
+  .navbar-link::after,
+  .campo-controle::after,
+  .envio-rotulo {
+    transition-duration: 1ms;
+  }
+}
+
+}
+
+/* ---- O container do site: um teto só (acabamento, 2026-09-11) ----
+   O Tailwind v4 gera o próprio .container na camada de utilitários, com um max-width por faixa de
+   tela, e ele vence o .container dos componentes. Até 1535px isso dá exatamente o que foi aprovado
+   (container de 1280px em 1440 e em 1512). A partir de 1536px ele saltava para 1536px, e numa tela
+   de 1920 toda composição ficava 240px mais larga que a aprovada. Aqui o teto fica em 80rem em
+   qualquer tela grande: a 1920 o site é a mesma composição da 1440, com mais margem. */
+@layer utilities {
+  @media (min-width: 96rem) {
+    .container {
+      max-width: 80rem;
+    }
+  }
 }

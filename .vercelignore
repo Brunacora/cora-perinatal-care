@@ -1,0 +1,11 @@
+# O que nunca sobe para a Vercel no deploy pela linha de comando.
+# Segredo local: o .env.local guarda o token OIDC que a própria CLI grava ao vincular o projeto.
+# Chave em deploy é incidente (skill sistema-de-formulario): as variáveis vivem no painel da Vercel.
+.env*
+# Ferramentas da sessão e artefatos locais (os padrões da Vercel já ignoram, fica explícito).
+.claude
+.next
+node_modules
+.git
+.vercel
+tsconfig.tsbuildinfo

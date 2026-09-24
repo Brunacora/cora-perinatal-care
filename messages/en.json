@@ -1,0 +1,464 @@
+{
+  "meta": {
+    "title": "Postpartum Doula in MA and NH | Cora Perinatal Care",
+    "description": "Gentle, practical, and judgment free postpartum support, birth and newborn classes, and placenta encapsulation. In person in MA and NH, virtual anywhere.",
+    "siteName": "Cora Perinatal Care"
+  },
+  "ui": {
+    "more": "Read more",
+    "less": "Close",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "nav": {
+    "services": "Services",
+    "about": "About",
+    "faq": "FAQ",
+    "menu": "Menu",
+    "close": "Close",
+    "language": "Language",
+    "english": "English",
+    "portuguese": "Português",
+    "primary": "Primary",
+    "journal": "The Cora Journal"
+  },
+  "hero": {
+    "headline": "Postpartum care that helps you feel held, supported and prepared.",
+    "text": "Cora Perinatal Care offers gentle, practical, and judgment free support starting at pregnancy for the postpartum season, newborn care, feeding, and everything in between.",
+    "cta": "Request a complimentary call",
+    "secondary": "See our services",
+    "enfase": "you"
+  },
+  "season": {
+    "title": "Care for the season you are in",
+    "text": "Whether you are preparing for birth, planning for postpartum, or already in the middle of life with a newborn, support should meet you where you are. Cora is here to bring calm, guidance, practical help, and a safe place to ask the questions that come up in real time.",
+    "enfase": "season"
+  },
+  "inperson": {
+    "name": "In Person Postpartum Support",
+    "short": "Hands on care for families in Massachusetts and New Hampshire who want steady, practical and individualized support after baby arrives.",
+    "p1": "Postpartum can feel tender, beautiful, confusing, and exhausting all at once. This is in-home guidance around recovery and rest, newborn care and more.",
+    "p2": "Cora supports you without judgment, without pushing one \"right way\", and without taking over your decisions. The goal is for you to feel more confident and better supported at home.",
+    "bullets": [
+      "Daytime and overnight support",
+      "In person care in Northern MA and Southern NH",
+      "Support with postpartum recovery, healing and mom's overall wellbeing",
+      "Guidance with newborn care and infant soothing techniques",
+      "Assistance with creating rhythms and routines",
+      "Infant feeding support (breast, bottles, formula)",
+      "Light housekeeping and organization",
+      "Full meal planning & preparation",
+      "Sibling inclusion and care"
+    ],
+    "price": "Starting at $50 per hour",
+    "cta": "Ask about postpartum support"
+  },
+  "classes": {
+    "name": "Birth Preparation, Newborn Care, Lactation, and Postpartum Preparation Classes",
+    "short": "Private classes and preparation for families who want to feel more informed, supported, and prepared before and after baby arrives.",
+    "p1": "Thinking ahead to your birth, how to care for your newborn, your lactation journey, or what postpartum may look like can feel overwhelming. Cora offers preparation classes and virtual support to help you approach birth, newborn care, lactation, and the postpartum season with greater clarity and confidence.",
+    "p2": "These sessions are for families who want information, practical tools, insight, and a space where every question is welcome. The focus isn't on promising perfection at any stage of your journey. It's about helping you feel prepared, informed, and empowered.",
+    "p3": "Through these classes, you'll gain a better understanding of what to expect, build confidence in making decisions that feel right for you and your family, and learn about the resources and support available to you along the way.",
+    "explore": "Together, we'll explore:",
+    "items": [
+      {
+        "title": "Birth preparation class - $250",
+        "intro": "This class was designed to help you gain insight on labor and to feel prepared, supported, and empowered for one of life's most transformative experiences.",
+        "bullets": [
+          "The physical and emotional changes your body goes through during labor",
+          "What to expect during each stage of the birth process.",
+          "Comfort measures",
+          "Breathing and positioning techniques",
+          "Pain management options",
+          "Common medical interventions",
+          "Cesarean birth"
+        ],
+        "partners": "Partners are strongly encouraged to attend. They will leave with practical tools and hands-on techniques to confidently support you throughout labor, birth, and the early hours after your baby arrives."
+      },
+      {
+        "title": "Newborn Care Class - $75",
+        "intro": "Learn what to expect during the first days and weeks of life with your newborn. This class provides a supportive environment where you gain insight into newborn care and learn practical skills, helping you feel more prepared for the transition into parenthood.",
+        "bullets": [
+          "Normal sleep patterns",
+          "Understanding and responding to your baby's cues",
+          "Practical soothing techniques",
+          "Feeding basics",
+          "Diapering (Hands-on practice)",
+          "Swaddling (Hands-on practice)",
+          "Bathing"
+        ],
+        "partners": "Partners are strongly encouraged to attend. Caring for a newborn is a team effort, and this class equips both parents with the knowledge, confidence, and practical skills to care for their baby together."
+      },
+      {
+        "title": "Lactation class - $75",
+        "intro": "Gain knowledge on what to expect during the first few days and weeks of your lactation journey. This class was designed to help you feel informed and understand the basics of lactation.",
+        "bullets": [
+          "Anatomy of the breast",
+          "Milk production and the different phases of breastmilk",
+          "How to establish a good latch",
+          "Baby's feeding cues",
+          "Comfortable nursing positions",
+          "Pumping basics",
+          "Milk storage and handling"
+        ],
+        "partners": "Partners are strongly encouraged to attend. They play an essential role in supporting breastfeeding, and this class provides practical ways they can encourage and assist you throughout your lactation journey."
+      },
+      {
+        "title": "Postpartum preparation class - $75",
+        "intro": "Prepare for the fourth trimester with intention and learn practical ways to build your postpartum plan before your baby arrives. This is a welcoming space to talk openly about the realities of the postpartum period and the transition into parenthood.",
+        "bullets": [
+          "The body's physical and emotional changes",
+          "Supporting rest and recovery",
+          "Emotional well-being",
+          "Support system(s)",
+          "Adjusting to this new season",
+          "Preparing your home",
+          "Resources"
+        ],
+        "partners": "Partners are strongly encouraged to attend. Postpartum is a transition for the whole family, and this class gives partners practical tools for supporting recovery and helping create a nurturing environment for the entire family."
+      }
+    ],
+    "virtual": {
+      "title": "Virtual support",
+      "p1": "You don't have to navigate postpartum alone. Whether you're looking for guidance through a specific concern or need help troubleshooting a challenge, virtual support allows you to receive personalized care and guidance from wherever you are.",
+      "p2": "Our virtual sessions are tailored to what you and your family need in the moment. This support is available whether we've worked together in person before or we're meeting for the first time.",
+      "p3": "Whether you need a one-time session for a specific concern or ongoing support as you navigate the postpartum period, virtual care provides a flexible way to stay connected and supported when you need it most."
+    },
+    "cta": "Plan your preparation",
+    "enfase": "Classes",
+    "marcas": "Classes",
+    "overview": "Overview"
+  },
+  "packages": {
+    "note": "*A travel fee may apply to all packages",
+    "items": [
+      {
+        "name": "Bloom",
+        "price": "$1,025",
+        "text": "Best for families who would like to prepare during pregnancy and feel supported as they begin life with their newborn.",
+        "bullets": [
+          "Birth Preparation Class",
+          "Newborn Care Class",
+          "Lactation Class",
+          "Postpartum Preparation Class",
+          "12 hours in-person postpartum doula care",
+          "Ongoing text support throughout our time together"
+        ]
+      },
+      {
+        "name": "Nurture",
+        "price": "$1,975",
+        "text": "Best for families who would like to prepare before baby arrives and receive continued care throughout the early postpartum period.",
+        "bullets": [
+          "Birth Preparation Class",
+          "Newborn Care Class",
+          "Lactation Class",
+          "Postpartum Preparation Class",
+          "24 hours in-person postpartum doula care",
+          "Placenta encapsulation - standard package",
+          "Ongoing text support throughout our time together"
+        ]
+      },
+      {
+        "name": "Premium",
+        "price": "$3,050",
+        "text": "Perfect for families who would like comprehensive, extended postpartum care and continued support as they settle into life with their new baby.",
+        "bullets": [
+          "Birth Preparation Class",
+          "Newborn Care Class",
+          "Lactation Class",
+          "Postpartum Preparation Class",
+          "40 hours in-home postpartum doula care",
+          "Placenta encapsulation - premium package",
+          "Closing of the bones",
+          "Ongoing text support throughout our time together"
+        ]
+      }
+    ],
+    "closing": "Don't hesitate to ask how we can build a bundle that fits your family's needs.",
+    "label": "Packages"
+  },
+  "additional": {
+    "name": "Additional Postpartum Care",
+    "short": "Thoughtful offerings that honor the body, the family, and the transition into postpartum.",
+    "p1": "For families who want extra care during this season, Cora also offers placenta encapsulation, placenta keepsakes and closing of the bones ceremony.",
+    "p2": "These services are created with the same intention as every part of Cora's care: to support the mother, honor what her body has carried, and create space for rest, nourishment, and emotional closure.",
+    "placenta": {
+      "title": "Placenta encapsulation",
+      "p1": "Placenta encapsulation is a practice that may bring additional support for postpartum healing and recovery. These placenta capsules are taken during the postpartum chapter. Placenta encapsulation is available for both vaginal and cesarean births. It's also available for all birth places (hospital, home, birth center).",
+      "p2": "The placenta is an organ your body grows with each pregnancy to sustain the new life growing inside. It brings oxygen and nutrients to baby and filters waste and much more.",
+      "p3": "The placenta is packed with nutrients and minerals. There are some reported benefits to taking your placenta capsules such as:",
+      "benefits": [
+        "Stabilizing hormones",
+        "May decrease the risk of \"baby blues\"",
+        "Replenishes depleted iron levels from birth",
+        "May increase milk production and supply",
+        "Replenishes energy and B vitamins"
+      ],
+      "process": "The process envolves cleaning, steaming, dehydrating and grinding the placenta before encapsulating. The capsules only hold placenta powder, with nothing additional, including no herbs or oils.",
+      "capsules": "Capsules are clear and unflavored. Flavored capsules available upon request (for an additional charge)!",
+      "cord": "Umbilical cord keepsakes are pending umbilical cord length.",
+      "print": "Placenta prints can be done naturally or with edible food coloring. You get to choose your color!",
+      "tincture": "A tincture has an infinite shelf life and can be utilized once your capsules are used up.",
+      "evidence": "While there is limited research on the benefits of placenta consumption, some studies have been done. In 2016, two studies showed that the placenta contains 1/4 of the iron recommended for lactating women, plus traces of other minerals. They also found 15 hormones present in the placenta, with progesterone and estradiol at levels that could reach physiological effects. Further studies are still to be released, including a randomized trial on the potential effects on postpartum depression.",
+      "source": "(Source: https://evidencebasedbirth.com/evidence-on-placenta-encapsulation/)",
+      "sourceUrl": "https://evidencebasedbirth.com/evidence-on-placenta-encapsulation/"
+    },
+    "packagesTitle": "Packages:",
+    "packagesNote": "All packages include placenta pick-up at your birth place (pending location) and drop off to your home (pending location). Mailing via priority shipping offered for locations outside of drop off zone.",
+    "tiers": [
+      {
+        "name": "Standard - $375",
+        "bullets": [
+          "Placenta capsules",
+          "Placenta print",
+          "Umbilical cord keepsake (pending length)"
+        ]
+      },
+      {
+        "name": "Premium - $400",
+        "bullets": [
+          "Placenta capsules",
+          "Tincture (2 oz)",
+          "Placenta print",
+          "Umbilical cord keepsake (pending length)"
+        ]
+      },
+      {
+        "name": "Placenta keepsakes only - $180",
+        "bullets": [
+          "Placenta print",
+          "Umbilical cord keepsake (pending length)"
+        ]
+      }
+    ],
+    "closing": {
+      "title": "Closing of the bones - $275",
+      "p1": "Closing of the bones offers a time and space to honor your body for all it has done during pregnancy. In many cultures, women traditionally receive this care multiple times during the first 40 days after giving birth. Closing of the bones can also be done after loss, after transitioning or closing a chapter in your life (divorce, new job etc).",
+      "p2": "During the closing, rebozos are used to sway and rock certain points of your body before tucking the cloth underneath you. It can promote physical healing during the postpartum chapter by improving circulation, and may help with emotional and spiritual healing as well. It can be done at any point in your life, not just in the immediate postpartum period. You can still experience the benefits even 40 years postpartum! It is a space for you to be held, to honor your journey and your body. If desired, a castor oil pack can be placed on your lower abdomen to promote warmth and healing to your uterus, which can also be symbolic and healing if a hysterectomy has been done.",
+      "p3": "This service is available for an additional investment for families who choose in-home postpartum support."
+    },
+    "cta": "Ask about additional care"
+  },
+  "start": {
+    "title": "Starting is simple.",
+    "steps": [
+      {
+        "title": "Fill out the contact form.",
+        "text": "Tell me where you are in your journey, what you are looking for, and what kind of support would feel most helpful right now. If you're not sure, that's ok! We can figure that out together."
+      },
+      {
+        "title": "We schedule a complimentary 15 to 30 minute call.",
+        "text": "This is a brief, no pressure conversation to get to know each other, understand your needs and get some of your questions answered."
+      },
+      {
+        "title": "We create the support that fits your family's needs.",
+        "text": "If we are a good fit, we will talk about timing, services, location, and the best next step for the season you are in."
+      }
+    ],
+    "cta": "Start with the form"
+  },
+  "why": {
+    "title": "Why families choose Cora",
+    "points": [
+      {
+        "title": "Support that adapts to you.",
+        "text": "Every family is different. Cora meets you where you are, instead of forcing one method, one routine, or one version of motherhood."
+      },
+      {
+        "title": "Guidance without judgment.",
+        "text": "Whether your choices include breastfeeding, formula, a mix of both, more rest, more help, or a different rhythm than you expected, we will support your decisions and provide guidance where needed."
+      },
+      {
+        "title": "Care for the new mother (whether this is your first or third baby).",
+        "text": "The baby matters deeply, and so does the person recovering, learning, feeding, healing, and holding so much. Cora's care centers the mother and supports the family around her."
+      },
+      {
+        "title": "Professional, gentle, and honest.",
+        "text": "This is not about pretending postpartum is always easy. It is about giving you support, resources, and calm guidance so you do not have to move through it alone."
+      }
+    ]
+  },
+  "story": {
+    "title": "Meet the heart behind Cora.",
+    "p1": "Cora Perinatal Care grew from my own experiences with motherhood, my work supporting new mothers, and a deep belief that families deserve to feel cared for during one of life's biggest transitions.",
+    "p2": "My name is Bruna Gomes. I am mother of three, a wife, a dog mom, and nature lover. I am passionate about helping families feel more prepared, informed, and supported as they enter parenthood. My own pregnancies, births, and postpartum experiences have taught me that every season is different. After a difficult postpartum experience following the birth of my third child, I sought out the support and resources I needed to find my way through it. That experience changed the way I saw postpartum care and deepened my desire to make sure other mothers don't feel like they have to navigate it alone.",
+    "p3": "As a certified postpartum doula, a certified placenta specialist and an educator, my work focuses on helping families prepare for postpartum before they are in it, while also providing practical, compassionate support once they arrive there. I believe you don't need more pressure to have the perfect postpartum experience. My approach is simple: I want families to feel more prepared, more informed, and more supported. I want to be the calm person in the room who can offer practical help, answer questions without judgment, encourage rest, and remind you that needing care does not mean you are failing.",
+    "p4": "My work is also deeply connected to my Brazilian roots and my experiences living between two cultures. Cora comes from coração, the Portuguese word for heart, and my logo's hibiscus flower is inspired by one of the flowers I love seeing when I'm in Brazil. Both are meaningful reminders of where I come from and the heart I bring into this work. I bring the warmth and leveza, or lightness, that I associate with my Brazilian culture together with the boundaries and intentional holding of space that have shaped my experiences in the United States. Together, these influences have shaped the way I care for families: with warmth, honesty, respect, and intention.",
+    "closing": "At the heart of my work is a simple belief: you deserve to be cared for, too.",
+    "cta": "Request a complimentary call",
+    "enfase": "heart",
+    "fechoEnfase": "too"
+  },
+  "mission": {
+    "title": "Mission",
+    "text": "At Cora, our mission is to provide warm, practical, individualized support that helps families feel supported, informed, confident, and cared for throughout pregnancy and the postpartum period. Through education, hands-on support, and compassionate guidance, we create space for mothers and families to navigate this transition in a way that feels right for them. Cora is rooted in the belief that no family should have to navigate this season alone. Every service is offered with care, intention, and respect for each family's unique needs, experiences, and choices."
+  },
+  "faq": {
+    "title": "Questions you may have",
+    "items": [
+      {
+        "q": "Do I need postpartum support if I have family nearby?",
+        "a": "You can have family around and still need professional support. Loved ones often want to help, but they may not always have an unbiased perspective on how to support newborn care, feeding questions, recovery, rest, routines, or the emotional parts of postpartum. Cora's role is to bring calm, unbiased and practical guidance and help your support system work better for you."
+      },
+      {
+        "q": "What if I feel like I should be able to do this on my own?",
+        "a": "Needing support does not mean you are not capable. It means you are moving through a major life transition and deserve care while you do it. Many mothers feel guilty receiving help, even when they deeply need it. Part of this work is helping you rest, receive support, and lean into your intuition."
+      },
+      {
+        "q": "Do you tell families what they should do?",
+        "a": "No. Cora offers guidance, education, resources, and practical support, but your family's values and choices matter. The goal is not to impose one way of feeding, resting, parenting, or recovering. The goal is to help you feel informed and supported in the decisions that are right for you."
+      },
+      {
+        "q": "What areas do you serve in person?",
+        "a": "In person support is available in the Boston area, Northern Massachusetts and Southern New Hampshire, depending on location and availability. For families outside the in-person service area, virtual support may be a good fit."
+      },
+      {
+        "q": "Can I work with you before the baby arrives?",
+        "a": "Yes! Cora offers birth preparation, newborn care, lactation, and postpartum preparation. These sessions help you feel more prepared before baby arrives and give you a clearer sense of what support, recovery, feeding, and newborn life can look like."
+      },
+      {
+        "q": "Will I benefit from doula care even if this isn't my first baby?",
+        "a": "Absolutely! At Cora, we provide support to families whether they are expecting their first baby, or have older children. Our belief is that every new mother and parent deserve to be cared for and supported, no matter how many times you have gone through it."
+      },
+      {
+        "q": "How do I know which service is right for me?",
+        "a": "Start with the form. After you share a little about your needs, we can schedule a complimentary 15 to 30 minute call. During that conversation, we talk through where you are in your journey, what feels hard or unclear, and what kind of support would make the most sense for your family."
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "\"Client love coming soon..\"",
+    "text": "Cora is currently gathering client stories and reflections. This space will be used to share real experiences from families who felt supported, more rested, more confident, and less alone during pregnancy, postpartum, and newborn life.",
+    "label": "Testimonials"
+  },
+  "footer": {
+    "title": "You do not have to figure out postpartum alone.",
+    "text": "Whether you are preparing ahead or in the midst of life with a newborn, support is found here. Once the form is submitted, I will be in touch to schedule a complimentary 15 to 30 minute call.",
+    "cta": "Request a complimentary call",
+    "fields": {
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email",
+      "contact": "Preferred contact method, email or phone",
+      "contactEmail": "Email",
+      "contactPhone": "Phone",
+      "location": "Location",
+      "date": "Estimated due date or baby's DOB",
+      "datePlaceholder": "MM/DD/YYYY",
+      "services": "Service(s) you are interested in",
+      "servicesOptions": {
+        "unsure": "I'm not sure what kind of support I need",
+        "inperson": "In Person Postpartum Support",
+        "classes": "Classes and Virtual Support",
+        "additional": "Additional Postpartum Care"
+      },
+      "support": "What kind of support are you looking for right now?",
+      "topics": "Are there any topics, resources, and/or tips you would like to learn more about that I can help with?",
+      "three": "If you could pick at least 3 things to help you feel prepared and empowered for postpartum, what would they be?",
+      "anything": "Anything you want me to know before our call?"
+    },
+    "contact": {
+      "person": "Bruna Gomes, CPD, Educator, Lactation Educator, Placenta Specialist",
+      "brand": "Cora Perinatal Care",
+      "area": "Serving families in MA and NH",
+      "modes": "In person and virtual support available",
+      "email": "Email: welcome@coraperinatalcare.com",
+      "emailAddress": "welcome@coraperinatalcare.com",
+      "phone": "Phone: 781-835-6975",
+      "phoneNumber": "+17818356975",
+      "instagram": "Instagram @coraperinatalcare",
+      "instagramUrl": "https://www.instagram.com/coraperinatalcare"
+    },
+    "micro1": "After you submit the form, I will reach out to schedule a complimentary 15 to 30 minute call. This first conversation simply provides space and time for me to understand your needs and to see how I can best support you.",
+    "micro2": "By submitting this form you agree to receive newsletters and communication from Cora Perinatal Care. You can opt out at any time by replying \"STOP\".",
+    "form": {
+      "sending": "Sending…",
+      "errors": {
+        "name": "Please add your name.",
+        "email": "Please add your email.",
+        "emailInvalid": "Please check your email address.",
+        "phone": "Please add a phone number so I can reach you.",
+        "check": "Please check this field."
+      },
+      "success": {
+        "title": "Thank you, {name}.",
+        "text": "Your request is with me now. I will be in touch to schedule your complimentary 15 to 30 minute call."
+      },
+      "failure": "Your request did not go through. Please try again, or reach me directly:",
+      "emailCopy": "Your answers"
+    }
+  },
+  "notFound": {
+    "title": "Not every day goes to plan.",
+    "text": "This page didn't either: it may have moved, or the link may be missing a piece. The rest of Cora is right where you left it.",
+    "home": "Back to the home page"
+  },
+  "alt": {
+    "heroSimbolo": "Cora: a mother holding her baby and a hibiscus, drawn in one continuous line",
+    "amamentacao": "Bruna Gomes breastfeeding her youngest child in a golden field",
+    "presencial01": "Bruna on the sofa with a mother and her newborn",
+    "presencial02": "Bruna supporting a mother holding her baby",
+    "presencial07": "A mother kissing her baby, Bruna by her side",
+    "aulaParto": "Bruna teaching with the pelvis model in a birth preparation class",
+    "aulaBebe": "Bruna beside a newborn lying in soft light",
+    "aulaAmamentacao": "Bruna teaching with the breast model in a lactation class",
+    "aulaPosParto": "Bruna talking with a mother holding her baby",
+    "aulaOnline": "Bruna on the phone at her desk",
+    "carimbo": "A placenta print in red on paper",
+    "capsulas": "An amber jar of placenta capsules beside dried rose petals",
+    "closing": "A woman resting while a rebozo is lifted over her during a closing of the bones ceremony",
+    "retrato": "Bruna Gomes, postpartum doula and founder of Cora Perinatal Care",
+    "brunaEscritorio": "Bruna Gomes smiling at her desk, beside a shelf of books and a pelvis model"
+  },
+  "journal": {
+    "metaTitle": "The Cora Journal | Postpartum Notes by Bruna Gomes",
+    "metaDescription": "Short, calm reading about postpartum recovery, feeding and newborn care, from a certified postpartum doula in Massachusetts and New Hampshire.",
+    "eyebrow": "The Cora Journal",
+    "title": "Notes for the season you are in",
+    "titleEmphasis": "season",
+    "intro": "Short, calm reading about recovery, feeding, newborn care and the parts of postpartum nobody warns you about. Written to be read at 3 a.m., with one hand, without making you feel behind.",
+    "startHere": "Start here",
+    "readThis": "Read this one",
+    "readTime": "{minutes} min read",
+    "filtersLabel": "Choose a topic",
+    "all": "All notes",
+    "portuguese": "Em português",
+    "categories": {
+      "you-are-seen": "You are seen",
+      "what-no-one-told-you": "What no one told you",
+      "behind-cora": "Behind Cora",
+      "brazilian-roots": "Brazilian roots",
+      "where-to-start": "Where to start"
+    },
+    "loadMore": "Load more articles",
+    "shown": "{shown} of {total} notes",
+    "empty": "More on this coming soon. In the meantime, explore the rest of The Cora Journal.",
+    "byline": "Written by Bruna Gomes, CPD",
+    "updated": "Updated {date}",
+    "toc": "In this note",
+    "lampOn": "Lamp light",
+    "lampHint": "Dim the page for reading at night",
+    "back": "The Cora Journal",
+    "midCta": {
+      "text": "Not sure what kind of support you need? You don't need to have it all figured out. Let's start with a conversation.",
+      "button": "Request a complimentary call"
+    },
+    "endCta": {
+      "title": "You do not have to figure this out alone.",
+      "text": "If something here felt familiar, let's talk about it. Your first call is complimentary, and you don't need to have everything figured out before we connect. We can start with where you are and go from there.",
+      "button": "Request a complimentary call"
+    },
+    "scope": "This article is educational and does not replace medical care. If something feels off with you or your baby, please reach out to your OB, midwife, pediatrician or lactation consultant. If you are struggling emotionally, the National Maternal Mental Health Hotline is available at 1-833-TLC-MAMA, and the 988 Suicide and Crisis Lifeline is available anytime.",
+    "keepReading": "Keep reading",
+    "author": {
+      "title": "From Bruna",
+      "p1": "Hi! I'm Bruna Gomes, a postpartum doula, educator, placenta specialist, mother of three, wife, and Brazilian-American living between two cultures in Massachusetts.",
+      "p2": "I've experienced postpartum three times, and each season taught me something different about motherhood, recovery, and the kind of support we need along the way. During my third postpartum, I found myself searching for support and answers in the middle of the night. I wanted information that felt calm, honest, and grounded in real life, not advice that made me feel like I was falling behind.",
+      "turn": "The Cora Journal started there.",
+      "p3": "These notes come from what I've learned through all of my postpartum seasons, from motherhood, and from supporting real families through pregnancy and postpartum.",
+      "p4": "No perfect postpartum here. Just honest information, practical support, and reminders of what you don't have to carry alone.",
+      "button": "Request a complimentary call"
+    }
+  }
+}
