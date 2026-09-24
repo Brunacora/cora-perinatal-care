@@ -18,6 +18,10 @@ export function CorpoArtigo({
   function PausaDoMeio() {
     return (
       <aside className="pausa-do-meio" aria-label={pausa.botao}>
+        {/* o arco da marca, que se DESENHA quando a pausa chega (--pausa-traco, escrito pela rolagem) */}
+        <svg className="pausa-arco" viewBox="0 0 22 28" aria-hidden="true">
+          <path d="M1.5 27.5 V11 A9.5 9.5 0 0 1 20.5 11 V27.5" pathLength={1} />
+        </svg>
         <p className="pausa-texto">{pausa.texto}</p>
         <a href="#form" className="botao">
           {pausa.botao}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Espinha } from "@/components/ui/Espinha";
 import { MobileCta } from "@/components/MobileCta";
 import { Enfase } from "@/components/Enfase";
 import { SimboloDesenhado } from "@/components/ui/SimboloDesenhado";
@@ -156,6 +157,9 @@ export default async function Journal({ params }: { params: Promise<{ locale: st
       </main>
       <Footer caminhoIdioma="/journal" />
       <MobileCta />
+      {/* A LINHA DA MARCA, a mesma da home: atravessa as seções pela margem, dá um nó em cada emenda
+          e pousa no arco do rodapé, desenhando o abraço (pedido do Gabriel, 2026-09-24) */}
+      <Espinha />
     </>
   );
 }

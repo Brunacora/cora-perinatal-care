@@ -4,6 +4,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Espinha } from "@/components/ui/Espinha";
 import { MobileCta } from "@/components/MobileCta";
 import { Inteiras } from "@/components/Enfase";
 import { Abajur, SCRIPT_DO_ABAJUR } from "@/components/journal/Abajur";
@@ -177,6 +178,9 @@ export default async function PaginaDoArtigo({ params }: { params: Promise<{ loc
       </main>
       <Footer caminhoIdioma="/journal" />
       <MobileCta suave />
+      {/* a linha da marca: o corpo do artigo não é seção, então ela nasce no "From Bruna", onde o fio
+          de leitura termina, e pousa no arco do rodapé */}
+      <Espinha />
     </>
   );
 }

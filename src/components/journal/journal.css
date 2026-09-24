@@ -138,15 +138,9 @@
     --capa-linha: var(--cora-barro);
   }
 
-  /* grão de papel estático, dentro da placa (opacidade abaixo de 0,03 pelo CLAUDE.md) */
-  .capa::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: 0.028;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+  /* (O grão de papel que morava aqui SAIU em 2026-09-24: era um filtro de ruído em SVG repintado em
+     cada capa, a 2,8% de opacidade, invisível e caro; com as capas vivas ele fazia o Chrome atrasar a
+     pintura e mostrar faixas em branco na rolagem, que o Gabriel viu como "buracos".) */
 
   .capa-linha {
     position: absolute;
@@ -155,15 +149,32 @@
     height: 100%;
     fill: none;
     stroke: var(--capa-linha);
-    stroke-width: 1.5;
     stroke-linecap: round;
     stroke-linejoin: round;
-    vector-effect: non-scaling-stroke;
   }
 
+  /* O TRAÇO QUE SE FORMA (2026-09-24, ideia do Gabriel): `pathLength` 1 no path, e a rolagem escreve
+     `--capa-traco` de 0 a 1. Sem `vector-effect: non-scaling-stroke`, porque com ele o tracejado
+     passa a contar em pixel de tela e o desenho não fecha; a espessura é compensada por tamanho de
+     capa (a placa de 300 unidades vira ~530px no card, ~700 no destaque e ~900 no artigo). */
   .capa-linha path {
-    vector-effect: non-scaling-stroke;
-    stroke-width: 1.5px;
+    stroke-width: 0.85;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--capa-traco, 1));
+  }
+
+  .capa[data-tamanho="destaque"] .capa-linha path {
+    stroke-width: 0.7;
+  }
+
+  .capa[data-tamanho="artigo"] .capa-linha path {
+    stroke-width: 0.5;
+  }
+
+  @media (max-width: 767px) {
+    .capa .capa-linha path {
+      stroke-width: 1.2;
+    }
   }
 
   .capa-frase {
@@ -998,14 +1009,20 @@
     line-height: 1.5;
   }
 
-  /* o arco da marca abre a pausa: a forma-assinatura, pequena, em tinta */
-  .pausa-do-meio::before {
-    content: "";
-    width: 20px;
-    height: 26px;
-    border: var(--linha) solid var(--ink);
-    border-bottom: 0;
-    border-radius: 999px 999px 0 0;
+  /* o arco da marca abre a pausa: a forma-assinatura, pequena, em tinta, e se desenha ao chegar */
+  .pausa-arco {
+    width: 22px;
+    height: 28px;
+    overflow: visible;
+  }
+
+  .pausa-arco path {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--pausa-traco, 1));
   }
 
   .pausa-texto {
@@ -1262,7 +1279,6 @@
     transform-origin: 50% 100%;
     transform: translate3d(calc(var(--capa-x, 0) * 1%), 0, 0) rotateX(calc(var(--capa-rx, 0) * 1deg))
       rotateY(calc(var(--capa-ry, 0) * 1deg)) scale(var(--capa-s, 1));
-    backface-visibility: hidden;
   }
 
   /* a frase da capa anda em sentido contrário à placa: a máscara dupla */
@@ -1311,5 +1327,13 @@
   .fim-sinal-simbolo {
     height: 48px;
     width: auto;
+  }
+}
+
+@layer components {
+  /* a linha da marca (Espinha) mora no canto de cada seção, que precisa ser o referencial */
+  .journal > section,
+  .artigo-pagina > section {
+    position: relative;
   }
 }

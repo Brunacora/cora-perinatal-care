@@ -73,7 +73,9 @@ export function CapaTipografica({
   return passagem(
     <div className="capa" data-tamanho={tamanho} data-categoria={artigo.categoria} aria-hidden="true">
       <svg className="capa-linha" viewBox="0 0 300 200" preserveAspectRatio="xMaxYMid slice">
-        <path d={GESTOS[artigo.categoria]} />
+        {/* `pathLength` 1: o traço se DESENHA pela variável `--capa-traco` (0 a 1), que a rolagem
+            escreve (a capa viva dos cards e a máscara em arco do destaque e do artigo) */}
+        <path d={GESTOS[artigo.categoria]} pathLength={1} />
       </svg>
       <span className="capa-frase">{frase}</span>
     </div>,

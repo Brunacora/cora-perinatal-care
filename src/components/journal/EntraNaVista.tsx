@@ -30,7 +30,9 @@ function useCapaViva(p: MotionValue<number>, lado: "esquerda" | "direita") {
   const x = useTransform(p, [0, 0.5, 1], [sinal * 6, 0, sinal * 3]);
   const s = useTransform(p, [0, 0.5, 1], [0.9, 1, 0.97]);
   const frase = useTransform(p, [0, 1], [18, -18]);
-  return { rx, ry, x, s, frase };
+  /* o desenho da capa se FORMA enquanto ela chega, e fica pronto quando ela assenta no meio */
+  const traco = useTransform(p, [0.08, 0.48], [0, 1], { clamp: true });
+  return { rx, ry, x, s, frase, traco };
 }
 
 export function EntraNaVista({ children, lado = "esquerda" }: Props) {
@@ -62,6 +64,7 @@ export function EntraNaVista({ children, lado = "esquerda" }: Props) {
                 "--capa-x": capa.x,
                 "--capa-s": capa.s,
                 "--capa-frase": capa.frase,
+                "--capa-traco": capa.traco,
                 "--card-atraso": atraso,
               } as unknown as React.CSSProperties)
         }

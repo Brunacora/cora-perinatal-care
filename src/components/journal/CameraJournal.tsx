@@ -45,9 +45,10 @@ function cortar(el: HTMLElement, aoCortar: (linhas: Element[]) => gsap.core.Anim
 function arcoQueAbre(moldura: HTMLElement, estreito: boolean) {
   gsap.fromTo(
     moldura,
-    { "--arco": 0 },
+    { "--arco": 0, "--capa-traco": 0 },
     {
       "--arco": 1,
+      "--capa-traco": 1,
       ease: "none",
       scrollTrigger: { trigger: moldura, start: "top 98%", end: "top 38%", scrub: 0.6 },
     },
@@ -200,21 +201,13 @@ export function CenaFromBruna() {
       },
       (ctx) => {
         const { anima, estreito } = ctx.conditions as { anima: boolean; estreito: boolean };
+        /* O CAMPO NÃO SOBE MAIS (2026-09-24): no meio da subida ele deixava faixas de papel vazio por
+           cima da foto, e o Gabriel leu como "buracos em branco". A emenda agora é da linha da marca
+           (Espinha), que dá o nó entre as seções. */
+        if (campo) gsap.set(campo, { "--campo": 100 });
         if (!anima) {
-          if (campo) gsap.set(campo, { "--campo": 100 });
           if (arco) gsap.set(arco, { drawSVG: "0% 100%" });
           return;
-        }
-        if (campo) {
-          gsap.fromTo(
-            campo,
-            { "--campo": 0 },
-            {
-              "--campo": 100,
-              ease: "none",
-              scrollTrigger: { trigger: secao, start: "top bottom", end: "top 35%", scrub: 0.6 },
-            },
-          );
         }
         if (arco) {
           gsap.fromTo(
@@ -241,12 +234,13 @@ export function CenaFromBruna() {
               onSplit: (self) =>
                 gsap.fromTo(
                   self.words,
-                  { opacity: 0.22 },
+                  /* 0,45 e não 0,22: bem apagada ela lia como texto desativado (visto pelo Gabriel) */
+                  { opacity: 0.45 },
                   {
                     opacity: 1,
                     ease: "none",
                     stagger: 0.1,
-                    scrollTrigger: { trigger: acende, start: "top 82%", end: "bottom 50%", scrub: 0.6 },
+                    scrollTrigger: { trigger: acende, start: "top 88%", end: "bottom 72%", scrub: 0.6 },
                   },
                 ),
             })
@@ -331,11 +325,12 @@ export function ChegadaDoArtigo() {
         if (pausa) {
           gsap.fromTo(
             pausa,
-            { scale: 0.94, y: 28, opacity: 0.4 },
+            { scale: 0.94, y: 28, opacity: 0.4, "--pausa-traco": 0 },
             {
               scale: 1,
               y: 0,
               opacity: 1,
+              "--pausa-traco": 1,
               ease: "none",
               scrollTrigger: { trigger: pausa, start: "top bottom", end: "top 55%", scrub: 0.6 },
             },
