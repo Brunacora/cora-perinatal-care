@@ -8,6 +8,7 @@ import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { useGSAP } from "@gsap/react";
 import { camada, corpoUmaVez, tituloEmTrilho } from "@/lib/camera";
 import { SIMBOLO_TRACO_D } from "@/components/ui/simbolo-traco-d";
+import { guardarProgresso } from "@/lib/leituras";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText, DrawSVGPlugin);
 
@@ -24,6 +25,10 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText, DrawSVGPlugin);
  */
 
 const CURVA = "power3.out";
+export const ANIMA_OU_REDUZIDO = {
+  anima: "(prefers-reduced-motion: no-preference)",
+  reduzido: "(prefers-reduced-motion: reduce)",
+};
 
 /** Corta um título em linhas por máscara, com o espaço inflexível das órfãs preservado. */
 function cortar(el: HTMLElement, aoCortar: (linhas: Element[]) => gsap.core.Animation | null | void) {
@@ -353,8 +358,11 @@ export function ChegadaDoArtigo() {
  * termina, entregando a linha ao arco em volta da Bruna. Na margem da coluna no desktop (vertical),
  * logo abaixo do topo da tela no celular (horizontal). Ele fica FORA da coluna de texto: nada se
  * move onde se lê. Reduced-motion: marca o progresso na hora, sem interpolação.
+ *
+ * E é ele que alimenta O CADERNO QUE LEMBRA: o progresso vai para o aparelho da leitora
+ * (`lib/leituras.ts`), só quando avança, e a listagem mostra onde ela parou.
  */
-export function FioDeLeitura() {
+export function FioDeLeitura({ slug }: { slug: string }) {
   const raiz = useRef<HTMLDivElement | null>(null);
   useGSAP(
     () => {
@@ -365,7 +373,9 @@ export function FioDeLeitura() {
       if (!corpo || !vertical || !topo) return;
 
       const mm = gsap.matchMedia();
-      mm.add({ anima: "(prefers-reduced-motion: no-preference)" }, (ctx) => {
+      /* as DUAS condições: com uma só, o gsap.matchMedia não roda nada quando ela é falsa, e o estado
+         final do movimento reduzido nunca era escrito (medido em 2026-09-24) */
+      mm.add(ANIMA_OU_REDUZIDO, (ctx) => {
         const { anima } = ctx.conditions as { anima: boolean };
         gsap.set(vertical, { scaleY: 0 });
         gsap.set(topo, { scaleX: 0, autoAlpha: 0 });
@@ -379,6 +389,7 @@ export function FioDeLeitura() {
             .to(vertical, { scaleY: 1, ease: "none" }, 0)
             .to(topo, { scaleX: 1, ease: "none" }, 0),
           onToggle: (self) => gsap.to(topo, { autoAlpha: self.isActive ? 1 : 0, duration: anima ? 0.4 : 0 }),
+          onUpdate: (self) => guardarProgresso(slug, self.progress),
           onLeave: () => gsap.to(vertical, { opacity: 0, duration: anima ? 0.6 : 0 }),
           onEnterBack: () => gsap.to(vertical, { opacity: 1, duration: anima ? 0.3 : 0 }),
         });
@@ -406,7 +417,9 @@ export function SinalDeFim() {
       if (!el) return;
       const fios = gsap.utils.toArray<SVGPathElement>("path", el);
       const mm = gsap.matchMedia();
-      mm.add({ anima: "(prefers-reduced-motion: no-preference)" }, (ctx) => {
+      /* as DUAS condições: com uma só, o gsap.matchMedia não roda nada quando ela é falsa, e o estado
+         final do movimento reduzido nunca era escrito (medido em 2026-09-24) */
+      mm.add(ANIMA_OU_REDUZIDO, (ctx) => {
         const { anima } = ctx.conditions as { anima: boolean };
         if (!anima) {
           gsap.set(fios, { drawSVG: "0% 100%" });

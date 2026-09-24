@@ -3,6 +3,7 @@
 import { useCallback, useId, useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { EntraNaVista } from "./EntraNaVista";
+import { Hibisco } from "./Hibisco";
 
 /**
  * Os filtros e a grade do journal (roteiro do blog, Parte 3; design-blog.md, 5.4).
@@ -159,6 +160,8 @@ export function GradeJournal({
                     transition={reduzido ? NADA : DESLIZA}
                   />
                 ) : null}
+                {/* o hibisco da raiz brasileira: botão fechado, abre quando a pílula é escolhida */}
+                {f.cultural ? <Hibisco modo="foco" aberto={on} className="filtro-hibisco" /> : null}
                 <span className="filtro-rotulo">{f.rotulo}</span>
               </button>
             );
@@ -187,7 +190,9 @@ export function GradeJournal({
                 exit={{ opacity: 0, transition: reduzido ? NADA : SAI }}
                 transition={reduzido ? NADA : DESLIZA}
               >
-                <EntraNaVista lado={n % 2 === 0 ? "esquerda" : "direita"}>{i.card}</EntraNaVista>
+                <EntraNaVista slug={i.slug} lado={n % 2 === 0 ? "esquerda" : "direita"}>
+                  {i.card}
+                </EntraNaVista>
               </motion.li>
             ))}
           </AnimatePresence>

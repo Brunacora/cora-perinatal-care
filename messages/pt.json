@@ -450,6 +450,10 @@
       "button": "Solicite uma conversa gratuita"
     },
     "scope": "Este artigo é educativo e não substitui o cuidado médico. Se algo não parecer certo com você ou com o seu bebê, procure seu obstetra, sua parteira, o pediatra ou uma consultora de amamentação. Se você estiver sofrendo emocionalmente, a National Maternal Mental Health Hotline atende pelo 1-833-TLC-MAMA, e o 988 Suicide and Crisis Lifeline atende a qualquer hora.",
+    "memory": {
+      "resume": "Continue de onde parou",
+      "read": "Lido"
+    },
     "keepReading": "Continue lendo",
     "author": {
       "title": "Da Bruna",

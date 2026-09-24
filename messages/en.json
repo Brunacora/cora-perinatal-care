@@ -450,6 +450,10 @@
       "button": "Request a complimentary call"
     },
     "scope": "This article is educational and does not replace medical care. If something feels off with you or your baby, please reach out to your OB, midwife, pediatrician or lactation consultant. If you are struggling emotionally, the National Maternal Mental Health Hotline is available at 1-833-TLC-MAMA, and the 988 Suicide and Crisis Lifeline is available anytime.",
+    "memory": {
+      "resume": "Pick up where you left off",
+      "read": "Read"
+    },
     "keepReading": "Keep reading",
     "author": {
       "title": "From Bruna",

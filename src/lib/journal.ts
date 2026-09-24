@@ -192,7 +192,9 @@ export async function lerCorpo(slug: string): Promise<CorpoPronto | null> {
   const entrada = await reader.collections.artigos.read(slug);
   if (!entrada) return null;
   const node = await lerNo(entrada.corpo as Corpo);
-  const raiz = Markdoc.transform(node) as Tag;
+  /* o SUBLINHADO À MÃO (2026-09-24): a frase que a Bruna marca no painel vira um componente, que
+     desenha um traço ondulado de tinta por baixo dela quando a leitora chega */
+  const raiz = Markdoc.transform(node, { tags: { sublinhado: { render: "Sublinhado" } } }) as Tag;
   /* o Markdoc embrulha tudo num <article>, e a página já é um <article>: a raiz vira <div> */
   raiz.name = "div";
 

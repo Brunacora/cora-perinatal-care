@@ -1,4 +1,6 @@
+import { createElement } from "react";
 import { collection, config, fields, singleton } from "@keystatic/core";
+import { mark } from "@keystatic/core/content-components";
 
 /**
  * O PAINEL DO THE CORA JOURNAL (Keystatic, aprovado pelo Gabriel em 2026-09-23).
@@ -136,6 +138,18 @@ export default config({
             code: false,
             divider: true,
             heading: [2, 3],
+          },
+          components: {
+            /* O SUBLINHADO À MÃO (2026-09-24): selecione uma frase e marque. No site, um traço de
+               tinta ondulado se desenha embaixo dela enquanto a leitora passa. Uma frase por artigo
+               basta; mais que duas e ele deixa de ser gesto. */
+            sublinhado: mark({
+              label: "Sublinhar à mão",
+              icon: createElement("span", { style: { textDecoration: "underline wavy" } }, "S"),
+              schema: {},
+              tag: "span",
+              className: "sublinhado",
+            }),
           },
         }),
       },

@@ -1338,3 +1338,226 @@
   }
 }
 
+
+/* ------------------------------------------------------------------------ */
+/* OS TRÊS GESTOS DO CADERNO (2026-09-24): o sublinhado à mão, o caderno     */
+/* que lembra e o hibisco que se abre. Aprovados pelo Gabriel no lugar da    */
+/* fita do caderno (reprovada: "objeto literal pendurado lê como adereço").  */
+/* ------------------------------------------------------------------------ */
+@layer components {
+  /* A. O SUBLINHADO À MÃO: o traço mora num SVG por cima da coluna (Sublinhado.tsx) */
+  .prosa {
+    position: relative;
+  }
+
+  .sublinhado-traco {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: visible;
+    pointer-events: none;
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.9;
+  }
+
+  .sublinhado-traco path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  html[data-luz="abajur"] .sublinhado-traco {
+    stroke: var(--cora-brasa);
+  }
+
+  /* B. O CADERNO QUE LEMBRA: o fio de tinta sob a capa e a linha do tempo que troca */
+  .card-lido {
+    position: relative;
+    display: block;
+  }
+
+  .card-lido-fio {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -10px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--hairline);
+    opacity: 0;
+    transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .card-lido-fio::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--ink);
+    transform-origin: left center;
+    transform: scaleX(var(--lido, 0));
+  }
+
+  [data-lido] .card-lido-fio {
+    opacity: 1;
+  }
+
+  /* lido até o fim: o fio sai e quem fala é o arco fechado ao lado de "Read" (um fio cheio sob a
+     capa lia como divisória) */
+  [data-lido="fim"] .card-lido-fio {
+    opacity: 0;
+  }
+
+  .tempo-meio,
+  .tempo-fim {
+    display: none;
+  }
+
+  [data-lido] .tempo-novo {
+    display: none;
+  }
+
+  [data-lido="meio"] .tempo-meio,
+  [data-lido="fim"] .tempo-fim {
+    display: inline;
+    color: var(--ink-letra);
+  }
+
+  /* o arco da marca, fechado quando o artigo foi lido; ele se desenha com a mesma rolagem da capa */
+  .lido-arco {
+    display: inline-block;
+    width: 0.62em;
+    height: 0.8em;
+    margin-right: 0.4em;
+    vertical-align: -0.05em;
+    overflow: visible;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--capa-traco, 1));
+  }
+
+  .retomar-leitura {
+    order: 9;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 44px;
+    margin-top: var(--space-2);
+    padding: 0 var(--space-4);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--ink-letra);
+    font-family: var(--font-body);
+    font-size: var(--fs-apoio);
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      border-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 150ms ease;
+  }
+
+  .retomar-leitura:hover {
+    border-color: var(--ink);
+  }
+
+  .retomar-leitura:active {
+    transform: scale(0.98);
+  }
+
+  .retomar-leitura:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgb(212 77 27 / 0.4);
+  }
+
+  .retomar-fio {
+    position: relative;
+    width: 28px;
+    height: 2px;
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--hairline);
+  }
+
+  .retomar-fio > span {
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    transform-origin: left center;
+  }
+
+  /* C. O HIBISCO QUE SE ABRE: a flor da logo a uma linha, pequena, em três lugares só */
+  .hibisco {
+    display: inline-block;
+    flex: none;
+    overflow: visible;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--hib-traco, 9);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .hibisco-petala {
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--p, 1));
+  }
+
+  /* na rolagem ela nasce por desenhar; o GSAP escreve o --p (e o reduced-motion, 1) */
+  .hibisco[data-modo="rolagem"] .hibisco-petala {
+    --p: 0;
+  }
+
+  .hibisco-miolo {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  .filtro[data-cultural] {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .filtro-hibisco {
+    width: 20px;
+    height: 20px;
+    margin-block: -4px;
+    --hib-traco: 8;
+  }
+
+  .virada-hibisco {
+    width: 0.9em;
+    height: 0.9em;
+    margin-right: 0.35em;
+    vertical-align: -0.08em;
+    color: var(--ink);
+    --hib-traco: 6.5;
+  }
+
+  .keep-reading-cabeca {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    margin-bottom: clamp(var(--space-10), 5vw, var(--space-16));
+  }
+
+  .keep-reading-cabeca .keep-reading-titulo {
+    margin-bottom: 0;
+  }
+
+  .keep-reading-hibisco {
+    font-size: var(--fs-secao);
+    width: 0.72em;
+    height: 0.72em;
+    margin-top: 0.16em;
+    color: var(--ink);
+    --hib-traco: 6;
+  }
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import Markdoc, { type RenderableTreeNode } from "@markdoc/markdoc";
+import { Sublinhado } from "./Sublinhado";
 
 /**
  * O corpo do artigo, desenhado a partir do que a Bruna escreveu no painel. A árvore já chega pronta
@@ -7,6 +8,8 @@ import Markdoc, { type RenderableTreeNode } from "@markdoc/markdoc";
  *
  * A PAUSA DO MEIO (design-blog.md, 5.6): um card da largura da coluna, sem borda, que parece uma
  * pausa dentro do texto e não um anúncio. Copy verbatim do roteiro do blog.
+ *
+ * O SUBLINHADO À MÃO: a frase que a Bruna marcou no painel (`Sublinhado.tsx`).
  */
 export function CorpoArtigo({
   arvore,
@@ -29,5 +32,5 @@ export function CorpoArtigo({
       </aside>
     );
   }
-  return <div className="prosa">{Markdoc.renderers.react(arvore, React, { components: { PausaDoMeio } })}</div>;
+  return <div className="prosa">{Markdoc.renderers.react(arvore, React, { components: { PausaDoMeio, Sublinhado } })}</div>;
 }

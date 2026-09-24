@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useRef, useSyncExternalStore, type ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { assinarLeituras, estadoDaLeitura, progressoDe } from "@/lib/leituras";
 
 /**
  * O CARD VIVO (movimento-blog.md, seção 9). Três camadas, três donos, nenhuma briga:
@@ -19,9 +20,13 @@ import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } f
  * CAPA se move (o texto do card fica parado e legível), sem o desfoque e o brilho animados (pesam no
  * celular e sujam o papel), 16° em vez de 70°, e as variáveis de CSS no lugar de estilo direto, porque o
  * card chega pronto do servidor.
+ *
+ * O CADERNO QUE LEMBRA (2026-09-24): com o `slug`, o card sabe até onde a leitora leu aquele artigo
+ * NESTE aparelho (`lib/leituras.ts`) e escreve `data-lido` ("meio" ou "fim") e `--lido` (0 a 1). O
+ * CSS mostra o fio de tinta sob a capa, o arco que se fecha no lido, e troca a linha do tempo.
  */
 
-type Props = { children: ReactNode; lado?: "esquerda" | "direita" };
+type Props = { children: ReactNode; lado?: "esquerda" | "direita"; slug?: string };
 
 function useCapaViva(p: MotionValue<number>, lado: "esquerda" | "direita") {
   const sinal = lado === "esquerda" ? -1 : 1;
@@ -35,7 +40,13 @@ function useCapaViva(p: MotionValue<number>, lado: "esquerda" | "direita") {
   return { rx, ry, x, s, frase, traco };
 }
 
-export function EntraNaVista({ children, lado = "esquerda" }: Props) {
+export function EntraNaVista({ children, lado = "esquerda", slug }: Props) {
+  const lido = useSyncExternalStore(
+    assinarLeituras,
+    () => (slug ? progressoDe(slug) : 0),
+    () => 0,
+  );
+  const estado = estadoDaLeitura(lido);
   const reduzido = useReducedMotion();
   const alvo = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({ target: alvo, offset: ["start end", "end start"] });
@@ -55,10 +66,12 @@ export function EntraNaVista({ children, lado = "esquerda" }: Props) {
         ref={alvo}
         className="card-vivo"
         data-lado={lado}
+        data-lido={estado || undefined}
         style={
           reduzido
-            ? undefined
+            ? ({ "--lido": lido } as React.CSSProperties)
             : ({
+                "--lido": lido,
                 "--capa-rx": capa.rx,
                 "--capa-ry": capa.ry,
                 "--capa-x": capa.x,

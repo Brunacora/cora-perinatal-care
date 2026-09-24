@@ -15,6 +15,8 @@ import { CorpoArtigo } from "@/components/journal/CorpoArtigo";
 import { FromBruna } from "@/components/journal/FromBruna";
 import { Indice } from "@/components/journal/Indice";
 import { EntraNaVista } from "@/components/journal/EntraNaVista";
+import { Hibisco } from "@/components/journal/Hibisco";
+import { RetomarLeitura } from "@/components/journal/RetomarLeitura";
 import { lerCorpo, relacionados, todosOsArtigos } from "@/lib/journal";
 import { enderecoDoArtigo, enderecoDoJournal } from "@/lib/journal-endereco";
 import { schemaDoArtigo } from "@/lib/journal-schema";
@@ -123,6 +125,7 @@ export default async function PaginaDoArtigo({ params }: { params: Promise<{ loc
               </p>
               <p className="artigo-atualizado">{t("updated", { date: mesEAno(artigo.atualizado, locale) })}</p>
               <Abajur rotulo={t("lampOn")} dica={t("lampHint")} />
+              <RetomarLeitura slug={artigo.slug} rotulo={t("memory.resume")} />
             </div>
           </header>
 
@@ -131,7 +134,7 @@ export default async function PaginaDoArtigo({ params }: { params: Promise<{ loc
           </div>
 
           <div className="artigo-leitura">
-            <FioDeLeitura />
+            <FioDeLeitura slug={artigo.slug} />
             <Indice titulo={t("toc")} subtitulos={corpo.subtitulos} />
             <CorpoArtigo arvore={corpo.arvore} pausa={{ texto: t("midCta.text"), botao: t("midCta.button") }} />
             {/* o sinal de fim: o texto termina assinado pelo símbolo, como numa revista */}
@@ -162,13 +165,18 @@ export default async function PaginaDoArtigo({ params }: { params: Promise<{ loc
           <section className="secao keep-reading" aria-labelledby="keep-reading-titulo">
             <CardsQueEntram escopo=".keep-reading" />
             <div className="container">
-              <h2 id="keep-reading-titulo" className="keep-reading-titulo">
-                {t("keepReading")}
-              </h2>
+              <div className="keep-reading-cabeca">
+                <Hibisco className="keep-reading-hibisco" />
+                <h2 id="keep-reading-titulo" className="keep-reading-titulo">
+                  {t("keepReading")}
+                </h2>
+              </div>
               <ul className="grade-cards grade-tres">
                 {cards.map((c, i) => (
                   <li key={outros[i].slug}>
-                    <EntraNaVista lado={i % 2 === 0 ? "esquerda" : "direita"}>{c}</EntraNaVista>
+                    <EntraNaVista slug={outros[i].slug} lado={i % 2 === 0 ? "esquerda" : "direita"}>
+                      {c}
+                    </EntraNaVista>
                   </li>
                 ))}
               </ul>

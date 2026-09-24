@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Inteiras } from "../Enfase";
 import { CenaFromBruna } from "./CameraJournal";
+import { Hibisco } from "./Hibisco";
 
 /**
  * "From Bruna" (roteiro do blog, Parte 5; design-blog.md, 5.8): quem escreve aqui. PICO 2 do blog.
@@ -50,7 +51,11 @@ export async function FromBruna() {
           </h2>
           <p className="corpo-grande">{t("p1")}</p>
           <p className="from-bruna-acende">{t("p2")}</p>
-          <p className="from-bruna-virada">{t("turn")}</p>
+          <p className="from-bruna-virada">
+            {/* o hibisco se abre na virada da história: é aqui que o journal nasce */}
+            <Hibisco className="virada-hibisco" />
+            {t("turn")}
+          </p>
           <p>{t("p3")}</p>
           <p className="from-bruna-fecho">{t("p4")}</p>
           <a href="#form" className="botao from-bruna-botao">
