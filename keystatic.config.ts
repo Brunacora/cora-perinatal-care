@@ -19,7 +19,7 @@ import { mark } from "@keystatic/core/content-components";
    (o painel), e variável sem `NEXT_PUBLIC_` não chega lá. Medido em 2026-09-23: com a variável, o
    painel abria no modo "gravar no disco" mesmo com o repositório configurado. Quem decide se o painel
    ABRE no ar é `src/lib/painel.ts` (as chaves do app do GitHub). */
-const REPOSITORIO = "uolivergab/cora-perinatal-care";
+const REPOSITORIO = "Brunacora/cora-perinatal-care";
 
 export const CATEGORIAS = [
   { label: "You are seen", value: "you-are-seen" },
