@@ -194,7 +194,8 @@
   /* Card de artigo (5.2)                                                     */
   /* ---------------------------------------------------------------------- */
 
-  .card-artigo {
+  .card-artigo,
+  .entra-na-vista {
     height: 100%;
   }
 
@@ -284,14 +285,45 @@
     padding-bottom: clamp(var(--space-12), 6vw, var(--space-20));
   }
 
+  /* O SÍMBOLO INTEIRO, perto do título (pedido do Gabriel, 2026-09-23: cortado na borda direita ele
+     "não dava nem para ver"). No celular fica atrás do título, pequeno e inteiro no canto; do
+     desktop para cima vira a SEGUNDA COLUNA do topo, logo depois da largura REAL do título (medido:
+     posição fixa invadia o "in" a 1024px). */
   .journal-marca {
     position: absolute;
-    top: calc(var(--nav-h) + var(--space-4));
-    right: calc(var(--gutter) * -0.5);
-    height: clamp(220px, 38vw, 460px);
+    top: calc(var(--space-2) * -1);
+    right: var(--gutter);
+    height: 190px;
     color: var(--ink);
     opacity: 0.22;
     pointer-events: none;
+  }
+
+  @media (min-width: 1024px) {
+    .journal-topo-texto {
+      grid-template-columns: max-content 1fr;
+      /* a última linha do título passa um pouco da caixa de 14ch (medido: 31px a 1024, 68px a 1440);
+         9vw deixa cerca de 60px de ar real entre a letra e o símbolo nas duas larguras */
+      column-gap: clamp(80px, 9vw, 140px);
+    }
+    .journal-topo-texto > :not(.journal-marca) {
+      grid-column: 1;
+    }
+    .journal-titulo {
+      width: max-content;
+      max-width: 14ch;
+    }
+    .journal-marca {
+      position: relative;
+      top: auto;
+      right: auto;
+      grid-column: 2;
+      grid-row: 1 / span 3;
+      align-self: center;
+      justify-self: start;
+      height: clamp(300px, 30vw, 440px);
+      opacity: 0.32;
+    }
   }
 
   .journal-marca svg {
@@ -630,13 +662,6 @@
     text-decoration: none;
   }
 
-  .artigo-voltar::before {
-    content: "";
-    width: 1.25em;
-    height: var(--linha);
-    margin-right: var(--space-2);
-    background: var(--ink);
-  }
 
   .artigo-titulo {
     font-size: var(--fs-artigo-titulo);

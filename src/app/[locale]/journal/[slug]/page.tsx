@@ -14,6 +14,7 @@ import { CardArtigo } from "@/components/journal/CardArtigo";
 import { CorpoArtigo } from "@/components/journal/CorpoArtigo";
 import { FromBruna } from "@/components/journal/FromBruna";
 import { Indice } from "@/components/journal/Indice";
+import { EntraNaVista } from "@/components/journal/EntraNaVista";
 import { lerCorpo, relacionados, todosOsArtigos } from "@/lib/journal";
 import { enderecoDoArtigo, enderecoDoJournal } from "@/lib/journal-endereco";
 import { schemaDoArtigo } from "@/lib/journal-schema";
@@ -168,7 +169,9 @@ export default async function PaginaDoArtigo({ params }: { params: Promise<{ loc
               </h2>
               <ul className="grade-cards grade-tres">
                 {cards.map((c, i) => (
-                  <li key={outros[i].slug}>{c}</li>
+                  <li key={outros[i].slug}>
+                    <EntraNaVista>{c}</EntraNaVista>
+                  </li>
                 ))}
               </ul>
             </div>

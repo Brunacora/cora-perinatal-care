@@ -1,4 +1,5 @@
 import KeystaticApp from "./keystatic";
+import { PAINEL_LIGADO } from "@/lib/painel";
 
 /**
  * O painel do The Cora Journal (`/keystatic`). Fica fora do `[locale]`: é ferramenta da Bruna, não
@@ -10,14 +11,13 @@ import KeystaticApp from "./keystatic";
  */
 export const metadata = { title: "The Cora Journal, painel", robots: { index: false, follow: false } };
 
-const podeAbrir = process.env.NODE_ENV !== "production" || Boolean(process.env.KEYSTATIC_GITHUB_REPO);
 
 export default function Layout() {
   return (
     <html lang="pt-BR">
       <head />
       <body>
-        {podeAbrir ? (
+        {PAINEL_LIGADO ? (
           <KeystaticApp />
         ) : (
           <main style={{ fontFamily: "system-ui, sans-serif", padding: 32, maxWidth: 560 }}>

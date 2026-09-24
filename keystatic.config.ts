@@ -7,16 +7,17 @@ import { collection, config, fields, singleton } from "@keystatic/core";
  * no próprio repositório (`content/journal/*.mdoc`), então não existe banco nem fornecedor externo.
  *
  * ONDE O PAINEL GRAVA:
- * - no computador (desenvolvimento), grava direto na pasta `content/`;
- * - no ar, só grava depois que o projeto estiver no GitHub e a variável
- *   `KEYSTATIC_GITHUB_REPO` (formato "dono/repositorio") existir na Vercel. Aí cada artigo salvo
- *   vira um commit, e a Vercel publica sozinha. Sem essa variável, o painel fica fechado no ar
- *   (ver `app/keystatic`), porque o disco da Vercel não aceita escrita.
+ * - sempre no repositório do GitHub: cada artigo salvo vira um commit, e a Vercel publica sozinha.
+ *   No ar o painel só abre com as chaves do app do GitHub na Vercel (`src/lib/painel.ts`).
  *
  * Os rótulos estão em português de propósito: quem usa o painel é a Bruna.
  */
 
-const repositorio = process.env.KEYSTATIC_GITHUB_REPO as `${string}/${string}` | undefined;
+/* O REPOSITÓRIO fica escrito aqui, e não numa variável: esta configuração também roda no NAVEGADOR
+   (o painel), e variável sem `NEXT_PUBLIC_` não chega lá. Medido em 2026-09-23: com a variável, o
+   painel abria no modo "gravar no disco" mesmo com o repositório configurado. Quem decide se o painel
+   ABRE no ar é `src/lib/painel.ts` (as chaves do app do GitHub). */
+const REPOSITORIO = "uolivergab/cora-perinatal-care";
 
 export const CATEGORIAS = [
   { label: "You are seen", value: "you-are-seen" },
@@ -27,7 +28,7 @@ export const CATEGORIAS = [
 ] as const;
 
 export default config({
-  storage: repositorio ? { kind: "github", repo: repositorio } : { kind: "local" },
+  storage: { kind: "github", repo: REPOSITORIO },
   ui: {
     brand: { name: "The Cora Journal" },
   },

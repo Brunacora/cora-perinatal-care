@@ -1,7 +1,8 @@
 "use client";
 
 import Lenis from "lenis";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -80,7 +81,34 @@ export function MovimentoProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-/* Travar a rolagem quando um diálogo abre. Com a Lenis no comando, overflow: hidden no html
+/* A TROCA DE PÁGINA (2026-09-23, com o journal o site deixou de ter uma página só). Na navegação
+     do Next o provider NÃO remonta: a Lenis continua com a posição e a altura da página anterior, e
+     o ScrollTrigger mede a página nova antes de ela assentar (fontes, a passagem da capa). O
+     resultado, relatado pelo Gabriel: ao trocar de página as coisas "não carregavam" ao descer.
+     A cada troca: a Lenis volta ao topo sem animar e remede, e a câmera é recalculada duas vezes,
+     no quadro seguinte e depois das fontes. */
+  const pathname = usePathname();
+  const primeira = useRef(true);
+  useEffect(() => {
+    if (primeira.current) {
+      primeira.current = false;
+      return;
+    }
+    const lenis = lenisAtual;
+    if (!window.location.hash) lenis?.scrollTo(0, { immediate: true, force: true });
+    lenis?.resize();
+    let quadro = requestAnimationFrame(() => {
+      quadro = requestAnimationFrame(() => ScrollTrigger.refresh());
+    });
+    let vivo = true;
+    document.fonts?.ready.then(() => vivo && ScrollTrigger.refresh());
+    return () => {
+      vivo = false;
+      cancelAnimationFrame(quadro);
+    };
+  }, [pathname]);
+
+  /* Travar a rolagem quando um diálogo abre. Com a Lenis no comando, overflow: hidden no html
      não basta: é ela quem precisa parar, senão a página corre atrás da folha aberta. */
   useEffect(() => {
     const aoTravar = (e: Event) => {

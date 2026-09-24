@@ -194,9 +194,9 @@ export function CenaFromBruna() {
 }
 
 /**
- * Os cards entram UMA vez, em lotes, por opacidade e 24px de subida (o "fade in leve" do roteiro,
- * o único reveal repetido do blog). Anima o `article` do card, nunca o `li` (dono: Motion).
- * Cards que chegam depois (filtro, "Load more") entram pelo Motion, não por aqui.
+ * O TÍTULO de "Keep reading" entra por linha. Os CARDS não são mais daqui: entram pelo
+ * `EntraNaVista` (Motion, quando aparecem na tela). O lote do ScrollTrigger escondia cards que
+ * nunca voltavam depois de filtrar ou de trocar de página.
  */
 export function CardsQueEntram({ escopo }: { escopo: string }) {
   const ancora = useRef<HTMLSpanElement | null>(null);
@@ -205,20 +205,9 @@ export function CardsQueEntram({ escopo }: { escopo: string }) {
     if (!raiz) return;
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const cards = gsap.utils.toArray<HTMLElement>(".card-artigo", raiz);
       const titulo = raiz.querySelector<HTMLElement>(".keep-reading-titulo");
-      gsap.set(cards, { opacity: 0, y: 24 });
-      ScrollTrigger.batch(cards, {
-        start: "top 92%",
-        once: true,
-        onEnter: (lote) =>
-          gsap.to(lote, { opacity: 1, y: 0, duration: 0.6, ease: CURVA, stagger: 0.1, overwrite: true }),
-      });
       const corte = titulo ? cortar(titulo, (linhas) => tituloEmTrilho(linhas, titulo)) : null;
-      return () => {
-        corte?.revert();
-        gsap.set(cards, { clearProps: "opacity,transform" });
-      };
+      return () => corte?.revert();
     });
   });
   return <span ref={ancora} hidden aria-hidden="true" />;

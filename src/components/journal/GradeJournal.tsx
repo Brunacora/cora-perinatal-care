@@ -2,6 +2,7 @@
 
 import { useCallback, useId, useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { EntraNaVista } from "./EntraNaVista";
 
 /**
  * Os filtros e a grade do journal (roteiro do blog, Parte 3; design-blog.md, 5.4).
@@ -186,7 +187,7 @@ export function GradeJournal({
                 exit={{ opacity: 0, transition: reduzido ? NADA : SAI }}
                 transition={reduzido ? NADA : DESLIZA}
               >
-                {i.card}
+                <EntraNaVista>{i.card}</EntraNaVista>
               </motion.li>
             ))}
           </AnimatePresence>

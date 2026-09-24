@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { MobileCta } from "@/components/MobileCta";
 import { Enfase } from "@/components/Enfase";
 import { SimboloDesenhado } from "@/components/ui/SimboloDesenhado";
-import { CameraTopoJournal, CardsQueEntram } from "@/components/journal/CameraJournal";
+import { CameraTopoJournal } from "@/components/journal/CameraJournal";
 import { CapaTipografica } from "@/components/journal/CapaTipografica";
 import { CardArtigo } from "@/components/journal/CardArtigo";
 import { FromBruna } from "@/components/journal/FromBruna";
@@ -97,10 +97,11 @@ export default async function Journal({ params }: { params: Promise<{ locale: st
             que no Passe 3 se desenha a uma tinta (pico 1 do blog). */}
         <section id="top" className="journal-topo" aria-labelledby="journal-titulo">
           <CameraTopoJournal />
-          <div className="journal-marca" data-camada="fundo" aria-hidden="true">
-            <SimboloDesenhado />
-          </div>
           <div className="container journal-topo-texto" data-camada="meio">
+            {/* o símbolo inteiro, ao lado do título (segunda coluna do topo no desktop) */}
+            <div className="journal-marca" data-camada="fundo" aria-hidden="true">
+              <SimboloDesenhado />
+            </div>
             <p className="etiqueta journal-etiqueta">{t("eyebrow")}</p>
             <h1 id="journal-titulo" className="journal-titulo">
               <Enfase texto={t("title")} palavra={t("titleEmphasis")} />
@@ -138,7 +139,6 @@ export default async function Journal({ params }: { params: Promise<{ locale: st
         ) : null}
 
         <section className="journal-grade" aria-label={t("eyebrow")}>
-          <CardsQueEntram escopo=".journal-grade" />
           <div className="container">
             <GradeJournal
               itens={itens}
