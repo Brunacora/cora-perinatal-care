@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Inteiras } from "../Enfase";
 import { CenaFromBruna } from "./CameraJournal";
+import { FitaDoCaderno } from "./FitaDoCaderno";
 
 /**
  * "From Bruna" (roteiro do blog, Parte 5; design-blog.md, 5.8): quem escreve aqui. PICO 2 do blog.
@@ -21,8 +22,13 @@ export async function FromBruna() {
     <section className="secao from-bruna" aria-labelledby="from-bruna-titulo">
       <CenaFromBruna />
       <div className="campo-leitura" data-camada="fundo" aria-hidden="true" />
+      {/* a fita pende da BORDA DE CIMA da seção (que não se move), no vão entre a foto e o texto:
+          marca onde a leitora parou, junto de quem escreve */}
+      <FitaDoCaderno onde="autoria" />
       <div className="container from-bruna-grade">
         <figure className="from-bruna-quadro" data-camada="frente">
+          {/* no celular a fita sai do alto da foto (no desktop, do alto da seção: ver abaixo) */}
+          <FitaDoCaderno onde="autoria-celular" />
           {/* o arco a 14px da foto, com o mesmo centro do semicírculo dela: caixa de 428 x 514 para uma
               foto de 400 x 500 (4:5) */}
           <svg className="from-bruna-arco" viewBox="0 0 428 514" preserveAspectRatio="none" aria-hidden="true">

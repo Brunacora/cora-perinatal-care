@@ -11,6 +11,7 @@ import { CameraTopoJournal } from "@/components/journal/CameraJournal";
 import { CapaTipografica } from "@/components/journal/CapaTipografica";
 import { CardArtigo } from "@/components/journal/CardArtigo";
 import { FromBruna } from "@/components/journal/FromBruna";
+import { FitaDoCaderno } from "@/components/journal/FitaDoCaderno";
 import { GradeJournal } from "@/components/journal/GradeJournal";
 import { artigoEmDestaque, todosOsArtigos } from "@/lib/journal";
 import { enderecoDoArtigo, enderecoDoJournal } from "@/lib/journal-endereco";
@@ -134,6 +135,8 @@ export default async function Journal({ params }: { params: Promise<{ locale: st
                     <span className="sr-only">: {destaque.titulo}</span>
                   </Link>
                 </div>
+                {/* a fita do caderno escapa de baixo do card: é por aqui que se começa */}
+                <FitaDoCaderno onde="destaque" />
               </article>
             </div>
           </section>

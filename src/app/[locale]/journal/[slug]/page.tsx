@@ -13,6 +13,7 @@ import { CapaTipografica } from "@/components/journal/CapaTipografica";
 import { CardArtigo } from "@/components/journal/CardArtigo";
 import { CorpoArtigo } from "@/components/journal/CorpoArtigo";
 import { FromBruna } from "@/components/journal/FromBruna";
+import { FitaDoCaderno } from "@/components/journal/FitaDoCaderno";
 import { Indice } from "@/components/journal/Indice";
 import { EntraNaVista } from "@/components/journal/EntraNaVista";
 import { lerCorpo, relacionados, todosOsArtigos } from "@/lib/journal";
@@ -128,6 +129,8 @@ export default async function PaginaDoArtigo({ params }: { params: Promise<{ loc
 
           <div className="artigo-capa container-capa arco-abre" data-camada="frente">
             <CapaTipografica artigo={artigo} tamanho="artigo" prioridade />
+            {/* a fita escapa de baixo da capa: a página que está aberta */}
+            <FitaDoCaderno onde="capa" />
           </div>
 
           <div className="artigo-leitura">
