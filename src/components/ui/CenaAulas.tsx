@@ -172,11 +172,17 @@ export function CenaAulas({
       const n = capitulos.length;
       if (!n || !cena) return;
 
-      /* O ALVO DA NAVEGAÇÃO, separado do capítulo que está na tela. Sem ele, dois cliques
-         seguidos na seta calculavam os dois a partir do MESMO capítulo, porque a rolagem ainda
-         estava a caminho e o `data-capitulo` ainda não tinha mudado. A janela de 1,4s é o tempo
-         da viagem: passado isso, quem manda volta a ser o que a pessoa está vendo. */
-      let alvoCap = 0;
+      /* O ALVO DA NAVEGAÇÃO, separado do que está na tela. Sem ele, dois cliques seguidos na seta
+         calculavam os dois a partir do MESMO ponto, porque a rolagem ainda estava a caminho. A
+         janela de 1,4s é o tempo da viagem: passado isso, quem manda volta a ser o que a pessoa
+         está vendo.
+
+         O ALVO É UM PASSO, NÃO UM CAPÍTULO (Bruna, 2026-09-24: "quando clica nas setas não vai pra
+         próxima página, vai direto pra próxima aula"). Uma aula que não cabe na tela se divide em
+         dois tempos, e a seta andava de capítulo em capítulo, caindo sempre no PRIMEIRO tempo do
+         seguinte. Medido a 390x844: as cinco aulas se dividiam em dois, e em nenhuma delas a lista
+         do "Together we'll explore" chegava a acender para quem navegava pelas setas. */
+      let alvoPasso = 0;
       let viagemAte = 0;
 
       /* Cada peça é procurada DENTRO do capítulo. Sem índice, sem deslocamento possível. */
@@ -277,17 +283,21 @@ export function CenaAulas({
         });
       };
 
-      const acender = (i: number) => {
+      /* `i` é o capítulo, que é o que as MARCAS mostram; `k` é o passo, que é o que as SETAS
+         andam. Os dois são diferentes quando uma aula se divide em dois tempos, e é essa distinção
+         que conserta o pulo. `ultimo` é o índice do último passo, para saber quando a seta da
+         frente não tem mais para onde ir. */
+      const acender = (i: number, k: number, ultimo: number) => {
         marcas.forEach((m, j) => {
           m.classList.toggle("esta-ativa", j === i);
           m.setAttribute("aria-selected", j === i ? "true" : "false");
         });
         raiz.dataset.capitulo = String(i);
-        if (performance.now() > viagemAte) alvoCap = i;
+        if (performance.now() > viagemAte) alvoPasso = k;
         /* a seta que não tem para onde ir fica desabilitada, em vez de sumir: botão que aparece e
            some muda o layout da barra a cada capítulo */
-        if (setaAnterior) setaAnterior.disabled = i <= 0;
-        if (setaProxima) setaProxima.disabled = i >= n - 1;
+        if (setaAnterior) setaAnterior.disabled = k <= 0;
+        if (setaProxima) setaProxima.disabled = k >= ultimo;
       };
 
       /* O nome de cada aula cortado em linhas, para subir por baixo de uma máscara. É o gesto do
@@ -431,7 +441,8 @@ export function CenaAulas({
             gsap.set(".lista li, .cap-parceiros", { opacity: 1 });
             gsap.set(todasLinhas, { drawSVG: "0% 100%" });
             if (barra) gsap.set(barra, { scaleX: 1 });
-            acender(0);
+            /* em fluxo não existe passo: tudo já está na tela, e as duas setas ficam desabilitadas */
+            acender(0, 0, 0);
             if (anima) bater();
           };
 
@@ -450,9 +461,13 @@ export function CenaAulas({
             for (let b = 0; b < q; b++) passos.push({ cap: i, tempo: b });
           });
           const unidades = Math.max(1, passos.length - 1);
-          /* com mais passos, cada um pede um pouco menos de rolagem, senão a cena presa fica
-             comprida demais no celular pequeno */
-          const porPasso = passos.length > n ? 0.56 : 0.64;
+          /* QUANTA ROLAGEM CADA PASSO RECEBE. Era 0,56 de tela quando há divisão, e 0,56 é menos
+             do que o dedo anda num gesto só: o conteúdo passava mais rápido que a mão e a Bruna
+             viu "pular a tela ao invés de aparecer todas as info" (24/09). Subiu para 0,78, a
+             mesma ordem de grandeza que consertou a seção 6 (lá é uma tela inteira por tempo).
+             Não vai a 1,0 porque aqui são 11 passos e não 4: a conta é 11 x 0,78, e cada décimo a
+             mais estica a cena presa em mais de uma tela no celular. */
+          const porPasso = passos.length > n ? 0.78 : 0.64;
 
           gsap.set(capitulos, { opacity: 0, y: 26, pointerEvents: "none" });
           gsap.set(capitulos[0], { opacity: 1, y: 0, pointerEvents: "auto" });
@@ -473,7 +488,8 @@ export function CenaAulas({
              veem. Só mexe em quem existe. */
           const itens0 = itensDe(0);
           if (itens0.length && tempos[0] === 1) gsap.set(itens0, { opacity: 1 });
-          acender(0);
+          const ultimoPasso = passos.length - 1;
+          acender(0, 0, ultimoPasso);
 
           const tl = gsap.timeline({
             defaults: { ease: "none" },
@@ -491,7 +507,10 @@ export function CenaAulas({
               onRefresh: desenharArcos,
               /* SEM encaixe (snap): ele escreve a posição da rolagem por conta própria e briga
                  com a Lenis, que também escreve. O resultado é a cena saltando de capítulo. */
-              onUpdate: (self) => acender(passos[Math.round(self.progress * unidades)]?.cap ?? 0),
+              onUpdate: (self) => {
+                const k = Math.min(ultimoPasso, Math.max(0, Math.round(self.progress * unidades)));
+                acender(passos[k]?.cap ?? 0, k, ultimoPasso);
+              },
             },
           });
 
@@ -596,26 +615,35 @@ export function CenaAulas({
             }
           }
 
-          /* os traços do pé levam direto ao começo de um capítulo */
-          const irPara = (c: number) => {
+          /* A VIAGEM É SEMPRE ATÉ UM PASSO. Quem manda no destino é o índice no array `passos`,
+             que é a unidade real da cena: numa aula dividida existem dois passos, e o segundo é a
+             ementa do "Together we'll explore". */
+          const irParaPasso = (k: number) => {
             const st = tl.scrollTrigger;
             if (!st) return;
-            const k = Math.max(0, passos.findIndex((p) => p.cap === c));
-            const y = st.start + (st.end - st.start) * (k / unidades);
-            alvoCap = c;
+            const destino = Math.min(ultimoPasso, Math.max(0, k));
+            const y = st.start + (st.end - st.start) * (destino / unidades);
+            alvoPasso = destino;
             viagemAte = performance.now() + 1400;
             rolarPara(y);
           };
+
+          /* os traços do pé levam direto ao COMEÇO de um capítulo, porque é isso que eles
+             representam: a aula inteira, não a página dentro dela */
+          const irPara = (c: number) => irParaPasso(Math.max(0, passos.findIndex((p) => p.cap === c)));
           const cliques = marcas.map((m, i) => {
             const fn = () => irPara(i);
             m.addEventListener("click", fn);
             return fn;
           });
 
-          /* AS SETAS levam ao mesmo lugar das marcas, um capítulo por vez. O capítulo atual vem do
-             `data-capitulo` que o `acender` mantém, então não existe um segundo estado para
-             dessincronizar. */
-          const irRelativo = (d: number) => irPara(Math.min(n - 1, Math.max(0, alvoCap + d)));
+          /* AS SETAS ANDAM UMA PÁGINA POR VEZ, não uma aula. Pedido da Bruna em 24/09: "quando
+             clica nas setas não vai pra próxima página, vai direto pra próxima aula". Antes elas
+             chamavam `irPara(capítulo ± 1)`, que cai sempre no primeiro tempo do capítulo
+             seguinte, e por isso a ementa de nenhuma aula chegava a aparecer para quem navegava
+             pelas setas. Medido a 390x844, antes do conserto: cinco aulas, cinco listas, zero
+             itens acesos. */
+          const irRelativo = (d: number) => irParaPasso(alvoPasso + d);
           const aoAnterior = () => irRelativo(-1);
           const aoProximo = () => irRelativo(1);
           setaAnterior?.addEventListener("click", aoAnterior);
