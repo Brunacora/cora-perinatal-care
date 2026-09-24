@@ -23,6 +23,8 @@ import { cn } from "@/lib/cn";
  *
  * Um acréscimo: durante o arrasto o painel não tem transição, senão ele segue o dedo com 450ms de
  * atraso.
+ *
+ * Página original: https://21st.dev/@coss.com/components/drawer
  */
 
 export function Drawer({

@@ -15,6 +15,8 @@ import { motion, useReducedMotion } from "motion/react";
  * apaga com um toque ou com Enter; o puxão é o jeito bonito, não o único. A conta amarela com brilho
  * virou tinta da marca (conta vazada acesa, cheia apagada), e o `classList.toggle("dark")` virou o
  * `data-luz` que o `journal.css` lê.
+ *
+ * Página original: https://21st.dev/@oldkong88/components/light-pull-theme-switcher
  */
 const CHAVE = "cora-luz";
 

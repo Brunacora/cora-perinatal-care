@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+/* As reservas com as MÉTRICAS das fontes da marca (as mesmas que o next/font calculava): enquanto a
+   fonte da Fontshare chega, a Arial ocupa o mesmo espaço e o texto não pula. */
+@font-face {
+  font-family: "Gambetta Reserva";
+  src: local("Arial");
+  ascent-override: 93.95%;
+  descent-override: 29.3%;
+  line-gap-override: 8.08%;
+  size-adjust: 98.99%;
+}
+@font-face {
+  font-family: "General Sans Reserva";
+  src: local("Arial");
+  ascent-override: 99.89%;
+  descent-override: 23.74%;
+  line-gap-override: 9.89%;
+  size-adjust: 101.11%;
+}
+
 /* =========================================================================
    Cora Perinatal Care. Tokens em três camadas (design.md, seção 3).
    Primitivo (fato da marca) > Semântico (papel) > Componente (uso).
@@ -69,8 +88,8 @@
   --radius-pill: 100px;
 
   /* Tipografia: papéis e escala fluida (design.md, seção 4) */
-  --font-display: var(--font-gambetta), Georgia, serif;
-  --font-body: var(--font-general-sans), system-ui, sans-serif;
+  --font-display: "Gambetta", "Gambetta Reserva", Georgia, serif;
+  --font-body: "General Sans", "General Sans Reserva", system-ui, sans-serif;
   --fs-hero: clamp(2.25rem, 1.4rem + 3vw, 3.625rem);
   --fs-secao: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
   --fs-item: clamp(1.5rem, 1.25rem + 1vw, 2rem);

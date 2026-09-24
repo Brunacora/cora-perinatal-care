@@ -15,6 +15,8 @@ import type { Subtitulo } from "@/lib/journal";
  *
  * Dois desenhos do mesmo índice: recolhido no celular (um `<details>`, ao alcance do polegar) e
  * aberto na margem do desktop. Um `<details>` fechado esconde o conteúdo e CSS nenhum o abre.
+ *
+ * Página original: https://21st.dev/@inference-sh/components/table-of-contents
  */
 function useSecaoAtiva(ids: string[]) {
   const [ativo, setAtivo] = useState("");

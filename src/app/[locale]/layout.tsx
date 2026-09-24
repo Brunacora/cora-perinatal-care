@@ -6,9 +6,11 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { IDIOMAS_PUBLICADOS, routing } from "@/i18n/routing";
 import { SITE_HOST, SITE_URL, etiquetaDoIdioma, idiomaDoConteudo, localePath } from "@/lib/site";
 import { schemaToJson, siteSchema } from "@/lib/schema";
-import { gambetta, generalSans } from "../fonts";
 import { MovimentoProvider } from "@/components/MovimentoProvider";
 import "../globals.css";
+
+const FONTES =
+  "https://api.fontshare.com/v2/css?f[]=gambetta@400,401,500,501&f[]=general-sans@400,401,500,501&display=swap";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -111,12 +113,17 @@ export default async function LocaleLayout({
   return (
     <html
       lang={etiquetaDoIdioma(locale)}
-      className={`${gambetta.variable} ${generalSans.variable}`}
       /* o abajur do journal acende `data-luz` no <html> antes de o React hidratar (sem clarão para
          quem lê de madrugada); só esse atributo difere, e é de propósito */
       suppressHydrationWarning
     >
       <head>
+        {/* AS FONTES VÊM DA FONTSHARE (2026-09-24). A licença delas (ITF Free Font License) deixa usar
+            no site mas proíbe redistribuir os arquivos, e o repositório passou a ser público: os
+            arquivos saíram dele. A conexão abre cedo; as métricas de reserva estão no globals.css. */}
+        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={FONTES} />
         {/* DADOS ESTRUTURADOS, montados no SERVIDOR e servidos no HTML da primeira resposta: robô
             que não executa JavaScript (boa parte dos rastreadores de IA) precisa ver o grafo no
             HTML cru. Ver `lib/schema.ts`. */}

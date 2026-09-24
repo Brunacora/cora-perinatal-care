@@ -18,6 +18,8 @@ type MenuToggleProps = ComponentProps<"svg"> & {
  * Passada de tokens: traço de 1,5 (o peso de linha da marca), cor herdada (tinta), as utilitárias
  * do Tailwind viraram classes do projeto (`.menu-toggle*`), e com prefers-reduced-motion a troca é
  * imediata (CSS).
+ *
+ * Página original: https://21st.dev/@efferd/components/menu-toggle-icon
  */
 export function MenuToggleIcon({
   open,

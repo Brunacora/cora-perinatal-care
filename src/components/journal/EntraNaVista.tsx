@@ -24,6 +24,8 @@ import { assinarLeituras, estadoDaLeitura, progressoDe } from "@/lib/leituras";
  * O CADERNO QUE LEMBRA (2026-09-24): com o `slug`, o card sabe até onde a leitora leu aquele artigo
  * NESTE aparelho (`lib/leituras.ts`) e escreve `data-lido` ("meio" ou "fim") e `--lido` (0 a 1). O
  * CSS mostra o fio de tinta sob a capa, o arco que se fecha no lido, e troca a linha do tempo.
+ *
+ * Página original: https://21st.dev/@ruixen.ui/components/scroll-tilted-grid
  */
 
 type Props = { children: ReactNode; lado?: "esquerda" | "direita"; slug?: string };

@@ -28,6 +28,8 @@ const RECORTE_INICIAL =
  * A cura sem piscada: as duas passadas renderizam o MESMO recorte inicial, escrito à mão, e o
  * valor animado só assume depois de montado. Como ele começa exatamente em 26%, a troca é
  * invisível.
+ *
+ * Página original: https://21st.dev/@daiwiikharihar/components/reveal-image-mask
  */
 export function RevealImageMask({ children, className = "" }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement | null>(null);

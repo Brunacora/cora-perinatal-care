@@ -12,6 +12,8 @@ import { useEffect, useRef, useState } from "react";
  *
  * Adaptação: só a janela (a página inteira), sem a caixa de rolagem da demonstração. As duas molas
  * do componente vêm junto, sem mudança, e quem as usa é a Navbar (Motion, dono do estado da barra).
+ *
+ * Página original: https://21st.dev/@ddoemonn/components/hide-on-scroll
  */
 export const DISCLOSE = { type: "spring", stiffness: 150, damping: 27, mass: 1 } as const;
 export const CROSSFADE = { type: "spring", stiffness: 260, damping: 34, mass: 0.8 } as const;

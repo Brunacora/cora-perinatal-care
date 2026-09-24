@@ -19,6 +19,8 @@ import { Hibisco } from "./Hibisco";
  *
  * "Load more articles": oito por vez, nunca rolagem infinita (o roteiro proíbe). O filtro fica no
  * endereço (`?topic=`), para quem compartilha cair no mesmo recorte.
+ *
+ * Página original: https://21st.dev/@ddoemonn/components/filter-grid
  */
 
 export type ItemDaGrade = {
