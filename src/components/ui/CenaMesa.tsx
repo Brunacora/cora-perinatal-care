@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import Image from "next/image";
-import { useRef, useState, type ReactNode } from "react";
+import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -214,10 +214,21 @@ export function CenaMesa({
 
           if (!presa) {
             raiz.dataset.modo = "aberto";
-            gsap.set(provasEls, { clearProps: "all" });
+            /* LIMPA SÓ O QUE O GSAP ESCREVEU, nunca "all". Com `clearProps: "all"` o GSAP apaga o
+               atributo `style` inteiro, e junto iam as variáveis de linha da grade que o React
+               escreve em cada prova (`--estreita`, `--larga-de`, `--larga-ate`). O sintoma era
+               silencioso: as provas caíam em `grid-row: auto`, voltavam a se empilhar no alto e a
+               foto do fechamento ficava de novo longe do texto dela. Medido em 25/09. */
+            gsap.set(provasEls, { clearProps: "transform,translate,rotate,scale,opacity,zIndex" });
             /* sem pin as provas viram coluna, entao a medida vem da LARGURA disponivel e nao da
                altura da mesa. Sem isto a caixa da foto ficava com width auto e colapsava. */
             const medirEmColuna = () => {
+              /* TETO DE ALTURA, não de largura. Com a prova ocupando a coluna inteira, uma foto em
+                 pé virava uma linha de 695px ao lado de três parágrafos curtos, e a seção ficava
+                 desequilibrada (medido a 1440x900 em 25/09). Cortar não é opção: a ideia da seção é
+                 que nenhuma prova seja cortada. Então quando a altura estoura o teto, ela manda, e
+                 a largura vem dela, mantendo a proporção do arquivo. Foto deitada não encolhe. */
+              const teto = Math.min(520, window.innerHeight * 0.6);
               provasEls.forEach((p) => {
                 const w = Number(p.dataset.w) || 1;
                 const h = Number(p.dataset.h) || 1;
@@ -225,10 +236,15 @@ export function CenaMesa({
                 const caixa = p.querySelector<HTMLElement>(".mesa-prova-foto");
                 if (!papel || !caixa) return;
                 const pad = parseFloat(getComputedStyle(papel).paddingLeft) || 0;
-                const larg = Math.max(0, papel.clientWidth - pad * 2);
+                let larg = Math.max(0, papel.clientWidth - pad * 2);
                 if (!larg) return;
+                let alt = (larg * h) / w;
+                if (alt > teto) {
+                  alt = teto;
+                  larg = (teto * w) / h;
+                }
                 caixa.style.width = Math.round(larg) + "px";
-                caixa.style.height = Math.round((larg * h) / w) + "px";
+                caixa.style.height = Math.round(alt) + "px";
               });
             };
             medirEmColuna();
@@ -393,6 +409,45 @@ export function CenaMesa({
 
   const folhaAtual = aberta !== null ? tempos[aberta]?.folha : undefined;
 
+  /* AS LINHAS DO MODO ABERTO (sem pin: movimento reduzido, ou tela deitada).
+     Pedido da Bruna em 25/09: "tem como trazer a foto do fechamento para baixo pra ficar perto do
+     'closing of the bones'?". Ela revisa com o movimento reduzido ligado no Mac, e nesse modo as
+     três provas ficavam empilhadas no alto da coluna da esquerda enquanto os quatro textos desciam
+     pela direita: medido a 1440x900, a última prova terminava em 7216 e o texto do fechamento só
+     começava em 7745, com mais de metade da coluna esquerda vazia.
+
+     A cura é as duas colunas compartilharem as mesmas LINHAS do grid, cada prova na linha do texto
+     a que ela pertence. Isso não se deriva só em CSS, porque uma prova pode servir DOIS tempos (as
+     cápsulas servem a encapsulação e os pacotes) e aí ela abrange duas linhas. Por isso a conta
+     nasce aqui, do mapa tempo -> prova que já existe nos dados. */
+  const linhaLargaDoTempo = (i: number) => i + 1;
+  const faixaLargaDaProva = (k: number) => {
+    const usos: number[] = [];
+    tempos.forEach((t, i) => {
+      if (t.prova === k) usos.push(i);
+    });
+    if (!usos.length) return null;
+    /* primeiro uso até o último: a prova acompanha todo o trecho de texto que fala dela */
+    return [usos[0] + 1, usos[usos.length - 1] + 2] as const;
+  };
+  /* Na coluna única (celular), foto e texto se ALTERNAM, e a foto entra logo antes do primeiro
+     texto que fala dela. Sem isso o celular mostrava as três fotos de enfiada e só depois os
+     quatro textos, que é a mesma queixa, pior. */
+  const linhaEstreita = (() => {
+    const daProva = new Map<number, number>();
+    const doTempo: number[] = [];
+    let linha = 1;
+    tempos.forEach((t) => {
+      if (!daProva.has(t.prova)) daProva.set(t.prova, linha++);
+      doTempo.push(linha++);
+    });
+    /* prova que nenhum tempo cita vai para o fim, em vez de ficar sem linha e empilhar na 1 */
+    provas.forEach((_, k) => {
+      if (!daProva.has(k)) daProva.set(k, linha++);
+    });
+    return { daProva, doTempo };
+  })();
+
   return (
     <section className="secao secao-mesa" id="additional" aria-labelledby={tituloId} ref={secao}>
       <div className="mesa-palco" ref={palco}>
@@ -407,12 +462,19 @@ export function CenaMesa({
             {/* A MESA. Cada prova guarda a proporção do próprio arquivo, então nenhuma é cortada. */}
             <div className="mesa-tampo" data-camada="meio">
               <div className="mesa-area">
-                {provas.map((p) => (
+                {provas.map((p, k) => (
                   <figure
                     className="mesa-prova"
                     key={p.chave}
                     data-w={p.foto.w}
                     data-h={p.foto.h}
+                    style={
+                      {
+                        "--estreita": linhaEstreita.daProva.get(k) ?? "auto",
+                        "--larga-de": faixaLargaDaProva(k)?.[0] ?? "auto",
+                        "--larga-ate": faixaLargaDaProva(k)?.[1] ?? "auto",
+                      } as CSSProperties
+                    }
                   >
                     {/* tres camadas, e cada uma tem UM dono de transform:
                         .mesa-prova  -> a linha do tempo da rolagem (onde a prova repousa)
@@ -443,6 +505,12 @@ export function CenaMesa({
                   className="mesa-tempo"
                   key={tp.chave}
                   aria-hidden={i === 0 ? "false" : "true"}
+                  style={
+                    {
+                      "--estreita": linhaEstreita.doTempo[i],
+                      "--larga": linhaLargaDoTempo(i),
+                    } as CSSProperties
+                  }
                 >
                   <h3 className="mesa-titulo">
                     {typeof tp.titulo === "string" ? <Inteiras texto={tp.titulo} /> : tp.titulo}

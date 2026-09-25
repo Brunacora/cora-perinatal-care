@@ -1001,12 +1001,20 @@ html.menu-aberto .cta-fixo[data-visivel="true"] {
   gap: var(--space-4);
 }
 
-/* NO CELULAR os dois na mesma linha (pedido dela, 2026-09-23).
-   A CONTA, medida a 390px: a pílula com "Request a complimentary call" pede 250px e o link "See
-   our services" pede 122px; com o respiro, 392px numa coluna de 350. Não cabe em uma linha de
-   texto, então a pílula fica com o que sobra e o rótulo dela quebra em duas linhas, numa pílula
-   mais alta. O projeto já aceita isso desde 2026-09-11 ("duas linhas equilibradas leem como
-   desenho, não como defeito"), e é o preço de ter os dois lado a lado como ela pediu. */
+/* NO CELULAR os dois na mesma linha (pedido dela, 2026-09-23), e A COPY FOI ENCURTADA PARA ISSO
+   SER VERDADE EM TODA LARGURA (2026-09-25).
+
+   O que estava errado: a base flexível era 190px FIXOS, e não a largura do texto. Com isso a
+   quebra dependia de um número arbitrário em vez do conteúdo, e o resultado era sorte por
+   largura. Medido: o lado a lado só acontecia a 390px em inglês, que é justamente o telefone da
+   Bruna, e por isso pareceu resolvido. A 320, 360 e 430 os dois empilhavam, e em PORTUGUÊS a
+   copy antiga ("Solicite uma conversa gratuita" mais "Veja nossos serviços" pedem 360px) não
+   cabia em NENHUMA largura de telefone, nem a 430.
+
+   Agora a base é `auto`, ou seja a largura do próprio texto: eles ficam lado a lado sempre que
+   couberem de verdade e empilham quando não couberem, e aí o `flex-grow` devolve a pílula de
+   largura inteira. A copy da hero encurtou para caber numa linha (a frase longa continua na
+   navbar, no fecho da história, no rodapé e no blog, então nada se perde). */
 @media (max-width: 767px) {
   .hero-acoes {
     display: flex;
@@ -1017,7 +1025,8 @@ html.menu-aberto .cta-fixo[data-visivel="true"] {
 
   .hero-acoes .botao {
     width: auto;
-    flex: 1 1 190px;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
   .hero-acoes .link-linha {
@@ -3340,6 +3349,54 @@ html.menu-aberto .cta-fixo[data-visivel="true"] {
 
 .secao-mesa[data-modo="aberto"] .mesa-tempo {
   grid-area: auto;
+}
+
+/* ---- MODO ABERTO: CADA FOTO NA LINHA DO SEU PRÓPRIO TEXTO ----
+   Pedido da Bruna em 25/09. Ela revisa com "reduzir movimento" ligado, e é este o modo que ela vê.
+   Antes, as três provas ficavam num bloco no alto da coluna da esquerda e os quatro textos desciam
+   pela direita: medido a 1440x900, a última prova terminava em 7216 e o texto do fechamento só
+   começava em 7745. A foto do fechamento lia como parte do conjunto da placenta, que foi
+   exatamente a queixa dela, e sobrava meia coluna vazia embaixo.
+
+   As duas colunas passam a compartilhar as LINHAS do mesmo grid. Para isso os três invólucros
+   somem do layout com `display: contents` e as provas e os tempos viram filhos diretos da cena.
+   As linhas vêm do componente (`--estreita`, `--larga-de`, `--larga-ate`, `--larga`), porque uma
+   prova pode servir dois tempos e aí ela ABRANGE duas linhas, conta que o CSS sozinho não faz.
+
+   `pointer-events` é herdado, então o `none` do tampo continua valendo nas provas mesmo sem a
+   caixa dele; aqui em cima o modo aberto já o devolve para `auto`. */
+.secao-mesa[data-modo="aberto"] .mesa-tampo,
+.secao-mesa[data-modo="aberto"] .mesa-area,
+.secao-mesa[data-modo="aberto"] .mesa-copia {
+  display: contents;
+}
+
+.secao-mesa[data-modo="aberto"] .mesa-cena {
+  grid-template-rows: none;
+  grid-auto-rows: auto;
+  gap: var(--space-8) var(--space-6);
+}
+
+/* Coluna única: foto e texto se ALTERNAM, a foto logo antes do texto que fala dela. */
+.secao-mesa[data-modo="aberto"] .mesa-prova,
+.secao-mesa[data-modo="aberto"] .mesa-tempo {
+  grid-column: 1;
+  grid-row: var(--estreita);
+}
+
+@media (min-width: 900px) {
+  /* Duas colunas: a foto à esquerda, na altura do texto dela. A prova que serve dois tempos
+     abrange as duas linhas e se prende no alto do trecho. */
+  .secao-mesa[data-modo="aberto"] .mesa-prova {
+    grid-column: 1;
+    grid-row: var(--larga-de) / var(--larga-ate);
+    align-self: start;
+  }
+
+  .secao-mesa[data-modo="aberto"] .mesa-tempo {
+    grid-column: 2;
+    grid-row: var(--larga);
+  }
 }
 
 @media (min-width: 900px) {

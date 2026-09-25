@@ -25,8 +25,8 @@
   "hero": {
     "headline": "Cuidado pós-parto para você se sentir acolhida, apoiada e preparada.",
     "text": "A Cora Perinatal Care oferece apoio gentil, prático e sem julgamento desde a gestação, para o pós-parto, os cuidados com o recém-nascido, a alimentação e tudo o que vem no meio.",
-    "cta": "Solicite uma conversa gratuita",
-    "secondary": "Veja nossos serviços",
+    "cta": "Solicite uma conversa",
+    "secondary": "Ver serviços",
     "enfase": "você"
   },
   "season": {
@@ -170,7 +170,7 @@
           "Aula de preparação para o pós-parto",
           "40 horas de doula pós-parto em casa",
           "Encapsulamento de placenta - pacote premium",
-          "Fechamento de quadril",
+          "Ritual de fechamento dos ossos",
           "Apoio por mensagem durante todo o acompanhamento"
         ]
       }
@@ -181,7 +181,7 @@
   "additional": {
     "name": "Cuidados complementares",
     "short": "Serviços pensados com carinho para honrar o corpo, a família e a passagem para o pós-parto.",
-    "p1": "Para famílias que querem mais cuidado nessa fase, a Cora também oferece encapsulamento de placenta, lembranças da placenta e a cerimônia de fechamento de quadril.",
+    "p1": "Para famílias que querem mais cuidado nessa fase, a Cora também oferece encapsulamento de placenta, lembranças da placenta e o ritual de fechamento dos ossos.",
     "p2": "Esses serviços nascem da mesma intenção de todo o cuidado da Cora: apoiar a mãe, honrar o que o corpo dela carregou e abrir espaço para o descanso, a nutrição e o fechamento emocional.",
     "placenta": {
       "title": "Encapsulamento de placenta",
@@ -233,8 +233,8 @@
       }
     ],
     "closing": {
-      "title": "Fechamento de quadril - $275",
-      "p1": "O fechamento de quadril oferece um tempo e um espaço para honrar o seu corpo por tudo o que ele fez na gestação. Em muitas culturas, as mulheres tradicionalmente recebem esse cuidado várias vezes nos primeiros 40 dias depois do parto. O fechamento também pode ser feito depois de uma perda, de uma transição ou ao encerrar um ciclo da vida (divórcio, emprego novo etc.).",
+      "title": "Ritual de fechamento dos ossos - $275",
+      "p1": "O ritual de fechamento dos ossos oferece um tempo e um espaço para honrar o seu corpo por tudo o que ele fez na gestação. Em muitas culturas, as mulheres tradicionalmente recebem esse cuidado várias vezes nos primeiros 40 dias depois do parto. O fechamento também pode ser feito depois de uma perda, de uma transição ou ao encerrar um ciclo da vida (divórcio, emprego novo etc.).",
       "p2": "Durante o fechamento, os rebozos são usados para balançar e embalar alguns pontos do corpo antes de o tecido ser ajeitado por baixo de você. Ele pode favorecer a recuperação física no pós-parto, ao melhorar a circulação, e também pode ajudar na cura emocional e espiritual. Pode ser feito em qualquer momento da vida, não só no pós-parto imediato. Você ainda pode sentir os benefícios mesmo 40 anos depois do parto! É um espaço para você ser acolhida, honrar a sua jornada e o seu corpo. Se quiser, uma compressa de óleo de rícino pode ser colocada no baixo ventre para levar calor e favorecer a cura do útero, o que também pode ser simbólico e curativo depois de uma histerectomia.",
       "p3": "Este serviço está disponível, com investimento adicional, para as famílias que escolhem o apoio pós-parto em casa."
     },
@@ -407,7 +407,7 @@
     "aulaOnline": "Bruna ao telefone na mesa de trabalho",
     "carimbo": "Um carimbo de placenta em vermelho sobre papel",
     "capsulas": "Um pote âmbar de cápsulas de placenta ao lado de pétalas de rosa secas",
-    "closing": "Uma mulher deitada enquanto um rebozo é erguido sobre ela num ritual de fechamento de quadril",
+    "closing": "Uma mulher deitada enquanto um rebozo é erguido sobre ela num ritual de fechamento dos ossos",
     "retrato": "Bruna Gomes, doula pós-parto e fundadora da Cora Perinatal Care",
     "brunaEscritorio": "Bruna Gomes sorrindo à mesa de trabalho, ao lado de uma estante com livros e um modelo de pelve"
   },
