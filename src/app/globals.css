@@ -398,6 +398,22 @@ p {
   height: 18px;
 }
 
+/* ABERTO, O MAIS VIRA UM X (pedido da Bruna, 13/10/2026: "tem como colocar o 'x' do lado de
+   'close'?"). A classe `esta-aberto` já era escrita pelo componente da bio desde 23/09 e NUNCA teve
+   regra nenhuma: o giro de 45 graus que o comentário acima promete simplesmente não acontecia, e o
+   botão ficava com "+" ao lado da palavra "Close".
+
+   O hover continua girando mais 90 graus, e a forma final não muda: o sinal de mais tem simetria de
+   90 graus, então um X girado de 90 ainda é um X, do mesmo jeito que o mais fechado gira e continua
+   um mais. O giro é só o gesto; o estado é quem decide a forma. */
+.acordeao-indicador.esta-aberto {
+  transform: rotate(45deg);
+}
+
+.retrato-mais:hover .acordeao-indicador.esta-aberto {
+  transform: rotate(135deg);
+}
+
 /* Listas: texto corrido, os itens separados pelo arco-linha (a forma-assinatura deitada),
    como a linha de assuntos de uma revista. Continua sendo <ul> para o leitor de tela.
    Sem marcador de bala, sem traço, sem pílula: um terço da altura das pílulas. */
