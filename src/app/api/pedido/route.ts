@@ -34,6 +34,20 @@ const TEMPO_LIMITE_MS = 8000;
 
 type Resultado = { ok: true } | { ok: false; detalhe: string };
 
+/**
+ * O AVISO PELA PRÓPRIA PLANILHA (26/10/2026), enquanto o Resend não existe.
+ *
+ * O Apps Script já roda numa conta do Google de verdade, então ele consegue mandar o aviso da
+ * Bruna por `MailApp`, com o SPF e o DKIM do Google atrás: não pede domínio verificado, não pede
+ * registro de DNS no painel onde mora o e-mail dela, e não estreia reputação nenhuma. Quando o
+ * `RESEND_API_KEY` existir, a rota volta sozinha ao Resend e este caminho se apaga.
+ *
+ * A confirmação do LEAD continua esperando o Resend de propósito: ela sairia do endereço da
+ * agência, e um e-mail de marca premium assinado por outro remetente é pior que e-mail nenhum.
+ * A tela de agradecimento do site cobre o lead enquanto isso.
+ */
+type Aviso = { para: string; responderPara: string; assunto: string; html: string; texto: string };
+
 /* O freio por IP: cinco envios a cada dez minutos. Mora na memória da instância, então não é um
    muro, é um freio: impede que uma rajada vire uma rajada de e-mail na caixa da Bruna. */
 const envios = new Map<string, number[]>();
@@ -82,10 +96,18 @@ function freioCheio(): Response {
 
 const explicar = (e: unknown) => (e instanceof Error ? `${e.name}: ${e.message}` : String(e));
 
-async function gravarNaPlanilha(pedido: Pedido): Promise<Resultado> {
+async function gravarNaPlanilha(
+  pedido: Pedido,
+  aviso: Aviso | null,
+): Promise<{ linha: Resultado; aviso: Resultado | null }> {
   const url = process.env.SHEET_WEBHOOK_URL?.trim();
   const token = process.env.SHEET_TOKEN?.trim();
-  if (!url || !token) return { ok: false, detalhe: "SHEET_WEBHOOK_URL ou SHEET_TOKEN ausente neste ambiente" };
+  /* o mesmo motivo derruba a linha e o aviso: os dois viajam no mesmo POST */
+  const ambos = (detalhe: string) => ({
+    linha: { ok: false as const, detalhe },
+    aviso: aviso ? { ok: false as const, detalhe } : null,
+  });
+  if (!url || !token) return ambos("SHEET_WEBHOOK_URL ou SHEET_TOKEN ausente neste ambiente");
 
   /* a linha, com as chaves do contrato e o texto legível das escolhas */
   const linha: Record<string, string> = {};
@@ -95,7 +117,7 @@ async function gravarNaPlanilha(pedido: Pedido): Promise<Resultado> {
     const r = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token, ...linha }),
+      body: JSON.stringify({ token, ...linha, aviso }),
       /* o Apps Script responde 302 para um endereço do googleusercontent. Quem não segue o
          redirecionamento conclui que falhou TENDO gravado. É o padrão, e fica escrito. */
       redirect: "follow",
@@ -103,15 +125,23 @@ async function gravarNaPlanilha(pedido: Pedido): Promise<Resultado> {
       cache: "no-store",
     });
     const texto = await r.text();
-    let resposta: { ok?: boolean } = {};
+    let resposta: { ok?: boolean; aviso?: { ok?: boolean; erro?: string } } = {};
     try {
-      resposta = JSON.parse(texto) as { ok?: boolean };
+      resposta = JSON.parse(texto) as typeof resposta;
     } catch {
       /* resposta que não é JSON é falha, e o corpo vai para o log */
     }
-    return resposta.ok === true ? { ok: true } : { ok: false, detalhe: `${r.status} ${texto.slice(0, 300)}` };
+    if (resposta.ok !== true) return ambos(`${r.status} ${texto.slice(0, 300)}`);
+    return {
+      linha: { ok: true },
+      aviso: !aviso
+        ? null
+        : resposta.aviso?.ok === true
+          ? { ok: true }
+          : { ok: false, detalhe: resposta.aviso?.erro ?? "o Apps Script gravou mas não confirmou o aviso" },
+    };
   } catch (e) {
-    return { ok: false, detalhe: explicar(e) };
+    return ambos(explicar(e));
   }
 }
 
@@ -180,18 +210,29 @@ export async function POST(request: Request) {
 
   const locale = corpo.locale === "pt" ? "pt" : "en";
 
-  /* 5. a planilha primeiro: é o registro durável */
-  const planilha = await gravarNaPlanilha(pedido);
+  /* 5. por onde sai o e-mail. O Resend manda quando existir; sem ele, o aviso da Bruna vai pelo
+     próprio Apps Script, no mesmo POST da planilha. Trocar de caminho é pôr a variável. */
+  const peloResend = Boolean(process.env.RESEND_API_KEY?.trim() && process.env.QUOTE_FROM?.trim());
+  const paraBruna = { para: CONTATO.destinatario, responderPara: pedido.email, ...emailParaBruna(pedido) };
 
-  /* 6. os dois e-mails, com o Reply-To cruzado: a Bruna aperta responder e cai no lead; o lead
+  /* 6. a planilha primeiro: é o registro durável, e ela leva o aviso junto quando é a vez dela */
+  const { linha: planilha, aviso } = await gravarNaPlanilha(pedido, peloResend ? null : paraBruna);
+
+  /* 7. o Reply-To cruzado, nos dois caminhos: a Bruna aperta responder e cai no lead; o lead
      aperta responder e cai na Bruna */
-  const [cliente, lead] = await Promise.all([
-    enviarEmail({ para: CONTATO.destinatario, responderPara: pedido.email, ...emailParaBruna(pedido) }),
-    enviarEmail({ para: pedido.email, responderPara: CONTATO.destinatario, ...emailParaLead(pedido, locale) }),
-  ]);
+  const [cliente, lead]: [Resultado, Resultado] = peloResend
+    ? await Promise.all([
+        enviarEmail(paraBruna),
+        enviarEmail({ para: pedido.email, responderPara: CONTATO.destinatario, ...emailParaLead(pedido, locale) }),
+      ])
+    : [
+        aviso ?? { ok: false, detalhe: "o aviso não foi montado" },
+        { ok: false, detalhe: "a confirmação do lead espera o Resend, de propósito" },
+      ];
 
   const marca = (r: Resultado) => (r.ok ? "ok" : "FALHOU");
-  console.log(`[pedido] planilha=${marca(planilha)} cliente=${marca(cliente)} lead=${marca(lead)}`);
+  const via = peloResend ? "resend" : "apps-script";
+  console.log(`[pedido] via=${via} planilha=${marca(planilha)} cliente=${marca(cliente)} lead=${marca(lead)}`);
   if (!planilha.ok) console.log(`[pedido] planilha: ${planilha.detalhe}`);
   if (!cliente.ok) console.log(`[pedido] cliente: ${cliente.detalhe}`);
   if (!lead.ok) console.log(`[pedido] lead: ${lead.detalhe}`);
