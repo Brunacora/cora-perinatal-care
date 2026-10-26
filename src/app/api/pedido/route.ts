@@ -56,10 +56,28 @@ function ipDe(request: Request): string {
   return encaminhado || request.headers.get("x-real-ip") || "desconhecido";
 }
 
-/** Robô detectado recebe 200, não 4xx: um erro ensina o robô a tentar de novo. */
+/** Robô detectado recebe 200, não 4xx: um erro ensina o robô a tentar de novo. Vale para a
+    armadilha e para o piso de tempo, que não têm falso positivo: gente real não preenche um campo
+    que não vê nem responde onze campos em menos de quatro segundos. */
 function robo(motivo: string): Response {
   console.log(`[pedido] robo=${motivo}`);
   return Response.json({ ok: true });
+}
+
+/**
+ * O FREIO É A EXCEÇÃO, E ELE NÃO MENTE (medido em 13/10/2026).
+ *
+ * O freio por IP não é detecção de robô, é um limitador grosseiro, e ele TEM falso positivo: a
+ * operadora americana sai por CGNAT, e num Wi-Fi de hospital ou de prédio várias famílias dividem
+ * um IP só. Devolver `ok: true` a um pedido VÁLIDO que o freio barrou faria a pessoa ver o
+ * agradecimento com o pedido perdido em silêncio, que é a mesma falha do teto de tempo que esta
+ * skill registra. Então aqui o erro é honesto: o formulário cai na tela de falha, que carrega a
+ * saída de emergência (o e-mail e o telefone da Bruna). Um pedido perdido é pior que um robô
+ * insistindo.
+ */
+function freioCheio(): Response {
+  console.log("[pedido] robo=freio de ip (pedido valido barrado; a pessoa viu a saida de emergencia)");
+  return Response.json({ ok: false }, { status: 429 });
 }
 
 const explicar = (e: unknown) => (e instanceof Error ? `${e.name}: ${e.message}` : String(e));
@@ -150,13 +168,15 @@ export async function POST(request: Request) {
   const decorrido = typeof corpo.decorrido === "number" ? corpo.decorrido : Number.NaN;
   if (!Number.isFinite(decorrido) || decorrido < PISO_MS) return robo("rapido demais");
 
-  /* 3. o freio por IP */
-  if (freado(ipDe(request))) return robo("freio de ip");
-
-  /* 4. a validação, pela MESMA lista que monta o formulário */
+  /* 3. a validação, pela MESMA lista que monta o formulário. Vem ANTES do freio de propósito: o
+     freio contava as tentativas que falhavam aqui, então cinco recusas de validação esgotavam a
+     cota e o sexto envio, esse já certo, era descartado. Medido em 13/10/2026. */
   const pedido = normalizar(corpo);
   const erros = validar(pedido);
   if (Object.keys(erros).length > 0) return Response.json({ ok: false, erros }, { status: 400 });
+
+  /* 4. o freio por IP, gastando cota só com pedido que de fato seria gravado */
+  if (freado(ipDe(request))) return freioCheio();
 
   const locale = corpo.locale === "pt" ? "pt" : "en";
 
