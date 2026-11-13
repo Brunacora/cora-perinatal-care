@@ -4,6 +4,15 @@
    documento dela; a moldura é a do site (papel, linha fina, o arco no canto) e o resto é ar.
    ========================================================================================== */
 
+/* A ESPINHA MORA EM CADA SEÇÃO (ui/Espinha.tsx põe um SVG absoluto no topo de cada `main >
+   section`): a seção precisa ser o ponto de ancoragem dele, como na home e no Journal. Sem isso
+   (13/11, medido em produção) o trecho das páginas subia 411px no celular e 387 no computador,
+   o topo saía com o traço DUPLO e a linha parava antes de chegar ao arco do rodapé. */
+.guia-topo,
+.guia-paginas {
+  position: relative;
+}
+
 .guia-topo {
   padding-top: calc(var(--nav-h) + clamp(var(--space-12), 7vw, var(--space-20)));
   padding-bottom: clamp(var(--space-8), 4vw, var(--space-12));

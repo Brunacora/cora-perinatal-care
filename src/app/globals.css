@@ -2603,9 +2603,13 @@ html.menu-aberto .cta-fixo[data-visivel="true"] {
     grid-template-columns: 340px minmax(0, 1fr);
     column-gap: var(--space-12);
   }
-  /* o texto da aula em duas colunas: apresentação de um lado, ementa do outro */
+  /* ATÉ 1279px A APRESENTAÇÃO FICA EM CIMA DA EMENTA (o desenho do tablet, com os limites de
+     leitura da base); as duas colunas só de 1280 para cima, no bloco logo abaixo. MEDIDO em 13/11:
+     com "1fr 1fr" já a 1024, a ementa (lista em duas colunas) não encolhe abaixo de ~379px e a
+     apresentação ficava com a sobra, 114px: nove linhas de duas palavras e "experiences." sozinha
+     no fim. Valia com e sem movimento reduzido, e a cliente navega com ele ligado. */
   .cap-aula > .cap-corpo {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4) var(--space-10);
     align-items: start;
     align-content: center;
@@ -2617,6 +2621,14 @@ html.menu-aberto .cta-fixo[data-visivel="true"] {
   .cap-intro-texto,
   .cap-detalhe {
     max-width: none;
+  }
+  /* empilhados, a apresentação e a ementa voltam aos limites de leitura da base (58 e 62
+     caracteres): sem eles, a 1279px a linha passaria de cem caracteres */
+  .cap-aula .cap-intro-texto {
+    max-width: 58ch;
+  }
+  .cap-aula .cap-detalhe {
+    max-width: 62ch;
   }
   /* a abertura em duas colunas também */
   .cap-corpo-intro {
@@ -2636,6 +2648,18 @@ html.menu-aberto .cta-fixo[data-visivel="true"] {
     right: 3.5%;
     top: 16%;
     width: 104px;
+  }
+}
+
+/* o texto da aula em duas colunas: apresentação de um lado, ementa do outro (a 1280 a
+   apresentação mede 345px, a largura em que ela lê bem) */
+@media (min-width: 1280px) {
+  .cap-aula > .cap-corpo {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cap-aula .cap-intro-texto,
+  .cap-aula .cap-detalhe {
+    max-width: none;
   }
 }
 
