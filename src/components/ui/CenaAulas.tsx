@@ -507,7 +507,11 @@ export function CenaAulas({
               /* SEM encaixe (snap): ele escreve a posição da rolagem por conta própria e briga
                  com a Lenis, que também escreve. O resultado é a cena saltando de capítulo. */
               onUpdate: (self) => {
-                const k = Math.min(ultimoPasso, Math.max(0, Math.round(self.progress * unidades)));
+                /* o passo na tela sai do TEMPO REAL da linha do tempo (progresso x duração), a
+                   mesma conta do pouso das setas logo abaixo; a linha do tempo dura mais que
+                   `unidades` (ver POUSO). Enquanto ela ainda está vazia, vale `unidades`. */
+                const duracao = self.animation?.duration() || unidades;
+                const k = Math.min(ultimoPasso, Math.max(0, Math.round(self.progress * duracao)));
                 acender(passos[k]?.cap ?? 0, k, ultimoPasso);
               },
             },
@@ -617,11 +621,26 @@ export function CenaAulas({
           /* A VIAGEM É SEMPRE ATÉ UM PASSO. Quem manda no destino é o índice no array `passos`,
              que é a unidade real da cena: numa aula dividida existem dois passos, e o segundo é a
              ementa do "Together we'll explore". */
+          /* O PASSO VIRA ROLAGEM PELO TEMPO REAL DA LINHA DO TEMPO (2026-11-13). Com scrub, a
+             rolagem anda a fração da DURAÇÃO da linha do tempo, e ela passa de `unidades`: o zoom
+             da foto da última troca termina 0,18 depois do fim. A conta antiga (destino / unidades)
+             pousava cada passo um pouco MAIS TARDE que o anterior, já dentro da saída do capítulo:
+             medido a 1024x768 e 1180x820, o capítulo chegava com opacidade 1, 0,97, 0,87 e 0,77.
+             O pouso agora é o meio da janela em que o passo está inteiro: a entrada termina em
+             k - 0,055 (o último dos 8 itens da ementa) e a saída começa em k + 0,08. O primeiro
+             passo é o começo da cena e o último é o fim, onde tudo já assentou. */
+          const POUSO = 0.04;
+          const fracaoDoPasso = (k: number) => {
+            if (k <= 0) return 0;
+            if (k >= ultimoPasso) return 1;
+            return Math.min(1, (k + POUSO) / (tl.duration() || unidades));
+          };
+
           const irParaPasso = (k: number) => {
             const st = tl.scrollTrigger;
             if (!st) return;
             const destino = Math.min(ultimoPasso, Math.max(0, k));
-            const y = st.start + (st.end - st.start) * (destino / unidades);
+            const y = st.start + (st.end - st.start) * fracaoDoPasso(destino);
             alvoPasso = destino;
             viagemAte = performance.now() + 1400;
             rolarPara(y);
