@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { IDIOMAS_PUBLICADOS, absoluteUrl, localePath } from "@/lib/site";
 import { todosOsArtigos } from "@/lib/journal";
 import { enderecoDoArtigo, enderecoDoJournal } from "@/lib/journal-endereco";
+import { enderecoDoGuia } from "@/lib/guia-endereco";
 
 /**
  * `/sitemap.xml`, gerado da MESMA lista de idiomas publicados que a canônica e o hreflang usam
@@ -50,5 +51,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...home, ...journal, ...posts];
+  /* o guia de serviços (quinta rodada da Bruna, 2026-11-13), nos dois idiomas */
+  const guia = IDIOMAS_PUBLICADOS.map((locale) => ({
+    url: absoluteUrl(enderecoDoGuia(locale)),
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+    ...comIdiomas(enderecoDoGuia),
+  }));
+
+  return [...home, ...guia, ...journal, ...posts];
 }

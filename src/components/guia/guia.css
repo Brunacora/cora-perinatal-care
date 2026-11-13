@@ -1,0 +1,83 @@
+/* ==========================================================================================
+   O GUIA DE SERVIÇOS (/services-guide; quinta rodada da Bruna, 2026-11-13)
+   Uma superfície de LEITURA: é vale, não pico. Nada de efeito por cima das páginas, que são o
+   documento dela; a moldura é a do site (papel, linha fina, o arco no canto) e o resto é ar.
+   ========================================================================================== */
+
+.guia-topo {
+  padding-top: calc(var(--nav-h) + clamp(var(--space-12), 7vw, var(--space-20)));
+  padding-bottom: clamp(var(--space-8), 4vw, var(--space-12));
+}
+
+.guia-topo-texto {
+  display: grid;
+  gap: var(--space-4);
+  justify-items: start;
+}
+
+.guia-titulo {
+  margin: 0;
+  text-wrap: balance;
+}
+
+.guia-nota {
+  margin: 0;
+}
+
+/* o botão da conversa e o link do PDF: lado a lado quando cabem, um embaixo do outro quando não.
+   A base é `auto`, nunca um número mágico (a armadilha da hero, CLAUDE.md do projeto) */
+.guia-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4) var(--space-6);
+  margin-top: var(--space-4);
+}
+
+.guia-peso {
+  color: var(--text-muted);
+}
+
+/* AS PÁGINAS. Uma coluna, no máximo 880px: é a largura em que uma página de carta ainda se lê
+   inteira numa tela de computador sem o olho atravessar a sala. Sem sombra (o sistema não usa
+   sombra); a borda é a linha fina da marca, e o canto superior ganha o raio do arco. */
+.guia-lista {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 880px;
+  display: grid;
+  gap: clamp(var(--space-6), 3vw, var(--space-10));
+}
+
+.guia-pagina img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--bg-leitura);
+}
+
+/* o fecho: a frase da própria cliente e o convite, antes de o rodapé trazer o formulário */
+.guia-fecho {
+  max-width: 880px;
+  margin: clamp(var(--space-12), 6vw, var(--space-20)) auto clamp(var(--space-12), 6vw, var(--space-20));
+  display: grid;
+  gap: var(--space-6);
+  justify-items: start;
+}
+
+.guia-fecho p {
+  margin: 0;
+  max-width: 44ch;
+  text-wrap: pretty;
+}
+
+/* no celular o botão ocupa a largura (CLAUDE.md global, seção 8) */
+@media (max-width: 639px) {
+  .guia-acoes .botao,
+  .guia-fecho .botao {
+    width: 100%;
+  }
+}

@@ -17,13 +17,6 @@ const FOTOS = [
   { src: "/fotos/bruna-escritorio-telefone-01.jpg", alt: "aulaOnline", posicao: "50% 32%" },
 ] as const;
 
-/** "Birth preparation class - $250" vira nome e preço, sem tocar na copy. */
-function partir(titulo: string) {
-  const i = titulo.lastIndexOf(" - ");
-  if (i < 0) return { nome: titulo, preco: "" };
-  return { nome: titulo.slice(0, i), preco: titulo.slice(i + 3) };
-}
-
 /**
  * Bloco 2, as aulas. Passe 2, versão 8: o palco preso (CenaAulas). Seis capítulos, um por tela:
  * a apresentação da seção e as cinco aulas. A copy do roteiro entra INTEIRA, sem botão de "mais"
@@ -37,13 +30,11 @@ export function Classes() {
   const fotoDa = (i: number) => ({ ...FOTOS[i], alt: textoAlt(FOTOS[i].alt) });
 
   const itens: ItemAula[] = aulas.map((a, i) => {
-    const { nome, preco } = partir(a.title);
     return {
       chave: a.title,
       numero: String(i + 2).padStart(2, "0"),
       numeroCelular: String(i + 1).padStart(2, "0"),
-      nome,
-      preco,
+      nome: a.title,
       intro: a.intro,
       foto: fotoDa(i),
       detalhe: (
@@ -67,7 +58,6 @@ export function Classes() {
     numero: String(aulas.length + 2).padStart(2, "0"),
     numeroCelular: String(aulas.length + 1).padStart(2, "0"),
     nome: t("virtual.title"),
-    preco: "",
     intro: t("virtual.p1"),
     foto: fotoDa(4),
     detalhe: (

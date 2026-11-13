@@ -1,0 +1,68 @@
+{
+  "pdf": {
+    "arquivo": "/guia-de-servicos/cora-perinatal-care-services-guide.pdf",
+    "bytes": 3308236
+  },
+  "paginas": [
+    {
+      "arquivo": "/guia-de-servicos/pagina-01.webp",
+      "largura": 1600,
+      "altura": 2071
+    },
+    {
+      "arquivo": "/guia-de-servicos/pagina-02.webp",
+      "largura": 1600,
+      "altura": 2071
+    },
+    {
+      "arquivo": "/guia-de-servicos/pagina-03.webp",
+      "largura": 1600,
+      "altura": 2071
+    },
+    {
+      "arquivo": "/guia-de-servicos/pagina-04.webp",
+      "largura": 1600,
+      "altura": 2071
+    },
+    {
+      "arquivo": "/guia-de-servicos/pagina-05.webp",
+      "largura": 1600,
+      "altura": 2071
+    },
+    {
+      "arquivo": "/guia-de-servicos/pagina-06.webp",
+      "largura": 1600,
+      "altura": 2071
+    },
+    {
+      "arquivo": "/guia-de-servicos/pagina-07.webp",
+      "largura": 1600,
+      "altura": 2071
+    },
+    {
+      "arquivo": "/guia-de-servicos/pagina-08.webp",
+      "largura": 1600,
+      "altura": 2071
+    },
+    {
+      "arquivo": "/guia-de-servicos/pagina-09.webp",
+      "largura": 1600,
+      "altura": 2071
+    },
+    {
+      "arquivo": "/guia-de-servicos/pagina-10.webp",
+      "largura": 1600,
+      "altura": 2071
+    },
+    {
+      "arquivo": "/guia-de-servicos/pagina-11.webp",
+      "largura": 1600,
+      "altura": 2071
+    },
+    {
+      "arquivo": "/guia-de-servicos/pagina-12.webp",
+      "largura": 1600,
+      "altura": 2071
+    }
+  ]
+}

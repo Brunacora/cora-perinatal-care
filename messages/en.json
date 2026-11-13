@@ -50,7 +50,6 @@
       "Full meal planning & preparation",
       "Sibling inclusion and care"
     ],
-    "price": "Starting at $50 per hour",
     "cta": "Ask about postpartum support"
   },
   "classes": {
@@ -62,7 +61,7 @@
     "explore": "Together, we'll explore:",
     "items": [
       {
-        "title": "Birth preparation class - $250",
+        "title": "Birth preparation class",
         "intro": "This class was designed to help you gain insight on labor and to feel prepared, supported, and empowered for one of life's most transformative experiences.",
         "bullets": [
           "The physical and emotional changes your body goes through during labor",
@@ -76,7 +75,7 @@
         "partners": "Partners are strongly encouraged to attend. They will leave with practical tools and hands-on techniques to confidently support you throughout labor, birth, and the early hours after your baby arrives."
       },
       {
-        "title": "Newborn Care Class - $75",
+        "title": "Newborn Care Class",
         "intro": "Learn what to expect during the first days and weeks of life with your newborn. This class provides a supportive environment where you gain insight into newborn care and learn practical skills, helping you feel more prepared for the transition into parenthood.",
         "bullets": [
           "Normal sleep patterns",
@@ -90,7 +89,7 @@
         "partners": "Partners are strongly encouraged to attend. Caring for a newborn is a team effort, and this class equips both parents with the knowledge, confidence, and practical skills to care for their baby together."
       },
       {
-        "title": "Lactation class - $75",
+        "title": "Lactation class",
         "intro": "Gain knowledge on what to expect during the first few days and weeks of your lactation journey. This class was designed to help you feel informed and understand the basics of lactation.",
         "bullets": [
           "Anatomy of the breast",
@@ -104,7 +103,7 @@
         "partners": "Partners are strongly encouraged to attend. They play an essential role in supporting breastfeeding, and this class provides practical ways they can encourage and assist you throughout your lactation journey."
       },
       {
-        "title": "Postpartum preparation class - $75",
+        "title": "Postpartum preparation class",
         "intro": "Prepare for the fourth trimester with intention and learn practical ways to build your postpartum plan before your baby arrives. This is a welcoming space to talk openly about the realities of the postpartum period and the transition into parenthood.",
         "bullets": [
           "The body's physical and emotional changes",
@@ -134,7 +133,6 @@
     "items": [
       {
         "name": "Bloom",
-        "price": "$1,025",
         "text": "Best for families who would like to prepare during pregnancy and feel supported as they begin life with their newborn.",
         "bullets": [
           "Birth Preparation Class",
@@ -147,7 +145,6 @@
       },
       {
         "name": "Nurture",
-        "price": "$1,975",
         "text": "Best for families who would like to prepare before baby arrives and receive continued care throughout the early postpartum period.",
         "bullets": [
           "Birth Preparation Class",
@@ -161,7 +158,6 @@
       },
       {
         "name": "Premium",
-        "price": "$3,050",
         "text": "Perfect for families who would like comprehensive, extended postpartum care and continued support as they settle into life with their new baby.",
         "bullets": [
           "Birth Preparation Class",
@@ -208,7 +204,7 @@
     "packagesNote": "All packages include placenta pick-up at your birth place (pending location) and drop off to your home (pending location). Mailing via priority shipping offered for locations outside of drop off zone.",
     "tiers": [
       {
-        "name": "Standard - $375",
+        "name": "Standard",
         "bullets": [
           "Placenta capsules",
           "Placenta print",
@@ -216,7 +212,7 @@
         ]
       },
       {
-        "name": "Premium - $400",
+        "name": "Premium",
         "bullets": [
           "Placenta capsules",
           "Tincture (2 oz)",
@@ -225,7 +221,7 @@
         ]
       },
       {
-        "name": "Placenta keepsakes only - $180",
+        "name": "Placenta keepsakes only",
         "bullets": [
           "Placenta print",
           "Umbilical cord keepsake (pending length)"
@@ -233,7 +229,7 @@
       }
     ],
     "closing": {
-      "title": "Closing of the bones - $275",
+      "title": "Closing of the bones",
       "p1": "Closing of the bones offers a time and space to honor your body for all it has done during pregnancy. In many cultures, women traditionally receive this care multiple times during the first 40 days after giving birth. Closing of the bones can also be done after loss, after transitioning or closing a chapter in your life (divorce, new job etc).",
       "p2": "During the closing, rebozos are used to sway and rock certain points of your body before tucking the cloth underneath you. It can promote physical healing during the postpartum chapter by improving circulation, and may help with emotional and spiritual healing as well. It can be done at any point in your life, not just in the immediate postpartum period. You can still experience the benefits even 40 years postpartum! It is a space for you to be held, to honor your journey and your body. If desired, a castor oil pack can be placed on your lower abdomen to promote warmth and healing to your uterus, which can also be symbolic and healing if a hysterectomy has been done.",
       "p3": "This service is available for an additional investment for families who choose in-home postpartum support."
@@ -464,5 +460,15 @@
       "p4": "No perfect postpartum here. Just honest information, practical support, and reminders of what you don't have to carry alone.",
       "button": "Request a complimentary call"
     }
+  },
+  "guide": {
+    "metaTitle": "Services & Pricing Guide | Cora Perinatal Care",
+    "metaDescription": "The Cora Perinatal Care services guide: in-person postpartum doula care, classes, packages and additional postpartum care in Massachusetts and New Hampshire.",
+    "eyebrow": "Cora Perinatal Care",
+    "title": "Services & Pricing Guide",
+    "open": "See the services & pricing guide",
+    "download": "Download the PDF",
+    "languageNote": "",
+    "pageAlt": "Page {page} of {total} of the Cora Perinatal Care services and pricing guide"
   }
 }

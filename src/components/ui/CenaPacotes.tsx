@@ -4,13 +4,13 @@ import { useRef, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { Link } from "@/i18n/navigation";
 import { Inteiras } from "../Enfase";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export type Degrau = {
   nome: string;
-  preco: string;
   texto: string;
   itens: string[];
 };
@@ -43,12 +43,15 @@ export function CenaPacotes({
   nota,
   fecho,
   degraus,
+  guia,
 }: {
   /** o nome da seção para o leitor de tela (ela não tem título visível), no idioma da página */
   rotulo: string;
   nota: string;
   fecho: ReactNode;
   degraus: Degrau[];
+  /** o rótulo do botão que leva ao guia de serviços */
+  guia: string;
 }) {
   const secao = useRef<HTMLElement | null>(null);
 
@@ -202,10 +205,7 @@ export function CenaPacotes({
                 {/* uma caixa de recorte por linha: é o que faz o texto subir POR BAIXO de uma
                     máscara em vez de apenas deslizar */}
                 <span className="degrau-mask">
-                  <span className="degrau-nome">{d.nome}</span>
-                </span>
-                <span className="degrau-mask">
-                  <span className="degrau-preco display">{d.preco}</span>
+                  <span className="degrau-nome display">{d.nome}</span>
                 </span>
               </h3>
               <p className="degrau-texto">{d.texto}</p>
@@ -220,7 +220,16 @@ export function CenaPacotes({
           ))}
         </div>
 
-        <p className="corpo-grande escada-fecho">{fecho}</p>
+        {/* O GUIA DE SERVIÇOS (quinta rodada da Bruna, 2026-11-13). Os preços saíram do site, e
+            o lugar onde a pergunta "quanto custa?" aparece é este: o botão leva ao guia completo,
+            que termina no formulário. O GSAP já revela ".escada-fecho" inteiro, então o botão
+            entra junto com a frase, sem movimento novo. */}
+        <div className="escada-fecho">
+          <p className="corpo-grande">{fecho}</p>
+          <Link href="/services-guide" className="botao" data-umami-event="guia-de-servicos-aberto">
+            {guia}
+          </Link>
+        </div>
       </div>
     </section>
   );

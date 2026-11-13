@@ -28,7 +28,7 @@ import { Drawer, DrawerClose, DrawerPopup, DrawerTitle, DrawerTrigger } from "./
  * toma a tela (MovimentoProvider). O corpo da barra (`.navbar-corpo`) é do Motion: é ele que sai ao
  * descer. Dois elementos, dois donos, nenhuma briga pelo mesmo transform.
  */
-export function Navbar({ pagina = "home" }: { pagina?: "home" | "journal" }) {
+export function Navbar({ pagina = "home" }: { pagina?: "home" | "journal" | "guia" }) {
   const t = useTranslations("nav");
   const h = useTranslations("hero");
   const locale = useLocale();
@@ -71,8 +71,8 @@ export function Navbar({ pagina = "home" }: { pagina?: "home" | "journal" }) {
     { href: journal, label: t("journal") },
     { href: ancora("#faq"), label: t("faq") },
   ];
-  /* a troca de idioma leva à MESMA página no outro idioma: a home ou o journal */
-  const caminhoIdioma = emCasa ? "/" : "/journal";
+  /* a troca de idioma leva à MESMA página no outro idioma: a home, o journal ou o guia */
+  const caminhoIdioma = emCasa ? "/" : pagina === "guia" ? "/services-guide" : "/journal";
 
   /* Link dentro da gaveta: primeiro ela fecha e a rolagem volta, DEPOIS a página vai até a seção.
      Ir antes seria rolar uma página travada. */

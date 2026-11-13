@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { CenaPacotes, type Degrau } from "./ui/CenaPacotes";
 
-type Pacote = { name: string; price: string; text: string; bullets: string[] };
+type Pacote = { name: string; text: string; bullets: string[] };
 
 /**
  * Seção 5, os pacotes. Passe 2: "a escada" (ui/CenaPacotes).
@@ -16,14 +16,14 @@ type Pacote = { name: string; price: string; text: string; bullets: string[] };
  */
 export function Packages() {
   const t = useTranslations("packages");
+  const g = useTranslations("guide");
   const pacotes = t.raw("items") as Pacote[];
 
   const degraus: Degrau[] = pacotes.map((p) => ({
     nome: p.name,
-    preco: p.price,
     texto: p.text,
     itens: p.bullets,
   }));
 
-  return <CenaPacotes rotulo={t("label")} nota={t("note")} fecho={t("closing")} degraus={degraus} />;
+  return <CenaPacotes rotulo={t("label")} nota={t("note")} fecho={t("closing")} degraus={degraus} guia={g("open")} />;
 }

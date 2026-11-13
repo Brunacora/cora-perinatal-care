@@ -50,7 +50,6 @@
       "Planejamento e preparo das refeições",
       "Inclusão e cuidado dos irmãos"
     ],
-    "price": "A partir de $50 por hora",
     "cta": "Pergunte sobre o apoio pós-parto"
   },
   "classes": {
@@ -62,7 +61,7 @@
     "explore": "Juntos, vamos explorar:",
     "items": [
       {
-        "title": "Preparação para o parto - $250",
+        "title": "Preparação para o parto",
         "intro": "Esta aula foi pensada para você entender o trabalho de parto e se sentir preparada, apoiada e fortalecida para uma das experiências mais transformadoras da vida.",
         "bullets": [
           "As mudanças físicas e emocionais do seu corpo durante o trabalho de parto",
@@ -76,7 +75,7 @@
         "partners": "Recomendamos muito a presença dos parceiros. Eles saem com ferramentas e técnicas práticas para apoiar você com confiança no trabalho de parto, no parto e nas primeiras horas depois da chegada do bebê."
       },
       {
-        "title": "Cuidados com o bebê - $75",
+        "title": "Cuidados com o bebê",
         "intro": "Saiba o que esperar nos primeiros dias e semanas de vida com o seu recém-nascido. Esta aula oferece um ambiente acolhedor para entender os cuidados com o bebê e aprender habilidades práticas, que ajudam você a se sentir mais preparada para essa nova fase.",
         "bullets": [
           "Padrões normais de sono",
@@ -90,7 +89,7 @@
         "partners": "Recomendamos muito a presença dos parceiros. Cuidar de um recém-nascido é trabalho de equipe, e esta aula prepara os dois com conhecimento, confiança e habilidades práticas para cuidarem do bebê juntos."
       },
       {
-        "title": "Amamentação - $75",
+        "title": "Amamentação",
         "intro": "Aprenda o que esperar nos primeiros dias e semanas da sua jornada de amamentação. Esta aula foi pensada para você se sentir informada e entender o básico da lactação.",
         "bullets": [
           "Anatomia da mama",
@@ -104,7 +103,7 @@
         "partners": "Recomendamos muito a presença dos parceiros. Eles têm um papel essencial no apoio à amamentação, e esta aula mostra formas práticas de incentivar e ajudar você ao longo dessa jornada."
       },
       {
-        "title": "Preparação para o pós-parto - $75",
+        "title": "Preparação para o pós-parto",
         "intro": "Prepare-se para o quarto trimestre com intenção e aprenda formas práticas de montar o seu plano de pós-parto antes da chegada do bebê. É um espaço acolhedor para conversar abertamente sobre a realidade do pós-parto e a transição para essa nova fase da família.",
         "bullets": [
           "As mudanças emocionais e físicas do corpo",
@@ -134,7 +133,6 @@
     "items": [
       {
         "name": "Bloom",
-        "price": "$1.025",
         "text": "Ideal para famílias que querem se preparar na gestação e se sentir apoiadas no começo da vida com o recém-nascido.",
         "bullets": [
           "Aula de preparação para o parto",
@@ -147,7 +145,6 @@
       },
       {
         "name": "Nurture",
-        "price": "$1.975",
         "text": "Ideal para famílias que querem se preparar antes da chegada do bebê e ter cuidado contínuo no início do pós-parto.",
         "bullets": [
           "Aula de preparação para o parto",
@@ -161,7 +158,6 @@
       },
       {
         "name": "Premium",
-        "price": "$3.050",
         "text": "Perfeito para famílias que querem um cuidado pós-parto completo e prolongado, com apoio contínuo enquanto se adaptam à vida com o bebê.",
         "bullets": [
           "Aula de preparação para o parto",
@@ -208,7 +204,7 @@
     "packagesNote": "Todos os pacotes incluem buscar a placenta no local do parto (conforme a localização) e entregar na sua casa (conforme a localização). Para endereços fora da área de entrega, oferecemos envio por correio prioritário.",
     "tiers": [
       {
-        "name": "Padrão - $375",
+        "name": "Padrão",
         "bullets": [
           "Cápsulas de placenta",
           "Carimbo de placenta",
@@ -216,7 +212,7 @@
         ]
       },
       {
-        "name": "Premium - $400",
+        "name": "Premium",
         "bullets": [
           "Cápsulas de placenta",
           "Tintura (2 oz)",
@@ -225,7 +221,7 @@
         ]
       },
       {
-        "name": "Só lembranças da placenta - $180",
+        "name": "Só lembranças da placenta",
         "bullets": [
           "Carimbo de placenta",
           "Lembrança do cordão (conforme o comprimento)"
@@ -233,7 +229,7 @@
       }
     ],
     "closing": {
-      "title": "Ritual de fechamento dos ossos - $275",
+      "title": "Ritual de fechamento dos ossos",
       "p1": "O ritual de fechamento dos ossos oferece um tempo e um espaço para honrar o seu corpo por tudo o que ele fez na gestação. Em muitas culturas, as mulheres tradicionalmente recebem esse cuidado várias vezes nos primeiros 40 dias depois do parto. O fechamento também pode ser feito depois de uma perda, de uma transição ou ao encerrar um ciclo da vida (divórcio, emprego novo etc.).",
       "p2": "Durante o fechamento, os rebozos são usados para balançar e embalar alguns pontos do corpo antes de o tecido ser ajeitado por baixo de você. Ele pode favorecer a recuperação física no pós-parto, ao melhorar a circulação, e também pode ajudar na cura emocional e espiritual. Pode ser feito em qualquer momento da vida, não só no pós-parto imediato. Você ainda pode sentir os benefícios mesmo 40 anos depois do parto! É um espaço para você ser acolhida, honrar a sua jornada e o seu corpo. Se quiser, uma compressa de óleo de rícino pode ser colocada no baixo ventre para levar calor e favorecer a cura do útero, o que também pode ser simbólico e curativo depois de uma histerectomia.",
       "p3": "Este serviço está disponível, com investimento adicional, para as famílias que escolhem o apoio pós-parto em casa."
@@ -464,5 +460,15 @@
       "p4": "Aqui não existe pós-parto perfeito. Só informação honesta, apoio prático e lembretes do que você não precisa carregar sozinha.",
       "button": "Solicite uma conversa gratuita"
     }
+  },
+  "guide": {
+    "metaTitle": "Guia de serviços e preços | Cora Perinatal Care",
+    "metaDescription": "O guia de serviços da Cora Perinatal Care: doula pós-parto presencial, aulas, pacotes e cuidados pós-parto adicionais em Massachusetts e New Hampshire.",
+    "eyebrow": "Cora Perinatal Care",
+    "title": "Guia de serviços e preços",
+    "open": "Veja o guia de serviços e preços",
+    "download": "Baixar o PDF",
+    "languageNote": "O guia está em inglês.",
+    "pageAlt": "Página {page} de {total} do guia de serviços e preços da Cora Perinatal Care"
   }
 }

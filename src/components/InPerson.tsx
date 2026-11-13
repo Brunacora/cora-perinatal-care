@@ -22,7 +22,6 @@ export function InPerson() {
       p2={t("p2")}
       more={u("more")}
       bullets={t.raw("bullets") as string[]}
-      price={t("price")}
       cta={t("cta")}
       ctaHref={destino("inperson")}
       fotos={[

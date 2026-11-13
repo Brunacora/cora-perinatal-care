@@ -23,7 +23,6 @@ export type ItemAula = {
       "Read more" da história: assim não existe estado para piscar na hidratação. */
   numeroCelular: string;
   nome: string;
-  preco: string;
   intro: string;
   foto: { src: string; alt: string; posicao?: string };
   detalhe: ReactNode;
@@ -742,7 +741,6 @@ export function CenaAulas({
                   </span>
                   <h3 className="cap-nome">
                     <Inteiras texto={it.nome} />
-                    {it.preco ? <em className="enfase cap-preco">{it.preco}</em> : null}
                   </h3>
                   <p className="cap-intro-texto">{it.intro}</p>
                   <div className="cap-detalhe">{it.detalhe}</div>

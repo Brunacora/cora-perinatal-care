@@ -31,7 +31,6 @@ export function CenaPresencial({
   p2,
   more,
   bullets,
-  price,
   cta,
   ctaHref,
   fotos,
@@ -43,8 +42,6 @@ export function CenaPresencial({
   p2: string;
   more: string;
   bullets: string[];
-  /** o valor de entrada, fora da lista: preço no meio de uma lista de serviços lê como serviço */
-  price: string;
   cta: string;
   ctaHref: string;
   fotos: Foto[];
@@ -283,10 +280,6 @@ export function CenaPresencial({
                 </li>
               ))}
             </ul>
-            {/* O PREÇO SAIU DA LISTA. Ela perguntou se ficava melhor no topo ou no fim, e o fim
-                é o lugar certo: preço lido antes do serviço vira objeção, e preço no MEIO de uma
-                lista de serviços lê como se fosse mais um serviço. Aqui ele fecha a leitura. */}
-            <p className="cena-preco">{price}</p>
           </details>
 
           <a href={ctaHref} className="botao cena-cta">

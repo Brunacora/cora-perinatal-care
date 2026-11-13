@@ -470,14 +470,6 @@ p {
   }
 }
 
-/* o valor de entrada, fora da lista e fechando a leitura */
-.cena-preco {
-  margin-top: var(--space-5);
-  font-size: var(--fs-corpo-grande);
-  color: var(--ink-letra);
-  font-weight: 500;
-}
-
 /* Formulário: sem caixa, só a linha inferior (design.md, forma-assinatura 5). No foco, uma linha de
    tinta SE DESENHA da esquerda para a direita por cima da linha de apoio. Campo de texto não aceita
    pseudo-elemento, então a linha mora no invólucro `.campo-controle`. */
@@ -2281,12 +2273,6 @@ html.menu-aberto .cta-fixo[data-visivel="true"] {
   will-change: transform;
 }
 
-.cap-preco {
-  color: var(--ink-letra);
-  white-space: nowrap;
-  margin-left: 0.4em;
-}
-
 .cap-abertura {
   max-width: 46ch;
 }
@@ -2893,7 +2879,7 @@ html.menu-aberto .cta-fixo[data-visivel="true"] {
   margin: 0;
 }
 
-/* uma caixa de recorte por linha: o nome e o preço sobem POR BAIXO dela */
+/* uma caixa de recorte por linha: o nome sobe POR BAIXO dela */
 .degrau-mask {
   display: block;
   overflow: clip;
@@ -2904,20 +2890,11 @@ html.menu-aberto .cta-fixo[data-visivel="true"] {
   will-change: transform, opacity;
 }
 
+/* O NOME É O MOMENTO DE DISPLAY DA COLUNA (2026-11-13). Até a quinta rodada ele era um rótulo
+   pequeno em versal, e quem fazia o display era o preço. A Bruna tirou os preços do site, e o nome
+   herdou o lugar e o tamanho que o preço ocupava (o mesmo 1,75 a 2,5 rem que ela pediu em 23/09),
+   para a coluna não perder a hierarquia: sem isso, cada pacote abriria com uma etiqueta de 13px. */
 .degrau-nome {
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-letra);
-}
-
-/* O PREÇO DIMINUIU em 2026-09-23 ("acha legal o valor grandão assim? podemos diminuir um
-   pouco?"). Ele continua sendo o momento de display da coluna, só que sem gritar: de 2,25 a 3,25
-   rem passou para 1,75 a 2,5. Ganho lateral, e era o outro pedido dela: a coluna do Premium, que
-   é a mais alta porque tem oito itens, encurta e passa a caber na tela junto com os preços. */
-.degrau-preco {
   font-size: clamp(1.75rem, 1.3rem + 1.7vw, 2.5rem);
   line-height: 1.1;
   color: var(--text);
@@ -2968,8 +2945,21 @@ html.menu-aberto .cta-fixo[data-visivel="true"] {
 
 .escada-fecho {
   margin-top: var(--space-8);
+  display: grid;
+  gap: var(--space-6);
+  justify-items: start;
+}
+
+.escada-fecho p {
+  margin: 0;
   max-width: 44ch;
   text-wrap: pretty;
+}
+
+@media (max-width: 639px) {
+  .escada-fecho .botao {
+    width: 100%;
+  }
 }
 
 @media (max-width: 899px) {
